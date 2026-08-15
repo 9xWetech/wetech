@@ -1,731 +1,586 @@
-
-document.addEventListener("DOMContentLoaded", () => {
-
-    /* =========================
-       SCROLL REVEAL
-    ========================= */
-
-    const elements = document.querySelectorAll(
-        ".card, .section, .cta, .page > h1, .page > p"
-    );
-
-    elements.forEach((element) => {
-        element.classList.add("reveal");
-    });
-
-
-    const observer = new IntersectionObserver(
-        (entries) => {
-
-            entries.forEach((entry) => {
-
-                if(entry.isIntersecting){
-
-                    entry.target.classList.add("active");
-
-                    observer.unobserve(entry.target);
-
-                }
-
-            });
-
-        },
-        {
-            threshold:0.12
-        }
-    );
-
-
-    elements.forEach((element) => {
-
-        observer.observe(element);
-
-    });
-
-
-    /* =========================
-       CONTACT FORM
-    ========================= */
-
-    const form =
-        document.getElementById("contactForm");
-
-
-    if(form){
-
-        form.addEventListener(
-            "submit",
-            (event) => {
-
-                event.preventDefault();
-
-                const message =
-                    document.getElementById("formMsg");
-
-                if(message){
-
-                    message.textContent =
-                        "✓ Thanks! Your enquiry has been received.";
-
-                }
-
-                form.reset();
-
-            }
-        );
-
-    }
-
-
-    /* =========================
-       MOUSE PARALLAX
-    ========================= */
-
-    const hero =
-        document.querySelector(".hero");
-
-    if(hero){
-
-        hero.addEventListener(
-            "mousemove",
-            (event) => {
-
-                const x =
-                    (event.clientX /
-                    window.innerWidth - 0.5) * 10;
-
-                const y =
-                    (event.clientY /
-                    window.innerHeight - 0.5) * 10;
-
-
-                const title =
-                    hero.querySelector("h1");
-
-
-                if(title){
-
-                    title.style.transform =
-                        `translate(${x * .35}px,${y * .35}px)`;
-
-                }
-
-            }
-        );
-
-
-        hero.addEventListener(
-            "mouseleave",
-            () => {
-
-                const title =
-                    hero.querySelector("h1");
-
-                if(title){
-
-                    title.style.transform =
-                        "translate(0,0)";
-
-                }
-
-            }
-        );
-
-    }
-
-
-    /* =========================
-       CARD TILT
-    ========================= */
-
-    const cards =
-        document.querySelectorAll(".card");
-
-
-    cards.forEach((card) => {
-
-        card.addEventListener(
-            "mousemove",
-            (event) => {
-
-                if(window.innerWidth < 800)
-                    return;
-
-
-                const rect =
-                    card.getBoundingClientRect();
-
-
-                const x =
-                    event.clientX - rect.left;
-
-                const y =
-                    event.clientY - rect.top;
-
-
-                const rotateY =
-                    ((x / rect.width) - .5) * 6;
-
-                const rotateX =
-                    ((y / rect.height) - .5) * -6;
-
-
-                card.style.transform =
-                    `perspective(900px)
-                     rotateX(${rotateX}deg)
-                     rotateY(${rotateY}deg)
-                     translateY(-8px)`;
-
-            }
-        );
-
-
-        card.addEventListener(
-            "mouseleave",
-            () => {
-
-                card.style.transform =
-                    "";
-
-            }
-        );
-
-    });
-
-});
-/* ==========================================================
-   WETECH V3 PRODUCTION ANIMATION ENGINE
-========================================================== */
-
-(() => {
-
-    const reduceMotion =
-        window.matchMedia(
-            "(prefers-reduced-motion: reduce)"
-        ).matches;
-
-    if (reduceMotion) return;
-
-
-    /* ======================================================
-       CANVAS
-    ====================================================== */
-
-    const canvas =
-        document.createElement("canvas");
-
-    canvas.id =
-        "wetech-canvas";
-
-    document.body.prepend(canvas);
-
-    const ctx =
-        canvas.getContext("2d", {
-            alpha:true
-        });
-
-
-    let W = 0;
-    let H = 0;
-    let DPR = 1;
-
-
-    const mouse = {
-        x:null,
-        y:null
-    };
-
-
-    let particles = [];
-
-
-    function resize(){
-
-        DPR =
-            Math.min(
-                window.devicePixelRatio || 1,
-                1.6
+/* =========================================================
+   WETECH CINEMATIC ENGINE
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        const canvas =
+            document.getElementById(
+                "cosmicCanvas"
             );
 
-        W =
-            window.innerWidth;
+        const ctx =
+            canvas.getContext("2d");
 
-        H =
-            window.innerHeight;
+        let width = 0;
+        let height = 0;
 
+        let particles = [];
 
-        canvas.width =
-            Math.floor(W * DPR);
-
-        canvas.height =
-            Math.floor(H * DPR);
-
-        canvas.style.width =
-            W + "px";
-
-        canvas.style.height =
-            H + "px";
+        const mouse = {
+            x: -1000,
+            y: -1000
+        };
 
 
-        ctx.setTransform(
-            DPR,
-            0,
-            0,
-            DPR,
-            0,
-            0
-        );
+        /* =================================================
+           CANVAS SETUP
+        ================================================= */
 
+        function resizeCanvas(){
 
-        createParticles();
+            const dpr =
+                Math.min(
+                    window.devicePixelRatio || 1,
+                    1.5
+                );
 
-    }
+            width =
+                window.innerWidth;
 
+            height =
+                window.innerHeight;
 
-    function createParticles(){
-
-        particles = [];
-
-
-        const count =
-            W < 700
-            ? 30
-            : Math.min(
-                62,
+            canvas.width =
                 Math.floor(
-                    W / 22
-                )
+                    width * dpr
+                );
+
+            canvas.height =
+                Math.floor(
+                    height * dpr
+                );
+
+            canvas.style.width =
+                width + "px";
+
+            canvas.style.height =
+                height + "px";
+
+            ctx.setTransform(
+                dpr,
+                0,
+                0,
+                dpr,
+                0,
+                0
             );
 
 
-        for(
-            let i=0;
-            i<count;
-            i++
-        ){
-
-            particles.push({
-
-                x:
-                    Math.random()*W,
-
-                y:
-                    Math.random()*H,
-
-                vx:
-                    (Math.random()-.5)
-                    * .16,
-
-                vy:
-                    (Math.random()-.5)
-                    * .16,
-
-                radius:
-                    Math.random()*1.25
-                    + .35,
-
-                alpha:
-                    Math.random()*.45
-                    + .12,
-
-                hue:
-                    Math.random()>.72
-                    ? 265
-                    : 190
-
-            });
+            createParticles();
 
         }
 
-    }
 
+        /* =================================================
+           PARTICLES
+        ================================================= */
 
-    resize();
+        function createParticles(){
 
-    window.addEventListener(
-        "resize",
-        resize,
-        {passive:true}
-    );
+            const count =
+                width < 700
+                    ? 30
+                    : 65;
 
+            particles =
+                Array.from(
+                    {
+                        length:
+                            count
+                    },
+                    () => {
 
-    window.addEventListener(
-        "mousemove",
-        event => {
+                        return {
 
-            mouse.x =
-                event.clientX;
+                            x:
+                                Math.random()
+                                * width,
 
-            mouse.y =
-                event.clientY;
+                            y:
+                                Math.random()
+                                * height,
 
-        },
-        {passive:true}
-    );
+                            vx:
+                                (
+                                    Math.random()
+                                    - .5
+                                ) * .14,
 
+                            vy:
+                                (
+                                    Math.random()
+                                    - .5
+                                ) * .14,
 
-    window.addEventListener(
-        "mouseleave",
-        () => {
+                            radius:
+                                Math.random()
+                                * 1.25
+                                + .3,
 
-            mouse.x=null;
-            mouse.y=null;
+                            alpha:
+                                Math.random()
+                                * .45
+                                + .12
 
-        },
-        {passive:true}
-    );
+                        };
 
+                    }
+                );
 
-    /* ======================================================
-       DRAW
-    ====================================================== */
-
-    let lastTime = 0;
-
-
-    function draw(time){
-
-        if(
-            time-lastTime <
-            1000/45
-        ){
-
-            requestAnimationFrame(
-                draw
-            );
-
-            return;
         }
 
 
-        lastTime = time;
+        resizeCanvas();
 
 
-        ctx.clearRect(
-            0,
-            0,
-            W,
-            H
+        window.addEventListener(
+            "resize",
+            resizeCanvas,
+            {
+                passive:true
+            }
         );
 
 
-        /* particles */
+        window.addEventListener(
+            "pointermove",
+            event => {
 
-        for(
-            const p of particles
+                mouse.x =
+                    event.clientX;
+
+                mouse.y =
+                    event.clientY;
+
+            },
+            {
+                passive:true
+            }
+        );
+
+
+        window.addEventListener(
+            "pointerleave",
+            () => {
+
+                mouse.x =
+                    -1000;
+
+                mouse.y =
+                    -1000;
+
+            },
+            {
+                passive:true
+            }
+        );
+
+
+        /* =================================================
+           DRAW COSMOS
+        ================================================= */
+
+        let lastFrame =
+            0;
+
+
+        function drawCosmos(
+            timestamp
         ){
-
-            p.x += p.vx;
-            p.y += p.vy;
-
-
-            if(p.x < -10)
-                p.x = W+10;
-
-            if(p.x > W+10)
-                p.x = -10;
-
-            if(p.y < -10)
-                p.y = H+10;
-
-            if(p.y > H+10)
-                p.y = -10;
-
-
-            /* subtle mouse gravity */
 
             if(
-                mouse.x !== null
+                timestamp -
+                lastFrame
+                <
+                1000 / 45
             ){
 
-                const dx =
-                    mouse.x-p.x;
+                requestAnimationFrame(
+                    drawCosmos
+                );
 
-                const dy =
-                    mouse.y-p.y;
-
-                const distance =
-                    Math.sqrt(
-                        dx*dx +
-                        dy*dy
-                    );
-
-
-                if(
-                    distance < 170
-                ){
-
-                    const power =
-                        (1 -
-                        distance/170)
-                        * .018;
-
-                    p.x -=
-                        dx*power;
-
-                    p.y -=
-                        dy*power;
-
-                }
+                return;
 
             }
 
 
-            ctx.beginPath();
+            lastFrame =
+                timestamp;
 
-            ctx.arc(
-                p.x,
-                p.y,
-                p.radius,
+
+            ctx.clearRect(
                 0,
-                Math.PI*2
+                0,
+                width,
+                height
             );
 
 
-            ctx.fillStyle =
-                `hsla(
-                    ${p.hue},
-                    100%,
-                    78%,
-                    ${p.alpha}
-                )`;
+            /* =============================
+               DRAW PARTICLES
+            ============================= */
+
+            particles.forEach(
+                particle => {
+
+                    particle.x +=
+                        particle.vx;
+
+                    particle.y +=
+                        particle.vy;
 
 
-            ctx.shadowBlur = 8;
+                    if(
+                        particle.x <
+                        -10
+                    ){
 
-            ctx.shadowColor =
-                p.hue === 190
-                ? "rgba(32,231,255,.32)"
-                : "rgba(139,92,246,.28)";
+                        particle.x =
+                            width + 10;
 
-
-            ctx.fill();
-
-        }
+                    }
 
 
-        /* network lines */
+                    if(
+                        particle.x >
+                        width + 10
+                    ){
 
-        for(
-            let i=0;
-            i<particles.length;
-            i++
-        ){
+                        particle.x =
+                            -10;
 
-            let links = 0;
-
-
-            for(
-                let j=i+1;
-                j<particles.length;
-                j++
-            ){
-
-                if(
-                    links >= 3
-                ) break;
+                    }
 
 
-                const a =
-                    particles[i];
+                    if(
+                        particle.y <
+                        -10
+                    ){
 
-                const b =
-                    particles[j];
+                        particle.y =
+                            height + 10;
 
-
-                const dx =
-                    a.x-b.x;
-
-                const dy =
-                    a.y-b.y;
-
-                const distance =
-                    Math.sqrt(
-                        dx*dx +
-                        dy*dy
-                    );
+                    }
 
 
-                if(
-                    distance < 105
-                ){
+                    if(
+                        particle.y >
+                        height + 10
+                    ){
 
-                    const opacity =
-                        (1 -
-                        distance/105)
-                        * .085;
+                        particle.y =
+                            -10;
+
+                    }
+
+
+                    /* Mouse interaction */
+
+                    const dx =
+                        mouse.x -
+                        particle.x;
+
+                    const dy =
+                        mouse.y -
+                        particle.y;
+
+                    const distance =
+                        Math.sqrt(
+                            dx * dx +
+                            dy * dy
+                        );
+
+
+                    if(
+                        distance < 150
+                    ){
+
+                        const force =
+                            (
+                                1 -
+                                distance / 150
+                            )
+                            * .015;
+
+
+                        particle.x -=
+                            dx * force;
+
+                        particle.y -=
+                            dy * force;
+
+                    }
 
 
                     ctx.beginPath();
 
-                    ctx.moveTo(
-                        a.x,
-                        a.y
+                    ctx.arc(
+                        particle.x,
+                        particle.y,
+                        particle.radius,
+                        0,
+                        Math.PI * 2
                     );
 
-                    ctx.lineTo(
-                        b.x,
-                        b.y
-                    );
 
-
-                    ctx.strokeStyle =
+                    ctx.fillStyle =
                         `rgba(
-                            75,
-                            190,
+                            115,
+                            225,
                             255,
-                            ${opacity}
+                            ${particle.alpha}
                         )`;
 
-                    ctx.lineWidth=.45;
 
-                    ctx.stroke();
+                    ctx.shadowBlur =
+                        7;
 
-                    links++;
+                    ctx.shadowColor =
+                        "rgba(34,211,238,.5)";
+
+
+                    ctx.fill();
+
+                }
+            );
+
+
+            /* =============================
+               CONNECT PARTICLES
+            ============================= */
+
+            for(
+                let i = 0;
+                i < particles.length;
+                i++
+            ){
+
+                let connections =
+                    0;
+
+
+                for(
+                    let j = i + 1;
+                    j < particles.length;
+                    j++
+                ){
+
+                    if(
+                        connections >= 2
+                    ){
+
+                        break;
+
+                    }
+
+
+                    const a =
+                        particles[i];
+
+                    const b =
+                        particles[j];
+
+
+                    const dx =
+                        a.x - b.x;
+
+                    const dy =
+                        a.y - b.y;
+
+                    const distance =
+                        Math.sqrt(
+                            dx * dx +
+                            dy * dy
+                        );
+
+
+                    if(
+                        distance < 105
+                    ){
+
+                        ctx.beginPath();
+
+                        ctx.moveTo(
+                            a.x,
+                            a.y
+                        );
+
+                        ctx.lineTo(
+                            b.x,
+                            b.y
+                        );
+
+
+                        ctx.strokeStyle =
+                            `rgba(
+                                70,
+                                185,
+                                255,
+                                ${
+                                    (
+                                        1 -
+                                        distance / 105
+                                    ) * .10
+                                }
+                            )`;
+
+
+                        ctx.lineWidth =
+                            .45;
+
+
+                        ctx.stroke();
+
+
+                        connections++;
+
+                    }
 
                 }
 
             }
+
+
+            requestAnimationFrame(
+                drawCosmos
+            );
 
         }
 
 
         requestAnimationFrame(
-            draw
-        );
-
-    }
-
-
-    requestAnimationFrame(
-        draw
-    );
-
-
-    /* ======================================================
-       REVEAL
-    ====================================================== */
-
-    const revealItems =
-        document.querySelectorAll(
-            ".card, .section, .cta, .page > h1, .page > p"
+            drawCosmos
         );
 
 
-    revealItems.forEach(
-        element => {
+        /* =================================================
+           HERO PARALLAX
+        ================================================= */
 
-            element.classList.add(
-                "wx-reveal"
+        const hero =
+            document.querySelector(
+                ".hero"
+            );
+
+        const reactor =
+            document.querySelector(
+                ".reactor-stage"
+            );
+
+
+        if(
+            hero &&
+            reactor &&
+            window.innerWidth >= 900
+        ){
+
+            hero.addEventListener(
+                "pointermove",
+                event => {
+
+                    const x =
+                        (
+                            event.clientX /
+                            window.innerWidth
+                        ) - .5;
+
+
+                    const y =
+                        (
+                            event.clientY /
+                            window.innerHeight
+                        ) - .5;
+
+
+                    reactor.style.transform =
+                        `
+                        translate3d(
+                            ${x * 12}px,
+                            ${y * 10}px,
+                            0
+                        )
+                        `;
+
+                },
+                {
+                    passive:true
+                }
+            );
+
+
+            hero.addEventListener(
+                "pointerleave",
+                () => {
+
+                    reactor.style.transform =
+                        "";
+
+                }
             );
 
         }
-    );
 
 
-    const revealObserver =
-        new IntersectionObserver(
-            entries => {
+        /* =================================================
+           CARD INTERACTION
+        ================================================= */
 
-                entries.forEach(
-                    entry => {
-
-                        if(
-                            entry.isIntersecting
-                        ){
-
-                            entry.target.classList.add(
-                                "wx-visible"
-                            );
-
-                            revealObserver.unobserve(
-                                entry.target
-                            );
-
-                        }
-
-                    }
-                );
-
-            },
-            {
-                threshold:.08
-            }
-        );
+        const cards =
+            document.querySelectorAll(
+                ".service-card,.work-card,.pricing-card"
+            );
 
 
-    revealItems.forEach(
-        element =>
-            revealObserver.observe(
-                element
-            )
-    );
-
-
-    /* ======================================================
-       CARD LIGHT + TILT
-    ====================================================== */
-
-    if(
-        window.innerWidth >= 900
-    ){
-
-        document
-            .querySelectorAll(
-                ".card"
-            )
-            .forEach(card => {
+        cards.forEach(
+            card => {
 
                 card.addEventListener(
                     "pointermove",
                     event => {
 
+                        if(
+                            window.innerWidth < 900
+                        ){
+
+                            return;
+
+                        }
+
+
                         const rect =
                             card.getBoundingClientRect();
 
 
-                        const px =
+                        const x =
                             (
                                 event.clientX -
                                 rect.left
                             )
                             /
-                            rect.width;
+                            rect.width
+                            - .5;
 
 
-                        const py =
+                        const y =
                             (
                                 event.clientY -
                                 rect.top
                             )
                             /
-                            rect.height;
-
-
-                        const rotateY =
-                            (px-.5)*3.5;
-
-                        const rotateX =
-                            (py-.5)*-3.5;
-
-
-                        card.style.setProperty(
-                            "--mx",
-                            `${px*100}%`
-                        );
-
-
-                        card.style.setProperty(
-                            "--my",
-                            `${py*100}%`
-                        );
+                            rect.height
+                            - .5;
 
 
                         card.style.transform =
-                            `perspective(900px)
-                             rotateX(${rotateX}deg)
-                             rotateY(${rotateY}deg)
-                             translateY(-5px)`;
+                            `
+                            perspective(900px)
+                            rotateX(${y * -2.5}deg)
+                            rotateY(${x * 2.5}deg)
+                            translateY(-5px)
+                            `;
 
                     },
                     {
@@ -744,727 +599,257 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
                 );
 
-            });
-
-    }
-
-
-    /* ======================================================
-       HERO PARALLAX
-    ====================================================== */
-
-    const hero =
-        document.querySelector(
-            ".hero"
-        );
-
-
-    const heroTitle =
-        hero
-        ?.querySelector(
-            "h1"
-        );
-
-
-    if(
-        hero &&
-        heroTitle &&
-        window.innerWidth >= 900
-    ){
-
-        let ticking=false;
-
-
-        hero.addEventListener(
-            "pointermove",
-            event => {
-
-                if(ticking)
-                    return;
-
-
-                ticking=true;
-
-
-                requestAnimationFrame(
-                    () => {
-
-                        const nx =
-                            event.clientX /
-                            W -.5;
-
-
-                        const ny =
-                            event.clientY /
-                            H -.5;
-
-
-                        heroTitle.style.transform =
-                            `translate3d(
-                                ${nx*7}px,
-                                ${ny*5}px,
-                                0
-                            )`;
-
-
-                        ticking=false;
-
-                    }
-                );
-
-            },
-            {
-                passive:true
             }
         );
 
 
-        hero.addEventListener(
-            "pointerleave",
-            () => {
+        /* =================================================
+           SCROLL REVEAL
+        ================================================= */
 
-                heroTitle.style.transform =
-                    "";
+        const revealElements =
+            document.querySelectorAll(
+                ".service-card," +
+                ".work-card," +
+                ".process-step," +
+                ".pricing-card," +
+                ".contact-panel"
+            );
+
+
+        revealElements.forEach(
+            element => {
+
+                element.style.opacity =
+                    "0";
+
+                element.style.transform =
+                    "translateY(20px)";
+
+                element.style.transition =
+                    "opacity .65s ease," +
+                    "transform .65s ease";
 
             }
         );
 
-    }
 
+        const observer =
+            new IntersectionObserver(
+                entries => {
 
-    /* ======================================================
-       SHOOTING STARS
-    ====================================================== */
+                    entries.forEach(
+                        entry => {
 
-    function createShootingStar(){
+                            if(
+                                entry.isIntersecting
+                            ){
 
-        const star =
-            document.createElement(
-                "div"
-            );
+                                entry.target.style.opacity =
+                                    "1";
 
-        star.className =
-            "wx-shooting-star";
+                                entry.target.style.transform =
+                                    "translateY(0)";
 
+                                observer.unobserve(
+                                    entry.target
+                                );
 
-        star.style.left =
-            (55+
-            Math.random()*35)
-            + "%";
-
-
-        star.style.top =
-            (8+
-            Math.random()*35)
-            + "%";
-
-
-        document.body.appendChild(
-            star
-        );
-
-
-        const duration =
-            2.5 +
-            Math.random()*1.2;
-
-
-        star.style.animation =
-            `wxShoot
-             ${duration}s
-             ease-out
-             forwards`;
-
-
-        setTimeout(
-            () => {
-
-                star.remove();
-
-            },
-            duration*1000+100
-        );
-
-    }
-
-
-    function shootingLoop(){
-
-        createShootingStar();
-
-
-        setTimeout(
-            shootingLoop,
-            5500+
-            Math.random()*7000
-        );
-
-    }
-
-
-    if(
-        window.innerWidth >= 700
-    ){
-
-        setTimeout(
-            shootingLoop,
-            2500
-        );
-
-    }
-
-
-    /* ======================================================
-       SCAN LINE
-    ====================================================== */
-
-    if(
-        window.innerWidth >= 900
-    ){
-
-        const scan =
-            document.createElement(
-                "div"
-            );
-
-        scan.className =
-            "wx-scan";
-
-        document.body.appendChild(
-            scan
-        );
-
-    }
-
-
-    /* ======================================================
-       VIGNETTE
-    ====================================================== */
-
-    const vignette =
-        document.createElement(
-            "div"
-        );
-
-    vignette.className =
-        "wetech-vignette";
-
-    document.body.appendChild(
-        vignette
-    );
-
-})();
-/* =========================================================
-   WETECH V2 CINEMATIC ENGINE
-========================================================= */
-
-(() => {
-
-    const reduceMotion =
-        window.matchMedia(
-            "(prefers-reduced-motion: reduce)"
-        ).matches;
-
-    if(reduceMotion) return;
-
-
-    /* =====================================================
-       CANVAS
-    ===================================================== */
-
-    const canvas =
-        document.createElement("canvas");
-
-    canvas.id =
-        "wx-v2-canvas";
-
-    canvas.style.position =
-        "fixed";
-
-    canvas.style.inset =
-        "0";
-
-    canvas.style.width =
-        "100%";
-
-    canvas.style.height =
-        "100%";
-
-    canvas.style.pointerEvents =
-        "none";
-
-    canvas.style.zIndex =
-        "-7";
-
-    document.body.prepend(
-        canvas
-    );
-
-    const ctx =
-        canvas.getContext("2d");
-
-
-    let W = 0;
-    let H = 0;
-
-    const mouse = {
-        x:-1000,
-        y:-1000
-    };
-
-
-    let particles = [];
-
-
-    function resize(){
-
-        const dpr =
-            Math.min(
-                window.devicePixelRatio || 1,
-                1.4
-            );
-
-        W =
-            window.innerWidth;
-
-        H =
-            window.innerHeight;
-
-        canvas.width =
-            W*dpr;
-
-        canvas.height =
-            H*dpr;
-
-        ctx.setTransform(
-            dpr,
-            0,
-            0,
-            dpr,
-            0,
-            0
-        );
-
-
-        const count =
-            W < 700
-            ? 24
-            : 54;
-
-
-        particles =
-            Array.from(
-                {length:count},
-                () => ({
-
-                    x:Math.random()*W,
-                    y:Math.random()*H,
-
-                    vx:
-                        (Math.random()-.5)
-                        *.13,
-
-                    vy:
-                        (Math.random()-.5)
-                        *.13,
-
-                    r:
-                        Math.random()*1.3
-                        +.4,
-
-                    a:
-                        Math.random()*.42
-                        +.10
-
-                })
-            );
-
-    }
-
-
-    resize();
-
-
-    window.addEventListener(
-        "resize",
-        resize,
-        {passive:true}
-    );
-
-
-    window.addEventListener(
-        "pointermove",
-        e => {
-
-            mouse.x =
-                e.clientX;
-
-            mouse.y =
-                e.clientY;
-
-        },
-        {passive:true}
-    );
-
-
-    function draw(){
-
-        ctx.clearRect(
-            0,
-            0,
-            W,
-            H
-        );
-
-
-        for(
-            const p of particles
-        ){
-
-            p.x += p.vx;
-            p.y += p.vy;
-
-
-            if(p.x < -10)
-                p.x = W+10;
-
-            if(p.x > W+10)
-                p.x = -10;
-
-            if(p.y < -10)
-                p.y = H+10;
-
-            if(p.y > H+10)
-                p.y = -10;
-
-
-            const dx =
-                mouse.x-p.x;
-
-            const dy =
-                mouse.y-p.y;
-
-            const distance =
-                Math.sqrt(
-                    dx*dx+dy*dy
-                );
-
-
-            if(distance < 130){
-
-                p.x -=
-                    dx*.0012;
-
-                p.y -=
-                    dy*.0012;
-
-            }
-
-
-            ctx.beginPath();
-
-            ctx.arc(
-                p.x,
-                p.y,
-                p.r,
-                0,
-                Math.PI*2
-            );
-
-            ctx.fillStyle =
-                `rgba(
-                    115,
-                    222,
-                    255,
-                    ${p.a}
-                )`;
-
-            ctx.shadowBlur=7;
-
-            ctx.shadowColor =
-                "rgba(34,211,238,.5)";
-
-            ctx.fill();
-
-        }
-
-
-        /* lines */
-
-        for(
-            let i=0;
-            i<particles.length;
-            i++
-        ){
-
-            let links=0;
-
-            for(
-                let j=i+1;
-                j<particles.length;
-                j++
-            ){
-
-                if(links>=2)
-                    break;
-
-
-                const a =
-                    particles[i];
-
-                const b =
-                    particles[j];
-
-
-                const dx =
-                    a.x-b.x;
-
-                const dy =
-                    a.y-b.y;
-
-                const d =
-                    Math.sqrt(
-                        dx*dx+dy*dy
-                    );
-
-
-                if(d<100){
-
-                    ctx.beginPath();
-
-                    ctx.moveTo(
-                        a.x,
-                        a.y
-                    );
-
-                    ctx.lineTo(
-                        b.x,
-                        b.y
-                    );
-
-                    ctx.strokeStyle =
-                        `rgba(
-                            75,
-                            190,
-                            255,
-                            ${(1-d/100)*.10}
-                        )`;
-
-                    ctx.lineWidth=.4;
-
-                    ctx.stroke();
-
-                    links++;
-
-                }
-
-            }
-
-        }
-
-
-        requestAnimationFrame(
-            draw
-        );
-
-    }
-
-
-    draw();
-
-
-    /* =====================================================
-       HERO PARALLAX
-    ===================================================== */
-
-    const hero =
-        document.querySelector(
-            ".wx-hero"
-        );
-
-    const orbit =
-        document.querySelector(
-            ".wx-orbit-area"
-        );
-
-
-    if(hero && orbit){
-
-        hero.addEventListener(
-            "pointermove",
-            e => {
-
-                if(
-                    window.innerWidth<900
-                ) return;
-
-
-                const nx =
-                    e.clientX/
-                    window.innerWidth
-                    -.5;
-
-                const ny =
-                    e.clientY/
-                    window.innerHeight
-                    -.5;
-
-
-                orbit.style.transform =
-                    `translate(
-                        ${nx*12}px,
-                        ${ny*10}px
-                    )`;
-
-            },
-            {passive:true}
-        );
-
-
-        hero.addEventListener(
-            "pointerleave",
-            () => {
-
-                orbit.style.transform =
-                    "";
-
-            }
-        );
-
-    }
-
-
-    /* =====================================================
-       REVEAL
-    ===================================================== */
-
-    const reveal =
-        document.querySelectorAll(
-            ".wx-service-card,"
-            +".wx-stats,"
-            +".wx-final-cta"
-        );
-
-
-    reveal.forEach(
-        element => {
-
-            element.style.opacity =
-                "0";
-
-            element.style.transform =
-                "translateY(20px)";
-
-            element.style.transition =
-                "opacity .7s ease,"
-                +"transform .7s ease";
-
-        }
-    );
-
-
-    const observer =
-        new IntersectionObserver(
-            entries => {
-
-                entries.forEach(
-                    entry => {
-
-                        if(
-                            entry.isIntersecting
-                        ){
-
-                            entry.target.style.opacity=
-                                "1";
-
-                            entry.target.style.transform=
-                                "translateY(0)";
-
-                            observer.unobserve(
-                                entry.target
-                            );
+                            }
 
                         }
+                    );
 
-                    }
+                },
+                {
+                    threshold:
+                        .10
+                }
+            );
+
+
+        revealElements.forEach(
+            element => {
+
+                observer.observe(
+                    element
                 );
 
-            },
-            {
-                threshold:.08
             }
         );
 
 
-    reveal.forEach(
-        el =>
-            observer.observe(el)
-    );
+        /* =================================================
+           CONTACT FORM
+        ================================================= */
+
+        const form =
+            document.getElementById(
+                "contactForm"
+            );
 
 
-})();
-/* =========================================================
-   REACTOR MOUSE RESPONSE
-========================================================= */
+        if(form){
 
-(() => {
+            form.addEventListener(
+                "submit",
+                event => {
 
-    const reactor =
-        document.querySelector(
-            ".wx-reactor"
-        );
-
-    if(!reactor) return;
-
-    if(window.innerWidth < 900)
-        return;
+                    event.preventDefault();
 
 
-    let ticking = false;
+                    const message =
+                        document.getElementById(
+                            "formMessage"
+                        );
 
 
-    document.addEventListener(
-        "pointermove",
-        event => {
+                    if(message){
 
-            if(ticking)
-                return;
+                        message.textContent =
+                            "✓ Thanks! Your enquiry has been received.";
 
-            ticking = true;
+                    }
 
 
-            requestAnimationFrame(
-                () => {
-
-                    const x =
-                        (
-                            event.clientX /
-                            window.innerWidth
-                        ) - .5;
-
-                    const y =
-                        (
-                            event.clientY /
-                            window.innerHeight
-                        ) - .5;
-
-
-                    reactor.style.transform =
-                        `translate(
-                            ${x * 18}px,
-                            ${y * 14}px
-                        )`;
-
-
-                    ticking = false;
+                    form.reset();
 
                 }
             );
 
-        },
-        {
-            passive:true
         }
-    );
 
-})();
+
+        /* =================================================
+           SOFT SHOOTING STARS
+        ================================================= */
+
+        function shootingStar(){
+
+            if(
+                window.innerWidth < 700
+            ){
+
+                return;
+
+            }
+
+
+            const star =
+                document.createElement(
+                    "div"
+                );
+
+
+            star.style.position =
+                "fixed";
+
+            star.style.width =
+                "120px";
+
+            star.style.height =
+                "1px";
+
+            star.style.left =
+                (60 +
+                Math.random() * 28)
+                + "%";
+
+            star.style.top =
+                (8 +
+                Math.random() * 28)
+                + "%";
+
+            star.style.zIndex =
+                "-3";
+
+            star.style.pointerEvents =
+                "none";
+
+            star.style.opacity =
+                ".8";
+
+            star.style.background =
+                `
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(145,235,255,.9),
+                    transparent
+                )
+                `;
+
+            star.style.boxShadow =
+                `
+                0 0 10px
+                rgba(34,211,238,.55)
+                `;
+
+            star.style.transform =
+                "rotate(-28deg)";
+
+
+            document.body.appendChild(
+                star
+            );
+
+
+            const animation =
+                star.animate(
+                    [
+                        {
+                            opacity:0,
+                            transform:
+                                "translate(0,0) rotate(-28deg)"
+                        },
+
+                        {
+                            opacity:.85
+                        },
+
+                        {
+                            opacity:0,
+                            transform:
+                                "translate(-280px,180px) rotate(-28deg)"
+                        }
+                    ],
+                    {
+                        duration:
+                            1700,
+
+                        easing:
+                            "ease-out"
+                    }
+                );
+
+
+            animation.onfinish =
+                () => {
+
+                    star.remove();
+
+                };
+
+        }
+
+
+        function scheduleStar(){
+
+            shootingStar();
+
+            setTimeout(
+                scheduleStar,
+                7000 +
+                Math.random()*7000
+            );
+
+        }
+
+
+        setTimeout(
+            scheduleStar,
+            3500
+        );
+
+    }
+);
