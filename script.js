@@ -2109,3 +2109,148 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 })();
+/* =========================================================
+   W.A.I. DIRECT VOICE TEST
+========================================================= */
+
+(() => {
+
+    function speakTest() {
+
+        if (!("speechSynthesis" in window)) {
+
+            alert(
+                "Is browser mein Speech Synthesis supported nahi hai."
+            );
+
+            return;
+        }
+
+
+        const synth = window.speechSynthesis;
+
+        synth.cancel();
+
+
+        function speakNow() {
+
+            const utterance =
+                new SpeechSynthesisUtterance(
+                    "Hey! This is W A I from Wetech. Voice system is working."
+                );
+
+
+            utterance.lang = "en-IN";
+            utterance.rate = 0.9;
+            utterance.pitch = 1;
+            utterance.volume = 1;
+
+
+            const voices =
+                synth.getVoices();
+
+
+            const voice =
+                voices.find(
+                    v =>
+                        v.lang &&
+                        v.lang.toLowerCase() === "en-in"
+                )
+                ||
+                voices.find(
+                    v =>
+                        v.lang &&
+                        v.lang.toLowerCase().startsWith("en")
+                );
+
+
+            if (voice) {
+                utterance.voice = voice;
+            }
+
+
+            synth.speak(utterance);
+
+        }
+
+
+        /*
+         * Some browsers load voices asynchronously.
+         */
+
+        const voices =
+            synth.getVoices();
+
+
+        if (voices.length > 0) {
+
+            speakNow();
+
+        }
+        else {
+
+            synth.onvoiceschanged =
+                () => {
+
+                    synth.onvoiceschanged = null;
+
+                    speakNow();
+
+                };
+
+        }
+
+    }
+
+
+    const button =
+        document.createElement("button");
+
+
+    button.textContent =
+        "🔊 TEST W.A.I. VOICE";
+
+
+    button.style.position =
+        "fixed";
+
+    button.style.left =
+        "20px";
+
+    button.style.bottom =
+        "20px";
+
+    button.style.zIndex =
+        "99999";
+
+    button.style.padding =
+        "12px 16px";
+
+    button.style.borderRadius =
+        "10px";
+
+    button.style.border =
+        "1px solid rgba(34,211,238,.4)";
+
+    button.style.background =
+        "#07111f";
+
+    button.style.color =
+        "#fff";
+
+    button.style.cursor =
+        "pointer";
+
+    button.style.fontWeight =
+        "700";
+
+
+    button.addEventListener(
+        "click",
+        speakTest
+    );
+
+
+    document.body.appendChild(button);
+
+})();
