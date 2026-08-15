@@ -1237,3 +1237,875 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
 });
+/* =========================================================
+   W.A.I. VOICE UPGRADE — PASTE AT END OF script.js
+========================================================= */
+
+(() => {
+
+    const system =
+        document.getElementById("waiSystem");
+
+    const avatar =
+        document.getElementById("waiAvatar");
+
+    const closeBtn =
+        document.getElementById("waiClose");
+
+    const chat =
+        document.getElementById("waiChat");
+
+    const options =
+        document.getElementById("waiOptions");
+
+
+    /* -----------------------------------------
+       Check W.A.I. exists
+    ----------------------------------------- */
+
+    if (
+        !system ||
+        !avatar ||
+        !closeBtn ||
+        !chat ||
+        !options
+    ) {
+
+        console.warn(
+            "W.A.I. voice patch: elements not found."
+        );
+
+        return;
+    }
+
+
+    /* -----------------------------------------
+       Helpers
+    ----------------------------------------- */
+
+    const sleep = (ms) =>
+        new Promise(
+            resolve => setTimeout(resolve, ms)
+        );
+
+
+    function stopVoice(){
+
+        if (
+            "speechSynthesis" in window
+        ){
+
+            window.speechSynthesis.cancel();
+
+        }
+
+    }
+
+
+    function speak(text){
+
+        if (
+            !("speechSynthesis" in window)
+        ){
+
+            console.warn(
+                "Speech synthesis is not supported."
+            );
+
+            return;
+
+        }
+
+
+        stopVoice();
+
+
+        const utterance =
+            new SpeechSynthesisUtterance(
+                text
+            );
+
+
+        /* Voice settings */
+
+        utterance.lang = "en-IN";
+
+        utterance.rate = 0.92;
+
+        utterance.pitch = 1.03;
+
+        utterance.volume = 1;
+
+
+        /*
+         * Try Indian English first.
+         * Otherwise use any English voice.
+         */
+
+        const voices =
+            window.speechSynthesis
+                .getVoices();
+
+
+        const preferred =
+            voices.find(
+                voice =>
+                    voice.lang
+                    .toLowerCase()
+                    === "en-in"
+            )
+            ||
+            voices.find(
+                voice =>
+                    voice.lang
+                    .toLowerCase()
+                    .startsWith("en")
+            );
+
+
+        if(preferred){
+
+            utterance.voice =
+                preferred;
+
+        }
+
+
+        window.speechSynthesis.speak(
+            utterance
+        );
+
+    }
+
+
+    function typing(){
+
+        chat.innerHTML = `
+            <div class="wai-message">
+                <span class="wai-typing">
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                </span>
+            </div>
+        `;
+
+    }
+
+
+    async function say(
+        text,
+        voice = true
+    ){
+
+        typing();
+
+        await sleep(550);
+
+        chat.innerHTML = "";
+
+
+        const message =
+            document.createElement(
+                "div"
+            );
+
+
+        message.className =
+            "wai-message";
+
+
+        chat.appendChild(
+            message
+        );
+
+
+        let i = 0;
+
+
+        const timer =
+            setInterval(
+                () => {
+
+                    message.textContent =
+                        text.slice(
+                            0,
+                            i
+                        );
+
+                    i++;
+
+
+                    if(
+                        i >
+                        text.length
+                    ){
+
+                        clearInterval(
+                            timer
+                        );
+
+                    }
+
+                },
+                16
+            );
+
+
+        if(voice){
+
+            speak(text);
+
+        }
+
+    }
+
+
+    function setChoices(
+        list
+    ){
+
+        options.innerHTML = "";
+
+
+        list.forEach(
+            item => {
+
+                const button =
+                    document.createElement(
+                        "button"
+                    );
+
+
+                button.className =
+                    "wai-option";
+
+
+                button.type =
+                    "button";
+
+
+                button.textContent =
+                    item.text;
+
+
+                button.addEventListener(
+                    "click",
+                    async () => {
+
+                        await item.action();
+
+                    }
+                );
+
+
+                options.appendChild(
+                    button
+                );
+
+            }
+        );
+
+    }
+
+
+    /* -----------------------------------------
+       First voice unlock
+       Browser autoplay policy means the
+       user needs one interaction.
+    ----------------------------------------- */
+
+    function unlockVoice(){
+
+        if(
+            !("speechSynthesis" in window)
+        ){
+
+            return;
+
+        }
+
+
+        const unlock =
+            new SpeechSynthesisUtterance(
+                ""
+            );
+
+
+        unlock.volume = 0;
+
+
+        window.speechSynthesis.speak(
+            unlock
+        );
+
+    }
+
+
+    /* -----------------------------------------
+       HOME
+    ----------------------------------------- */
+
+    async function home(){
+
+        await say(
+            "Hey! I'm W.A.I., Wetech's digital assistant. What are you looking to build?",
+            true
+        );
+
+
+        setChoices([
+
+            {
+                text:
+                    "🌐 I need a website",
+
+                action:
+                    website
+            },
+
+            {
+                text:
+                    "📱 I need an app",
+
+                action:
+                    app
+            },
+
+            {
+                text:
+                    "🎨 Logo or Branding",
+
+                action:
+                    branding
+            },
+
+            {
+                text:
+                    "🤖 AI or Automation",
+
+                action:
+                    ai
+            },
+
+            {
+                text:
+                    "💬 Talk to Wetech",
+
+                action:
+                    contact
+            }
+
+        ]);
+
+    }
+
+
+    /* -----------------------------------------
+       WEBSITE
+    ----------------------------------------- */
+
+    async function website(){
+
+        await say(
+            "Great choice. What kind of website are you looking for?",
+            true
+        );
+
+
+        setChoices([
+
+            {
+                text:
+                    "⚡ Business Website",
+
+                action:
+                    () =>
+                        project(
+                            "business website"
+                        )
+            },
+
+            {
+                text:
+                    "🚀 Premium Website",
+
+                action:
+                    () =>
+                        project(
+                            "premium website"
+                        )
+            },
+
+            {
+                text:
+                    "🛒 E-commerce Website",
+
+                action:
+                    () =>
+                        project(
+                            "e-commerce website"
+                        )
+            },
+
+            {
+                text:
+                    "← Back",
+
+                action:
+                    home
+            }
+
+        ]);
+
+    }
+
+
+    /* -----------------------------------------
+       APP
+    ----------------------------------------- */
+
+    async function app(){
+
+        await say(
+            "Awesome. Do you need a mobile app or a web application?",
+            true
+        );
+
+
+        setChoices([
+
+            {
+                text:
+                    "📱 Mobile App",
+
+                action:
+                    () =>
+                        project(
+                            "mobile app"
+                        )
+            },
+
+            {
+                text:
+                    "💻 Web Application",
+
+                action:
+                    () =>
+                        project(
+                            "web application"
+                        )
+            },
+
+            {
+                text:
+                    "← Back",
+
+                action:
+                    home
+            }
+
+        ]);
+
+    }
+
+
+    /* -----------------------------------------
+       BRANDING
+    ----------------------------------------- */
+
+    async function branding(){
+
+        await say(
+            "Nice. We can help build a strong visual identity. What do you need?",
+            true
+        );
+
+
+        setChoices([
+
+            {
+                text:
+                    "✦ Logo Design",
+
+                action:
+                    () =>
+                        project(
+                            "logo design"
+                        )
+            },
+
+            {
+                text:
+                    "🎯 Full Brand Identity",
+
+                action:
+                    () =>
+                        project(
+                            "full brand identity"
+                        )
+            },
+
+            {
+                text:
+                    "📱 Social Media Branding",
+
+                action:
+                    () =>
+                        project(
+                            "social media branding"
+                        )
+            },
+
+            {
+                text:
+                    "← Back",
+
+                action:
+                    home
+            }
+
+        ]);
+
+    }
+
+
+    /* -----------------------------------------
+       AI
+    ----------------------------------------- */
+
+    async function ai(){
+
+        await say(
+            "Interesting. Wetech can build AI assistants, automation systems and custom AI products.",
+            true
+        );
+
+
+        setChoices([
+
+            {
+                text:
+                    "🤖 AI Assistant",
+
+                action:
+                    () =>
+                        project(
+                            "AI assistant"
+                        )
+            },
+
+            {
+                text:
+                    "⚙️ Business Automation",
+
+                action:
+                    () =>
+                        project(
+                            "business automation"
+                        )
+            },
+
+            {
+                text:
+                    "🧠 Custom AI Product",
+
+                action:
+                    () =>
+                        project(
+                            "custom AI product"
+                        )
+            },
+
+            {
+                text:
+                    "← Back",
+
+                action:
+                    home
+            }
+
+        ]);
+
+    }
+
+
+    /* -----------------------------------------
+       PROJECT
+    ----------------------------------------- */
+
+    async function project(
+        type
+    ){
+
+        await say(
+            `Perfect. A ${type} sounds like a great fit. Let's take the next step.`,
+            true
+        );
+
+
+        setChoices([
+
+            {
+                text:
+                    "🚀 Start My Project",
+
+                action:
+                    goContact
+            },
+
+            {
+                text:
+                    "💬 WhatsApp Wetech",
+
+                action:
+                    whatsapp
+            },
+
+            {
+                text:
+                    "← Start Again",
+
+                action:
+                    home
+            }
+
+        ]);
+
+    }
+
+
+    /* -----------------------------------------
+       CONTACT
+    ----------------------------------------- */
+
+    async function contact(){
+
+        await say(
+            "Absolutely. You can contact Wetech directly or send a project enquiry.",
+            true
+        );
+
+
+        setChoices([
+
+            {
+                text:
+                    "💬 WhatsApp +91 8445209063",
+
+                action:
+                    whatsapp
+            },
+
+            {
+                text:
+                    "📩 Contact Form",
+
+                action:
+                    goContact
+            },
+
+            {
+                text:
+                    "← Back",
+
+                action:
+                    home
+            }
+
+        ]);
+
+    }
+
+
+    /* -----------------------------------------
+       WHATSAPP
+    ----------------------------------------- */
+
+    function whatsapp(){
+
+        window.open(
+            "https://wa.me/918445209063",
+            "_blank",
+            "noopener,noreferrer"
+        );
+
+    }
+
+
+    /* -----------------------------------------
+       CONTACT SECTION
+    ----------------------------------------- */
+
+    function goContact(){
+
+        system.classList.remove(
+            "open"
+        );
+
+
+        const contactSection =
+            document.getElementById(
+                "contact"
+            );
+
+
+        if(
+            contactSection
+        ){
+
+            contactSection.scrollIntoView({
+                behavior:
+                    "smooth"
+            });
+
+        }
+
+    }
+
+
+    /* -----------------------------------------
+       AVATAR CLICK
+    ----------------------------------------- */
+
+    avatar.addEventListener(
+        "click",
+        async () => {
+
+            /*
+             * First click unlocks speech
+             */
+
+            unlockVoice();
+
+
+            const opened =
+                system.classList.toggle(
+                    "open"
+                );
+
+
+            if(
+                opened
+            ){
+
+                /*
+                 * Start fresh conversation
+                 */
+
+                await home();
+
+            }
+            else{
+
+                stopVoice();
+
+            }
+
+        }
+    );
+
+
+    /* -----------------------------------------
+       CLOSE
+    ----------------------------------------- */
+
+    closeBtn.addEventListener(
+        "click",
+        event => {
+
+            event.preventDefault();
+
+            event.stopPropagation();
+
+            system.classList.remove(
+                "open"
+            );
+
+            stopVoice();
+
+        }
+    );
+
+
+    /* -----------------------------------------
+       AUTO WELCOME
+       No automatic speech here because
+       browsers can block autoplay.
+    ----------------------------------------- */
+
+    setTimeout(
+        () => {
+
+            if(
+                !system.classList.contains(
+                    "open"
+                )
+            ){
+
+                system.classList.add(
+                    "open"
+                );
+
+
+                chat.innerHTML = `
+                    <div class="wai-message">
+                        Hey 👋 I'm W.A.I., Wetech's digital assistant.
+                        Click <strong>Talk to W.A.I.</strong>
+                        and I'll guide you.
+                    </div>
+                `;
+
+
+                setChoices([
+
+                    {
+                        text:
+                            "🔊 Talk to W.A.I.",
+
+                        action:
+                            home
+                    },
+
+                    {
+                        text:
+                            "🌐 I need a website",
+
+                        action:
+                            website
+                    },
+
+                    {
+                        text:
+                            "📱 I need an app",
+
+                        action:
+                            app
+                    },
+
+                    {
+                        text:
+                            "🎨 Branding",
+
+                        action:
+                            branding
+                    },
+
+                    {
+                        text:
+                            "🤖 AI",
+
+                        action:
+                            ai
+                    }
+
+                ]);
+
+            }
+
+        },
+        1800
+    );
+
+
+})();
