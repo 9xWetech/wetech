@@ -2799,3 +2799,808 @@ body::before{
     }
 
 }
+/* =========================================================
+   WETECH CINEMATIC REACTOR
+========================================================= */
+
+.wx-reactor{
+    position:absolute;
+
+    left:50%;
+    top:50%;
+
+    width:440px;
+    height:440px;
+
+    transform:
+        translate(-50%,-50%);
+
+    pointer-events:none;
+
+    perspective:900px;
+
+    filter:
+        drop-shadow(
+            0 0 35px
+            rgba(32,211,238,.08)
+        );
+}
+
+
+/* =========================================================
+   BIG ENERGY HALO
+========================================================= */
+
+.reactor-halo{
+    position:absolute;
+
+    left:50%;
+    top:50%;
+
+    width:330px;
+    height:330px;
+
+    transform:
+        translate(-50%,-50%);
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(34,211,238,.13) 0%,
+            rgba(59,130,246,.08) 32%,
+            rgba(139,92,246,.04) 52%,
+            transparent 73%
+        );
+
+    filter:blur(8px);
+
+    animation:
+        reactorHalo 5s ease-in-out infinite alternate;
+}
+
+@keyframes reactorHalo{
+
+    from{
+        transform:
+            translate(-50%,-50%)
+            scale(.94);
+    }
+
+    to{
+        transform:
+            translate(-50%,-50%)
+            scale(1.08);
+    }
+}
+
+
+/* =========================================================
+   REACTOR RINGS
+========================================================= */
+
+.reactor-ring{
+    position:absolute;
+
+    left:50%;
+    top:50%;
+
+    border-radius:50%;
+
+    transform:
+        translate(-50%,-50%);
+
+    border:
+        1px solid
+        rgba(65,210,255,.18);
+
+    box-shadow:
+        inset 0 0 18px
+        rgba(34,211,238,.04),
+        0 0 20px
+        rgba(34,211,238,.04);
+
+    overflow:hidden;
+}
+
+.reactor-ring::after{
+    content:"";
+
+    position:absolute;
+
+    width:35%;
+    height:2px;
+
+    left:0;
+    top:50%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #63e8ff,
+            transparent
+        );
+
+    box-shadow:
+        0 0 12px
+        rgba(34,211,238,.7);
+
+    transform-origin:
+        100% 50%;
+}
+
+
+.reactor-ring-1{
+    width:300px;
+    height:300px;
+
+    animation:
+        reactorRotate1 14s linear infinite;
+}
+
+.reactor-ring-1::after{
+    animation:
+        reactorLight1 3.4s linear infinite;
+}
+
+
+.reactor-ring-2{
+    width:360px;
+    height:210px;
+
+    border-color:
+        rgba(139,92,246,.18);
+
+    transform:
+        translate(-50%,-50%)
+        rotateX(67deg);
+
+    animation:
+        reactorRotate2 11s linear infinite reverse;
+}
+
+.reactor-ring-2::after{
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #a78bfa,
+            transparent
+        );
+
+    animation:
+        reactorLight2 2.8s linear infinite;
+}
+
+
+.reactor-ring-3{
+    width:405px;
+    height:140px;
+
+    border-color:
+        rgba(59,130,246,.14);
+
+    transform:
+        translate(-50%,-50%)
+        rotateX(72deg)
+        rotateZ(20deg);
+
+    animation:
+        reactorRotate3 16s linear infinite;
+}
+
+
+@keyframes reactorRotate1{
+
+    from{
+        transform:
+            translate(-50%,-50%)
+            rotate(0deg);
+    }
+
+    to{
+        transform:
+            translate(-50%,-50%)
+            rotate(360deg);
+    }
+}
+
+
+@keyframes reactorRotate2{
+
+    from{
+        transform:
+            translate(-50%,-50%)
+            rotateX(67deg)
+            rotateZ(0deg);
+    }
+
+    to{
+        transform:
+            translate(-50%,-50%)
+            rotateX(67deg)
+            rotateZ(360deg);
+    }
+}
+
+
+@keyframes reactorRotate3{
+
+    from{
+        transform:
+            translate(-50%,-50%)
+            rotateX(72deg)
+            rotateZ(20deg);
+    }
+
+    to{
+        transform:
+            translate(-50%,-50%)
+            rotateX(72deg)
+            rotateZ(380deg);
+    }
+}
+
+
+@keyframes reactorLight1{
+
+    from{
+        transform:
+            rotate(0deg)
+            translateX(0);
+    }
+
+    to{
+        transform:
+            rotate(360deg)
+            translateX(200px);
+    }
+}
+
+
+@keyframes reactorLight2{
+
+    from{
+        transform:
+            rotate(0deg)
+            translateX(0);
+    }
+
+    to{
+        transform:
+            rotate(-360deg)
+            translateX(180px);
+    }
+}
+
+
+/* =========================================================
+   PYRAMID / DIAMOND SHELL
+========================================================= */
+
+.reactor-diamond{
+    position:absolute;
+
+    left:50%;
+    top:50%;
+
+    transform:
+        translate(-50%,-50%)
+        rotate(45deg);
+
+    border:
+        1px solid
+        rgba(255,255,255,.08);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(34,211,238,.025),
+            rgba(139,92,246,.025)
+        );
+
+    box-shadow:
+        inset 0 0 24px
+        rgba(34,211,238,.025);
+
+    clip-path:
+        polygon(
+            50% 0%,
+            100% 50%,
+            50% 100%,
+            0% 50%
+        );
+
+    animation:
+        diamondPulse 5s ease-in-out infinite alternate;
+}
+
+.reactor-diamond-outer{
+    width:235px;
+    height:235px;
+
+    border-color:
+        rgba(78,212,255,.16);
+
+    animation:
+        diamondSpinOuter 20s linear infinite;
+}
+
+
+.reactor-diamond-mid{
+    width:185px;
+    height:185px;
+
+    border-color:
+        rgba(167,139,250,.18);
+
+    animation:
+        diamondSpinMid 14s linear infinite reverse;
+}
+
+
+.reactor-diamond-inner{
+    width:130px;
+    height:130px;
+
+    border-color:
+        rgba(34,211,238,.23);
+
+    box-shadow:
+        0 0 30px
+        rgba(34,211,238,.06);
+
+    animation:
+        diamondSpinInner 10s linear infinite;
+}
+
+
+@keyframes diamondSpinOuter{
+
+    from{
+        transform:
+            translate(-50%,-50%)
+            rotate(45deg);
+    }
+
+    to{
+        transform:
+            translate(-50%,-50%)
+            rotate(405deg);
+    }
+}
+
+
+@keyframes diamondSpinMid{
+
+    from{
+        transform:
+            translate(-50%,-50%)
+            rotate(45deg);
+    }
+
+    to{
+        transform:
+            translate(-50%,-50%)
+            rotate(-315deg);
+    }
+}
+
+
+@keyframes diamondSpinInner{
+
+    from{
+        transform:
+            translate(-50%,-50%)
+            rotate(45deg)
+            scale(.96);
+    }
+
+    to{
+        transform:
+            translate(-50%,-50%)
+            rotate(405deg)
+            scale(1.04);
+    }
+}
+
+
+@keyframes diamondPulse{
+
+    from{
+        opacity:.55;
+    }
+
+    to{
+        opacity:1;
+    }
+}
+
+
+/* =========================================================
+   CORE
+========================================================= */
+
+.reactor-core{
+    position:absolute;
+
+    left:50%;
+    top:50%;
+
+    width:108px;
+    height:108px;
+
+    transform:
+        translate(-50%,-50%);
+
+    border-radius:50%;
+
+    display:flex;
+    flex-direction:column;
+
+    align-items:center;
+    justify-content:center;
+
+    background:
+        radial-gradient(
+            circle at 35% 28%,
+            rgba(255,255,255,.35),
+            rgba(34,211,238,.20) 13%,
+            rgba(59,130,246,.13) 33%,
+            rgba(124,58,237,.12) 58%,
+            rgba(0,0,0,.65) 100%
+        );
+
+    border:
+        1px solid
+        rgba(138,229,255,.35);
+
+    box-shadow:
+        0 0 35px
+        rgba(34,211,238,.16),
+        0 0 80px
+        rgba(59,130,246,.08),
+        inset 0 0 25px
+        rgba(255,255,255,.06);
+
+    animation:
+        reactorCorePulse 3.6s ease-in-out infinite;
+}
+
+@keyframes reactorCorePulse{
+
+    0%,100%{
+        box-shadow:
+            0 0 30px rgba(34,211,238,.13),
+            0 0 65px rgba(59,130,246,.06),
+            inset 0 0 25px rgba(255,255,255,.05);
+    }
+
+    50%{
+        box-shadow:
+            0 0 48px rgba(34,211,238,.25),
+            0 0 100px rgba(59,130,246,.10),
+            inset 0 0 32px rgba(255,255,255,.08);
+    }
+}
+
+
+.reactor-core-glow{
+    position:absolute;
+
+    inset:15px;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.20),
+            transparent 62%
+        );
+
+    animation:
+        coreGlow 2.4s ease-in-out infinite alternate;
+}
+
+
+@keyframes coreGlow{
+
+    from{
+        opacity:.35;
+        transform:scale(.88);
+    }
+
+    to{
+        opacity:1;
+        transform:scale(1.08);
+    }
+}
+
+
+.reactor-core-symbol{
+    position:relative;
+    z-index:2;
+
+    font-family:
+        "Space Grotesk",
+        sans-serif;
+
+    font-weight:900;
+
+    font-size:29px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff,
+            #67e8f9,
+            #a78bfa
+        );
+
+    -webkit-background-clip:text;
+    background-clip:text;
+
+    color:transparent;
+}
+
+
+.reactor-core-line{
+    width:29px;
+    height:1px;
+
+    margin-top:1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #67e8f9,
+            transparent
+        );
+
+    box-shadow:
+        0 0 8px
+        rgba(34,211,238,.7);
+}
+
+
+.reactor-core-label{
+    margin-top:4px;
+
+    font-size:7px;
+
+    letter-spacing:3px;
+
+    color:#b9eaff;
+}
+
+
+.reactor-core-status{
+    margin-top:5px;
+
+    font-size:5px;
+
+    letter-spacing:1.6px;
+
+    color:#59e3ff;
+
+    opacity:.65;
+}
+
+
+/* =========================================================
+   NODES
+========================================================= */
+
+.reactor-node{
+    position:absolute;
+
+    width:6px;
+    height:6px;
+
+    border-radius:50%;
+
+    background:#78ecff;
+
+    box-shadow:
+        0 0 10px
+        rgba(34,211,238,.95),
+        0 0 22px
+        rgba(34,211,238,.35);
+
+    animation:
+        nodePulse 2s ease-in-out infinite alternate;
+}
+
+.node-1{
+    left:15%;
+    top:35%;
+}
+
+.node-2{
+    right:14%;
+    top:46%;
+
+    background:#a78bfa;
+
+    box-shadow:
+        0 0 10px
+        rgba(167,139,250,.95),
+        0 0 22px
+        rgba(167,139,250,.35);
+}
+
+.node-3{
+    left:30%;
+    bottom:12%;
+}
+
+.node-4{
+    right:27%;
+    bottom:15%;
+
+    background:#60a5fa;
+}
+
+
+@keyframes nodePulse{
+
+    from{
+        opacity:.3;
+        transform:scale(.75);
+    }
+
+    to{
+        opacity:1;
+        transform:scale(1.25);
+    }
+}
+
+
+/* =========================================================
+   DATA HUD
+========================================================= */
+
+.reactor-data{
+    position:absolute;
+
+    min-width:80px;
+
+    padding:
+        8px 10px;
+
+    border:
+        1px solid
+        rgba(85,210,255,.11);
+
+    border-radius:8px;
+
+    background:
+        rgba(3,10,20,.62);
+
+    backdrop-filter:
+        blur(10px);
+
+    font-family:
+        monospace;
+
+    box-shadow:
+        0 10px 30px
+        rgba(0,0,0,.18);
+
+    animation:
+        dataFloat 4.5s ease-in-out infinite alternate;
+}
+
+.reactor-data span{
+    display:block;
+
+    color:#6f89a5;
+
+    font-size:6px;
+
+    letter-spacing:1.5px;
+}
+
+.reactor-data b{
+    display:block;
+
+    margin-top:2px;
+
+    color:#bcefff;
+
+    font-size:8px;
+}
+
+
+.data-1{
+    top:6%;
+    right:28%;
+}
+
+.data-2{
+    bottom:8%;
+    right:8%;
+
+    animation-delay:-2s;
+}
+
+.data-3{
+    bottom:23%;
+    left:5%;
+
+    animation-delay:-3s;
+}
+
+
+@keyframes dataFloat{
+
+    from{
+        transform:translateY(0);
+    }
+
+    to{
+        transform:translateY(-8px);
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:700px){
+
+    .wx-reactor{
+        width:340px;
+        height:340px;
+    }
+
+    .reactor-ring-1{
+        width:235px;
+        height:235px;
+    }
+
+    .reactor-ring-2{
+        width:285px;
+        height:170px;
+    }
+
+    .reactor-ring-3{
+        width:320px;
+        height:120px;
+    }
+
+    .reactor-diamond-outer{
+        width:180px;
+        height:180px;
+    }
+
+    .reactor-diamond-mid{
+        width:145px;
+        height:145px;
+    }
+
+    .reactor-diamond-inner{
+        width:105px;
+        height:105px;
+    }
+
+    .reactor-core{
+        width:84px;
+        height:84px;
+    }
+
+    .reactor-core-symbol{
+        font-size:23px;
+    }
+
+    .reactor-data{
+        display:none;
+    }
+
+}
