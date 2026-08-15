@@ -3595,3 +3595,579 @@ textarea{
     }
 
 }
+/* =========================================================
+   WETECH W.A.I. — CINEMATIC ASSISTANT
+========================================================= */
+
+.wai-system{
+    position:fixed;
+    right:24px;
+    top:24px;
+    z-index:9500;
+
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end;
+
+    pointer-events:none;
+}
+
+
+/* =========================================================
+   AVATAR
+========================================================= */
+
+.wai-avatar{
+    width:74px;
+    height:74px;
+
+    position:relative;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    cursor:pointer;
+
+    pointer-events:auto;
+
+    animation:
+        waiEntrance 1.2s cubic-bezier(.16,1,.3,1) both,
+        waiFloat 4s ease-in-out 1.2s infinite;
+}
+
+
+@keyframes waiEntrance{
+    0%{
+        opacity:0;
+        transform:
+            translateY(-160px)
+            rotate(180deg)
+            scale(.4);
+    }
+
+    70%{
+        opacity:1;
+        transform:
+            translateY(10px)
+            rotate(-12deg)
+            scale(1.05);
+    }
+
+    100%{
+        transform:
+            translateY(0)
+            rotate(0deg)
+            scale(1);
+    }
+}
+
+
+@keyframes waiFloat{
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-7px);
+    }
+}
+
+
+/* =========================================================
+   OUTER RINGS
+========================================================= */
+
+.wai-ring{
+    position:absolute;
+
+    left:50%;
+    top:50%;
+
+    border-radius:50%;
+
+    transform:
+        translate(-50%,-50%);
+
+    pointer-events:none;
+}
+
+
+.wai-ring-a{
+    width:72px;
+    height:72px;
+
+    border:
+        1px solid
+        rgba(54,220,255,.35);
+
+    box-shadow:
+        0 0 18px
+        rgba(34,211,238,.12);
+
+    animation:
+        waiRotateA 7s linear infinite;
+}
+
+
+.wai-ring-b{
+    width:58px;
+    height:58px;
+
+    border:
+        1px dashed
+        rgba(151,112,255,.45);
+
+    animation:
+        waiRotateB 5s linear infinite reverse;
+}
+
+
+@keyframes waiRotateA{
+    from{
+        transform:
+            translate(-50%,-50%)
+            rotate(0deg);
+    }
+    to{
+        transform:
+            translate(-50%,-50%)
+            rotate(360deg);
+    }
+}
+
+
+@keyframes waiRotateB{
+    from{
+        transform:
+            translate(-50%,-50%)
+            rotate(0deg);
+    }
+    to{
+        transform:
+            translate(-50%,-50%)
+            rotate(-360deg);
+    }
+}
+
+
+/* =========================================================
+   CORE
+========================================================= */
+
+.wai-core{
+    width:48px;
+    height:48px;
+
+    position:relative;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:15px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #071729,
+            #10224a
+        );
+
+    border:
+        1px solid
+        rgba(117,229,255,.45);
+
+    box-shadow:
+        0 0 22px
+        rgba(34,211,238,.18),
+        inset 0 0 18px
+        rgba(34,211,238,.08);
+}
+
+
+.wai-core span{
+    position:relative;
+    z-index:2;
+
+    font-family:
+        "Space Grotesk",
+        sans-serif;
+
+    font-weight:900;
+    font-size:22px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #61e7ff,
+            #a78bfa
+        );
+
+    -webkit-background-clip:text;
+    background-clip:text;
+
+    color:transparent;
+}
+
+
+.wai-core-glow{
+    position:absolute;
+    inset:4px;
+
+    border-radius:11px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.12),
+            transparent 68%
+        );
+
+    animation:
+        waiCorePulse
+        2.4s
+        ease-in-out
+        infinite alternate;
+}
+
+
+@keyframes waiCorePulse{
+    from{
+        opacity:.45;
+        transform:scale(.85);
+    }
+
+    to{
+        opacity:1;
+        transform:scale(1.1);
+    }
+}
+
+
+.wai-pulse{
+    position:absolute;
+
+    width:110px;
+    height:110px;
+
+    border-radius:50%;
+
+    border:
+        1px solid
+        rgba(34,211,238,.16);
+
+    animation:
+        waiPulse 2.8s ease-out infinite;
+}
+
+
+@keyframes waiPulse{
+    0%{
+        opacity:.5;
+        transform:scale(.5);
+    }
+
+    100%{
+        opacity:0;
+        transform:scale(1.25);
+    }
+}
+
+
+/* =========================================================
+   PANEL
+========================================================= */
+
+.wai-panel{
+    width:340px;
+    max-width:
+        calc(100vw - 30px);
+
+    margin-top:12px;
+
+    padding:14px;
+
+    border:
+        1px solid
+        rgba(100,210,255,.18);
+
+    border-radius:20px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(6,17,31,.94),
+            rgba(4,9,18,.96)
+        );
+
+    backdrop-filter:
+        blur(24px);
+
+    box-shadow:
+        0 25px 80px
+        rgba(0,0,0,.42),
+        0 0 45px
+        rgba(34,211,238,.05);
+
+    opacity:0;
+    transform:
+        translateY(-15px)
+        scale(.94);
+
+    visibility:hidden;
+
+    transition:
+        opacity .3s ease,
+        transform .3s ease,
+        visibility .3s ease;
+
+    pointer-events:none;
+}
+
+
+.wai-system.open .wai-panel{
+    opacity:1;
+    transform:
+        translateY(0)
+        scale(1);
+
+    visibility:visible;
+
+    pointer-events:auto;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.wai-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:
+        4px 2px 12px;
+
+    border-bottom:
+        1px solid
+        rgba(255,255,255,.06);
+}
+
+
+.wai-status{
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+    color:#dffaff;
+
+    font-size:11px;
+    font-weight:800;
+    letter-spacing:1.5px;
+}
+
+
+.wai-online{
+    width:7px;
+    height:7px;
+
+    border-radius:50%;
+
+    background:#2eea93;
+
+    box-shadow:
+        0 0 10px
+        rgba(46,234,147,.7);
+}
+
+
+.wai-close{
+    width:28px;
+    height:28px;
+
+    border:1px solid
+        rgba(255,255,255,.07);
+
+    border-radius:8px;
+
+    background:
+        rgba(255,255,255,.03);
+
+    color:#95a7bb;
+
+    cursor:pointer;
+}
+
+
+/* =========================================================
+   CHAT
+========================================================= */
+
+.wai-chat{
+    min-height:108px;
+
+    padding:
+        16px 4px 10px;
+
+    color:#ced9e7;
+
+    font-size:13px;
+
+    line-height:1.65;
+}
+
+
+.wai-message{
+    animation:
+        waiMessage .35s ease both;
+}
+
+
+@keyframes waiMessage{
+    from{
+        opacity:0;
+        transform:translateY(7px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+
+.wai-typing{
+    display:inline-flex;
+    gap:4px;
+}
+
+
+.wai-typing i{
+    width:5px;
+    height:5px;
+
+    border-radius:50%;
+
+    background:#6eeaff;
+
+    animation:
+        waiTyping .9s ease-in-out infinite;
+}
+
+
+.wai-typing i:nth-child(2){
+    animation-delay:.12s;
+}
+
+
+.wai-typing i:nth-child(3){
+    animation-delay:.24s;
+}
+
+
+@keyframes waiTyping{
+    0%,100%{
+        opacity:.25;
+        transform:translateY(0);
+    }
+
+    50%{
+        opacity:1;
+        transform:translateY(-3px);
+    }
+}
+
+
+/* =========================================================
+   OPTIONS
+========================================================= */
+
+.wai-options{
+    display:grid;
+    gap:8px;
+}
+
+
+.wai-option{
+    width:100%;
+
+    padding:
+        10px 11px;
+
+    border-radius:
+        10px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.07);
+
+    background:
+        rgba(255,255,255,.025);
+
+    color:#b9c9da;
+
+    text-align:left;
+
+    font-size:11px;
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:
+        .2s ease;
+}
+
+
+.wai-option:hover{
+    transform:
+        translateX(3px);
+
+    color:white;
+
+    border-color:
+        rgba(34,211,238,.25);
+
+    background:
+        rgba(34,211,238,.05);
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:700px){
+
+    .wai-system{
+        right:12px;
+        top:12px;
+    }
+
+    .wai-avatar{
+        width:64px;
+        height:64px;
+    }
+
+    .wai-ring-a{
+        width:62px;
+        height:62px;
+    }
+
+    .wai-ring-b{
+        width:50px;
+        height:50px;
+    }
+
+    .wai-core{
+        width:43px;
+        height:43px;
+    }
+
+    .wai-panel{
+        width:
+            min(330px, calc(100vw - 24px));
+    }
+}
