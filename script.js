@@ -954,3 +954,452 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
 })();
+/* =========================================================
+   WETECH V2 CINEMATIC ENGINE
+========================================================= */
+
+(() => {
+
+    const reduceMotion =
+        window.matchMedia(
+            "(prefers-reduced-motion: reduce)"
+        ).matches;
+
+    if(reduceMotion) return;
+
+
+    /* =====================================================
+       CANVAS
+    ===================================================== */
+
+    const canvas =
+        document.createElement("canvas");
+
+    canvas.id =
+        "wx-v2-canvas";
+
+    canvas.style.position =
+        "fixed";
+
+    canvas.style.inset =
+        "0";
+
+    canvas.style.width =
+        "100%";
+
+    canvas.style.height =
+        "100%";
+
+    canvas.style.pointerEvents =
+        "none";
+
+    canvas.style.zIndex =
+        "-7";
+
+    document.body.prepend(
+        canvas
+    );
+
+    const ctx =
+        canvas.getContext("2d");
+
+
+    let W = 0;
+    let H = 0;
+
+    const mouse = {
+        x:-1000,
+        y:-1000
+    };
+
+
+    let particles = [];
+
+
+    function resize(){
+
+        const dpr =
+            Math.min(
+                window.devicePixelRatio || 1,
+                1.4
+            );
+
+        W =
+            window.innerWidth;
+
+        H =
+            window.innerHeight;
+
+        canvas.width =
+            W*dpr;
+
+        canvas.height =
+            H*dpr;
+
+        ctx.setTransform(
+            dpr,
+            0,
+            0,
+            dpr,
+            0,
+            0
+        );
+
+
+        const count =
+            W < 700
+            ? 24
+            : 54;
+
+
+        particles =
+            Array.from(
+                {length:count},
+                () => ({
+
+                    x:Math.random()*W,
+                    y:Math.random()*H,
+
+                    vx:
+                        (Math.random()-.5)
+                        *.13,
+
+                    vy:
+                        (Math.random()-.5)
+                        *.13,
+
+                    r:
+                        Math.random()*1.3
+                        +.4,
+
+                    a:
+                        Math.random()*.42
+                        +.10
+
+                })
+            );
+
+    }
+
+
+    resize();
+
+
+    window.addEventListener(
+        "resize",
+        resize,
+        {passive:true}
+    );
+
+
+    window.addEventListener(
+        "pointermove",
+        e => {
+
+            mouse.x =
+                e.clientX;
+
+            mouse.y =
+                e.clientY;
+
+        },
+        {passive:true}
+    );
+
+
+    function draw(){
+
+        ctx.clearRect(
+            0,
+            0,
+            W,
+            H
+        );
+
+
+        for(
+            const p of particles
+        ){
+
+            p.x += p.vx;
+            p.y += p.vy;
+
+
+            if(p.x < -10)
+                p.x = W+10;
+
+            if(p.x > W+10)
+                p.x = -10;
+
+            if(p.y < -10)
+                p.y = H+10;
+
+            if(p.y > H+10)
+                p.y = -10;
+
+
+            const dx =
+                mouse.x-p.x;
+
+            const dy =
+                mouse.y-p.y;
+
+            const distance =
+                Math.sqrt(
+                    dx*dx+dy*dy
+                );
+
+
+            if(distance < 130){
+
+                p.x -=
+                    dx*.0012;
+
+                p.y -=
+                    dy*.0012;
+
+            }
+
+
+            ctx.beginPath();
+
+            ctx.arc(
+                p.x,
+                p.y,
+                p.r,
+                0,
+                Math.PI*2
+            );
+
+            ctx.fillStyle =
+                `rgba(
+                    115,
+                    222,
+                    255,
+                    ${p.a}
+                )`;
+
+            ctx.shadowBlur=7;
+
+            ctx.shadowColor =
+                "rgba(34,211,238,.5)";
+
+            ctx.fill();
+
+        }
+
+
+        /* lines */
+
+        for(
+            let i=0;
+            i<particles.length;
+            i++
+        ){
+
+            let links=0;
+
+            for(
+                let j=i+1;
+                j<particles.length;
+                j++
+            ){
+
+                if(links>=2)
+                    break;
+
+
+                const a =
+                    particles[i];
+
+                const b =
+                    particles[j];
+
+
+                const dx =
+                    a.x-b.x;
+
+                const dy =
+                    a.y-b.y;
+
+                const d =
+                    Math.sqrt(
+                        dx*dx+dy*dy
+                    );
+
+
+                if(d<100){
+
+                    ctx.beginPath();
+
+                    ctx.moveTo(
+                        a.x,
+                        a.y
+                    );
+
+                    ctx.lineTo(
+                        b.x,
+                        b.y
+                    );
+
+                    ctx.strokeStyle =
+                        `rgba(
+                            75,
+                            190,
+                            255,
+                            ${(1-d/100)*.10}
+                        )`;
+
+                    ctx.lineWidth=.4;
+
+                    ctx.stroke();
+
+                    links++;
+
+                }
+
+            }
+
+        }
+
+
+        requestAnimationFrame(
+            draw
+        );
+
+    }
+
+
+    draw();
+
+
+    /* =====================================================
+       HERO PARALLAX
+    ===================================================== */
+
+    const hero =
+        document.querySelector(
+            ".wx-hero"
+        );
+
+    const orbit =
+        document.querySelector(
+            ".wx-orbit-area"
+        );
+
+
+    if(hero && orbit){
+
+        hero.addEventListener(
+            "pointermove",
+            e => {
+
+                if(
+                    window.innerWidth<900
+                ) return;
+
+
+                const nx =
+                    e.clientX/
+                    window.innerWidth
+                    -.5;
+
+                const ny =
+                    e.clientY/
+                    window.innerHeight
+                    -.5;
+
+
+                orbit.style.transform =
+                    `translate(
+                        ${nx*12}px,
+                        ${ny*10}px
+                    )`;
+
+            },
+            {passive:true}
+        );
+
+
+        hero.addEventListener(
+            "pointerleave",
+            () => {
+
+                orbit.style.transform =
+                    "";
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       REVEAL
+    ===================================================== */
+
+    const reveal =
+        document.querySelectorAll(
+            ".wx-service-card,"
+            +".wx-stats,"
+            +".wx-final-cta"
+        );
+
+
+    reveal.forEach(
+        element => {
+
+            element.style.opacity =
+                "0";
+
+            element.style.transform =
+                "translateY(20px)";
+
+            element.style.transition =
+                "opacity .7s ease,"
+                +"transform .7s ease";
+
+        }
+    );
+
+
+    const observer =
+        new IntersectionObserver(
+            entries => {
+
+                entries.forEach(
+                    entry => {
+
+                        if(
+                            entry.isIntersecting
+                        ){
+
+                            entry.target.style.opacity=
+                                "1";
+
+                            entry.target.style.transform=
+                                "translateY(0)";
+
+                            observer.unobserve(
+                                entry.target
+                            );
+
+                        }
+
+                    }
+                );
+
+            },
+            {
+                threshold:.08
+            }
+        );
+
+
+    reveal.forEach(
+        el =>
+            observer.observe(el)
+    );
+
+
+})();
