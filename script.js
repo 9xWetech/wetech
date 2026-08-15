@@ -1403,3 +1403,68 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 })();
+/* =========================================================
+   REACTOR MOUSE RESPONSE
+========================================================= */
+
+(() => {
+
+    const reactor =
+        document.querySelector(
+            ".wx-reactor"
+        );
+
+    if(!reactor) return;
+
+    if(window.innerWidth < 900)
+        return;
+
+
+    let ticking = false;
+
+
+    document.addEventListener(
+        "pointermove",
+        event => {
+
+            if(ticking)
+                return;
+
+            ticking = true;
+
+
+            requestAnimationFrame(
+                () => {
+
+                    const x =
+                        (
+                            event.clientX /
+                            window.innerWidth
+                        ) - .5;
+
+                    const y =
+                        (
+                            event.clientY /
+                            window.innerHeight
+                        ) - .5;
+
+
+                    reactor.style.transform =
+                        `translate(
+                            ${x * 18}px,
+                            ${y * 14}px
+                        )`;
+
+
+                    ticking = false;
+
+                }
+            );
+
+        },
+        {
+            passive:true
+        }
+    );
+
+})();
