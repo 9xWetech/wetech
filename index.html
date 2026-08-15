@@ -1,597 +1,1147 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Wetech — Digital Experiences That Matter</title>
+    <meta charset="UTF-8">
 
-<meta
-name="description"
-content="Wetech builds websites, applications, brands, digital experiences and AI-powered solutions."
->
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-<meta name="theme-color" content="#02040a">
+    <meta
+        name="theme-color"
+        content="#02040a"
+    >
 
-<link rel="icon" href="favicon.png">
-<link rel="stylesheet" href="style.css">
+    <meta
+        name="description"
+        content="Wetech builds premium websites, web applications, mobile apps, branding, digital marketing and AI solutions."
+    >
+
+    <title>Wetech — We Build. You Grow.</title>
+
+    <link rel="icon" href="favicon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
 </head>
 
 
 <body>
 
+    <!-- =========================
+         BACKGROUND
+    ========================== -->
 
-<!-- =====================================================
-     NAVBAR
-===================================================== -->
+    <canvas
+        id="cosmicCanvas"
+        aria-hidden="true"
+    ></canvas>
 
-<header class="nav wx-nav">
+    <div
+        class="nebula nebula-a"
+        aria-hidden="true"
+    ></div>
 
-<a class="logo" href="index.html">
-WE<span>TECH</span>
-</a>
+    <div
+        class="nebula nebula-b"
+        aria-hidden="true"
+    ></div>
 
-<nav>
+    <div
+        class="background-grid"
+        aria-hidden="true"
+    ></div>
 
-<a href="index.html">Home</a>
-<a href="about.html">About</a>
-<a href="services.html">Services</a>
-<a href="portfolio.html">Work</a>
-<a href="pricing.html">Pricing</a>
-<a href="contact.html">Contact</a>
 
-</nav>
+    <!-- =========================
+         NAVBAR
+    ========================== -->
 
-</header>
+    <header class="navbar">
 
+        <a
+            href="#home"
+            class="brand"
+        >
 
+            <span class="brand-mark">
+                W
+            </span>
 
-<!-- =====================================================
-     HERO
-===================================================== -->
+            <span class="brand-word">
+                WE<span>TECH</span>
+            </span>
 
-<section class="wx-hero">
+        </a>
 
 
-<div class="wx-hero-background"></div>
+        <nav class="nav-links">
 
-<div class="wx-hero-grid"></div>
+            <a href="#home">
+                Home
+            </a>
 
+            <a href="#services">
+                Services
+            </a>
 
+            <a href="#work">
+                Work
+            </a>
 
-<!-- HERO TEXT -->
+            <a href="#process">
+                Process
+            </a>
 
-<div class="wx-hero-content">
+            <a href="#pricing">
+                Pricing
+            </a>
 
-<div class="wx-eyebrow">
+            <a href="#contact">
+                Contact
+            </a>
 
-<span></span>
+        </nav>
 
-DIGITAL INNOVATION AGENCY
 
-</div>
+        <a
+            href="#contact"
+            class="nav-button"
+        >
+            Let's Talk
+            <span>↗</span>
+        </a>
 
+    </header>
 
-<h1>
 
-We Build
+    <!-- =========================
+         HERO
+    ========================== -->
 
-<br>
+    <main>
 
-<span>Digital Experiences</span>
+        <section
+            class="hero"
+            id="home"
+        >
 
-<br>
+            <div class="hero-copy">
 
-That Matter.
+                <div class="eyebrow">
 
-</h1>
+                    <span class="status-dot"></span>
 
+                    DIGITAL INNOVATION AGENCY
 
-<p class="wx-hero-description">
+                </div>
 
-Websites. Apps. Brands. AI.
 
-We turn ambitious ideas into powerful
-digital experiences designed to help
-businesses grow.
+                <h1>
 
-</p>
+                    We Build
 
+                    <span>
+                        Digital
+                        Experiences
+                    </span>
 
-<div class="wx-actions">
+                    That Matter.
 
-<a
-href="contact.html"
-class="wx-btn wx-primary"
->
-Start a Project
-<span>↗</span>
-</a>
+                </h1>
 
 
-<a
-href="#services"
-class="wx-btn"
->
-Explore Services
-<span>↓</span>
-</a>
+                <p class="hero-text">
 
-</div>
+                    Websites, applications, branding, marketing
+                    and AI-powered digital products designed
+                    to help ambitious businesses grow.
 
+                </p>
 
-<div class="wx-trust-line">
 
-<span>WEB</span>
-<span>APPS</span>
-<span>UI/UX</span>
-<span>BRANDING</span>
-<span>AI</span>
+                <div class="hero-actions">
 
-</div>
+                    <a
+                        href="#contact"
+                        class="button button-primary"
+                    >
 
-</div>
+                        Start a Project
 
+                        <span>↗</span>
 
+                    </a>
 
-<!-- =====================================================
-     CINEMATIC REACTOR
-===================================================== -->
 
-<div class="wx-orbit-area">
+                    <a
+                        href="#services"
+                        class="button button-secondary"
+                    >
 
+                        Explore Services
 
-<div class="wx-reactor">
+                        <span>↓</span>
 
+                    </a>
 
-<div class="reactor-halo"></div>
+                </div>
 
 
-<div class="reactor-ring reactor-ring-1"></div>
+                <div class="hero-trust">
 
-<div class="reactor-ring reactor-ring-2"></div>
+                    <span>WEB</span>
+                    <span>APP</span>
+                    <span>UI/UX</span>
+                    <span>BRANDING</span>
+                    <span>AI</span>
 
-<div class="reactor-ring reactor-ring-3"></div>
+                </div>
 
+            </div>
 
 
-<div class="reactor-diamond reactor-diamond-outer"></div>
+            <!-- =========================
+                 CINEMATIC REACTOR
+            ========================== -->
 
-<div class="reactor-diamond reactor-diamond-mid"></div>
+            <div class="reactor-stage">
 
-<div class="reactor-diamond reactor-diamond-inner"></div>
+                <div class="reactor-glow"></div>
 
 
+                <div class="reactor-ring ring-one"></div>
 
-<div class="reactor-core">
+                <div class="reactor-ring ring-two"></div>
 
-<div class="reactor-core-glow"></div>
+                <div class="reactor-ring ring-three"></div>
 
 
-<div class="reactor-core-symbol">
-W
-</div>
+                <div class="reactor-shell shell-one"></div>
 
+                <div class="reactor-shell shell-two"></div>
 
-<div class="reactor-core-line"></div>
+                <div class="reactor-shell shell-three"></div>
 
 
-<div class="reactor-core-label">
-WETECH
-</div>
+                <div class="energy-beam beam-one"></div>
 
+                <div class="energy-beam beam-two"></div>
 
-<div class="reactor-core-status">
-SYSTEM ONLINE
-</div>
+                <div class="energy-beam beam-three"></div>
 
-</div>
+                <div class="energy-beam beam-four"></div>
 
 
+                <div class="reactor-core">
 
-<div class="reactor-node node-1"></div>
+                    <div class="core-aura"></div>
 
-<div class="reactor-node node-2"></div>
+                    <div class="core-white"></div>
 
-<div class="reactor-node node-3"></div>
+                    <div class="core-blue"></div>
 
-<div class="reactor-node node-4"></div>
+                </div>
 
 
+                <span class="orbit-particle particle-one"></span>
 
-<div class="reactor-data data-1">
+                <span class="orbit-particle particle-two"></span>
 
-<span>CORE</span>
+                <span class="orbit-particle particle-three"></span>
 
-<b>98.4%</b>
+                <span class="orbit-particle particle-four"></span>
 
-</div>
+                <span class="orbit-particle particle-five"></span>
 
+                <span class="orbit-particle particle-six"></span>
 
-<div class="reactor-data data-2">
 
-<span>AI ENGINE</span>
+                <div class="hud hud-one">
 
-<b>ONLINE</b>
+                    <small>
+                        CORE
+                    </small>
 
-</div>
+                    <strong>
+                        ACTIVE
+                    </strong>
 
+                </div>
 
-<div class="reactor-data data-3">
 
-<span>BUILD</span>
+                <div class="hud hud-two">
 
-<b>READY</b>
+                    <small>
+                        AI ENGINE
+                    </small>
 
-</div>
+                    <strong>
+                        ONLINE
+                    </strong>
 
+                </div>
 
-</div>
 
+                <div class="hud hud-three">
 
+                    <small>
+                        SYSTEM
+                    </small>
 
-<!-- Additional HUD -->
+                    <strong>
+                        READY
+                    </strong>
 
-<div class="wx-floating-card card-one">
+                </div>
 
-<div class="wx-mini-dot"></div>
+            </div>
 
-<strong>
-WEB SYSTEM
-</strong>
+        </section>
 
-<span>
-01 / BUILD
-</span>
 
-</div>
+        <!-- =========================
+             STATS
+        ========================== -->
 
+        <section class="stats-section">
 
+            <div class="stats-grid">
 
-<div class="wx-floating-card card-two">
+                <div class="stat-item">
 
-<div class="wx-mini-dot purple"></div>
+                    <strong>
+                        50+
+                    </strong>
 
-<strong>
-AI ENGINE
-</strong>
+                    <span>
+                        Projects
+                    </span>
 
-<span>
-02 / INTELLIGENCE
-</span>
+                </div>
 
-</div>
 
+                <div class="stat-item">
 
+                    <strong>
+                        30+
+                    </strong>
 
-<div class="wx-floating-card card-three">
+                    <span>
+                        Clients
+                    </span>
 
-<div class="wx-mini-dot blue"></div>
+                </div>
 
-<strong>
-GROWTH
-</strong>
 
-<span>
-03 / SCALE
-</span>
+                <div class="stat-item">
 
-</div>
+                    <strong>
+                        10+
+                    </strong>
 
+                    <span>
+                        Services
+                    </span>
 
+                </div>
 
-<div class="wx-code-panel">
 
-<span>&lt;/&gt;</span>
+                <div class="stat-item">
 
-<code>
-const future = build(idea);
-</code>
+                    <strong>
+                        24/7
+                    </strong>
 
-</div>
+                    <span>
+                        Support
+                    </span>
 
+                </div>
 
-</div>
+            </div>
 
-</section>
+        </section>
 
 
+        <!-- =========================
+             SERVICES
+        ========================== -->
 
-<!-- =====================================================
-     STATS
-===================================================== -->
+        <section
+            class="section"
+            id="services"
+        >
 
-<section class="wx-section wx-stats-section">
+            <div class="section-heading">
 
-<div class="wx-stats">
+                <span class="section-number">
+                    01 / SERVICES
+                </span>
 
-<div>
+                <h2>
+                    Everything your
+                    business needs.
+                </h2>
 
-<strong>50+</strong>
+                <p>
+                    One digital partner for strategy,
+                    design, development and growth.
+                </p>
 
-<span>Projects</span>
+            </div>
 
-</div>
 
+            <div class="service-grid">
 
-<div>
+                <article class="service-card">
 
-<strong>30+</strong>
+                    <span class="service-index">
+                        01
+                    </span>
 
-<span>Clients</span>
+                    <div class="service-icon">
+                        &lt;/&gt;
+                    </div>
 
-</div>
+                    <h3>
+                        Web Development
+                    </h3>
 
+                    <p>
+                        High-performance websites,
+                        landing pages and digital platforms.
+                    </p>
 
-<div>
+                    <a href="#contact">
+                        Explore →
+                    </a>
 
-<strong>10+</strong>
+                </article>
 
-<span>Services</span>
 
-</div>
+                <article class="service-card">
 
+                    <span class="service-index">
+                        02
+                    </span>
 
-<div>
+                    <div class="service-icon">
+                        APP
+                    </div>
 
-<strong>24/7</strong>
+                    <h3>
+                        App Development
+                    </h3>
 
-<span>Support</span>
+                    <p>
+                        Modern web and mobile applications
+                        built around real users.
+                    </p>
 
-</div>
+                    <a href="#contact">
+                        Explore →
+                    </a>
 
-</div>
+                </article>
 
-</section>
 
+                <article class="service-card">
 
+                    <span class="service-index">
+                        03
+                    </span>
 
-<!-- =====================================================
-     SERVICES
-===================================================== -->
+                    <div class="service-icon">
+                        UX
+                    </div>
 
-<section
-class="wx-section"
-id="services"
->
+                    <h3>
+                        UI / UX Design
+                    </h3>
 
+                    <p>
+                        Clean interfaces that feel premium,
+                        simple and intuitive.
+                    </p>
 
-<div class="wx-section-heading">
+                    <a href="#contact">
+                        Explore →
+                    </a>
 
-<p>
-01 / WHAT WE DO
-</p>
+                </article>
 
-<h2>
-Everything your business needs
-to win digitally.
-</h2>
 
-</div>
+                <article class="service-card">
 
+                    <span class="service-index">
+                        04
+                    </span>
 
+                    <div class="service-icon">
+                        ✦
+                    </div>
 
-<div class="wx-service-grid">
+                    <h3>
+                        Branding
+                    </h3>
 
+                    <p>
+                        Logos, visual identities and
+                        complete brand systems.
+                    </p>
 
-<article class="wx-service-card">
+                    <a href="#contact">
+                        Explore →
+                    </a>
 
-<div class="wx-service-number">
-01
-</div>
+                </article>
 
-<div class="wx-service-icon">
-&lt;/&gt;
-</div>
 
-<h3>
-Web Development
-</h3>
+                <article class="service-card">
 
-<p>
-Modern, responsive and high-performance
-websites built around your business.
-</p>
+                    <span class="service-index">
+                        05
+                    </span>
 
-</article>
+                    <div class="service-icon">
+                        ↗
+                    </div>
 
+                    <h3>
+                        Digital Marketing
+                    </h3>
 
+                    <p>
+                        Campaigns, content and growth
+                        strategies built for visibility.
+                    </p>
 
-<article class="wx-service-card">
+                    <a href="#contact">
+                        Explore →
+                    </a>
 
-<div class="wx-service-number">
-02
-</div>
+                </article>
 
-<div class="wx-service-icon">
-APP
-</div>
 
-<h3>
-App Development
-</h3>
+                <article class="service-card">
 
-<p>
-Modern mobile and web applications
-designed for real users.
-</p>
+                    <span class="service-index">
+                        06
+                    </span>
 
-</article>
+                    <div class="service-icon">
+                        AI
+                    </div>
 
+                    <h3>
+                        AI Solutions
+                    </h3>
 
+                    <p>
+                        Automation, intelligent workflows
+                        and AI-powered digital products.
+                    </p>
 
-<article class="wx-service-card">
+                    <a href="#contact">
+                        Explore →
+                    </a>
 
-<div class="wx-service-number">
-03
-</div>
+                </article>
 
-<div class="wx-service-icon">
-UX
-</div>
+            </div>
 
-<h3>
-UI / UX Design
-</h3>
+        </section>
 
-<p>
-Interfaces designed to feel premium,
-simple and intuitive.
-</p>
 
-</article>
+        <!-- =========================
+             WORK
+        ========================== -->
 
+        <section
+            class="section"
+            id="work"
+        >
 
+            <div class="section-heading">
 
-<article class="wx-service-card">
+                <span class="section-number">
+                    02 / SELECTED WORK
+                </span>
 
-<div class="wx-service-number">
-04
-</div>
+                <h2>
+                    Ideas turned into
+                    digital experiences.
+                </h2>
 
-<div class="wx-service-icon">
-✦
-</div>
+            </div>
 
-<h3>
-Branding
-</h3>
 
-<p>
-Logos, identities and visual systems
-that make brands memorable.
-</p>
+            <div class="work-grid">
 
-</article>
+                <article class="work-card work-blue">
 
+                    <span>
+                        SAAS / WEB
+                    </span>
 
+                    <h3>
+                        NOVA
+                    </h3>
 
-<article class="wx-service-card">
+                    <p>
+                        A futuristic SaaS platform
+                        concept focused on conversion.
+                    </p>
 
-<div class="wx-service-number">
-05
-</div>
+                    <a href="#contact">
+                        View Concept →
+                    </a>
 
-<div class="wx-service-icon">
-↗
-</div>
+                </article>
 
-<h3>
-Digital Marketing
-</h3>
 
-<p>
-Campaigns and growth systems built
-to bring more attention to your brand.
-</p>
+                <article class="work-card work-purple">
 
-</article>
+                    <span>
+                        BRAND / IDENTITY
+                    </span>
 
+                    <h3>
+                        ORBIT
+                    </h3>
 
+                    <p>
+                        Technology brand identity
+                        built for the next generation.
+                    </p>
 
-<article class="wx-service-card">
+                    <a href="#contact">
+                        View Concept →
+                    </a>
 
-<div class="wx-service-number">
-06
-</div>
+                </article>
 
-<div class="wx-service-icon">
-AI
-</div>
 
-<h3>
-AI Solutions
-</h3>
+                <article class="work-card work-cyan">
 
-<p>
-Automation, intelligent workflows and
-custom AI-powered products.
-</p>
+                    <span>
+                        AI / PRODUCT
+                    </span>
 
-</article>
+                    <h3>
+                        NEURAL
+                    </h3>
 
-</div>
+                    <p>
+                        AI product concept for
+                        intelligent business automation.
+                    </p>
 
-</section>
+                    <a href="#contact">
+                        View Concept →
+                    </a>
 
+                </article>
 
+            </div>
 
-<!-- =====================================================
-     CTA
-===================================================== -->
+            <p class="demo-note">
+                Concept projects shown above should be replaced
+                with verified client work before publishing.
+            </p>
 
-<section class="wx-final-cta">
+        </section>
 
-<p>
-READY FOR WHAT'S NEXT?
-</p>
 
+        <!-- =========================
+             PROCESS
+        ========================== -->
 
-<h2>
-Let's build something
-people remember.
-</h2>
+        <section
+            class="section"
+            id="process"
+        >
 
+            <div class="section-heading">
 
-<a
-href="contact.html"
-class="wx-btn wx-primary"
->
-Start Your Project →
-</a>
+                <span class="section-number">
+                    03 / PROCESS
+                </span>
 
-</section>
+                <h2>
+                    From idea to reality.
+                </h2>
 
+            </div>
 
 
-<!-- =====================================================
-     FOOTER
-===================================================== -->
+            <div class="process-grid">
 
-<footer class="wx-footer">
+                <div class="process-step">
 
-<p>
-© 2026 Wetech — We Build. You Grow.
-</p>
+                    <span>
+                        01
+                    </span>
 
-</footer>
+                    <h3>
+                        Discover
+                    </h3>
 
+                    <p>
+                        We understand the business,
+                        audience and goals.
+                    </p>
 
+                </div>
 
-<!-- =====================================================
-     WHATSAPP
-===================================================== -->
 
-<a
-class="wx-whatsapp"
-href="https://wa.me/918445209063"
-target="_blank"
-rel="noopener"
-aria-label="Chat with Wetech on WhatsApp"
->
+                <div class="process-step">
 
-<span class="wx-whatsapp-icon">
-☎
-</span>
+                    <span>
+                        02
+                    </span>
 
-<div>
+                    <h3>
+                        Design
+                    </h3>
 
-<strong>
-WhatsApp
-</strong>
+                    <p>
+                        We turn strategy into a clear
+                        and compelling experience.
+                    </p>
 
-<small>
-+91 8445209063
-</small>
+                </div>
 
-</div>
 
-</a>
+                <div class="process-step">
 
+                    <span>
+                        03
+                    </span>
 
+                    <h3>
+                        Build
+                    </h3>
 
-<script src="script.js"></script>
+                    <p>
+                        We develop the product with
+                        performance in mind.
+                    </p>
+
+                </div>
+
+
+                <div class="process-step">
+
+                    <span>
+                        04
+                    </span>
+
+                    <h3>
+                        Launch
+                    </h3>
+
+                    <p>
+                        We test, optimize and
+                        launch your project.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             PRICING
+        ========================== -->
+
+        <section
+            class="section"
+            id="pricing"
+        >
+
+            <div class="section-heading">
+
+                <span class="section-number">
+                    04 / PRICING
+                </span>
+
+                <h2>
+                    Simple plans.
+                    Serious results.
+                </h2>
+
+            </div>
+
+
+            <div class="pricing-grid">
+
+                <article class="pricing-card">
+
+                    <span class="pricing-label">
+                        STARTER
+                    </span>
+
+                    <h3>
+                        ₹10,000
+                    </h3>
+
+                    <p>
+                        Professional business website.
+                    </p>
+
+                    <ul>
+
+                        <li>
+                            Responsive design
+                        </li>
+
+                        <li>
+                            Core business pages
+                        </li>
+
+                        <li>
+                            Contact section
+                        </li>
+
+                        <li>
+                            Basic SEO structure
+                        </li>
+
+                    </ul>
+
+                    <a
+                        href="#contact"
+                        class="button button-secondary"
+                    >
+                        Get Started
+                    </a>
+
+                </article>
+
+
+                <article class="pricing-card featured">
+
+                    <div class="popular-tag">
+                        MOST POPULAR
+                    </div>
+
+                    <span class="pricing-label">
+                        PROFESSIONAL
+                    </span>
+
+                    <h3>
+                        ₹15,000
+                    </h3>
+
+                    <p>
+                        Premium business website.
+                    </p>
+
+                    <ul>
+
+                        <li>
+                            Everything in Starter
+                        </li>
+
+                        <li>
+                            Advanced UI / UX
+                        </li>
+
+                        <li>
+                            Premium animations
+                        </li>
+
+                        <li>
+                            Enhanced experience
+                        </li>
+
+                    </ul>
+
+                    <a
+                        href="#contact"
+                        class="button button-primary"
+                    >
+                        Choose Professional
+                    </a>
+
+                </article>
+
+
+                <article class="pricing-card">
+
+                    <span class="pricing-label">
+                        CUSTOM
+                    </span>
+
+                    <h3>
+                        Let's Talk
+                    </h3>
+
+                    <p>
+                        For larger digital products.
+                    </p>
+
+                    <ul>
+
+                        <li>
+                            Web applications
+                        </li>
+
+                        <li>
+                            Mobile apps
+                        </li>
+
+                        <li>
+                            E-commerce
+                        </li>
+
+                        <li>
+                            AI solutions
+                        </li>
+
+                    </ul>
+
+                    <a
+                        href="#contact"
+                        class="button button-secondary"
+                    >
+                        Discuss Project
+                    </a>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             CONTACT
+        ========================== -->
+
+        <section
+            class="section contact-section"
+            id="contact"
+        >
+
+            <div class="contact-panel">
+
+                <div class="contact-copy">
+
+                    <span class="section-number">
+                        05 / CONTACT
+                    </span>
+
+                    <h2>
+                        Let's build
+                        something remarkable.
+                    </h2>
+
+                    <p>
+                        Have a website, app, brand or AI idea?
+                        Tell us what you're building.
+                    </p>
+
+
+                    <div class="contact-details">
+
+                        <div>
+                            <small>
+                                WHATSAPP
+                            </small>
+
+                            <strong>
+                                +91 8445209063
+                            </strong>
+                        </div>
+
+
+                        <div>
+                            <small>
+                                EMAIL
+                            </small>
+
+                            <strong>
+                                hello@wetech.in
+                            </strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <form
+                    class="contact-form"
+                    id="contactForm"
+                >
+
+                    <input
+                        type="text"
+                        name="name"
+                        placeholder="Your name"
+                        required
+                    >
+
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="Your email"
+                        required
+                    >
+
+                    <input
+                        type="tel"
+                        name="phone"
+                        placeholder="Phone / WhatsApp"
+                    >
+
+                    <textarea
+                        name="message"
+                        placeholder="Tell us about your project..."
+                        required
+                    ></textarea>
+
+                    <button
+                        type="submit"
+                        class="button button-primary"
+                    >
+                        Send Enquiry →
+                    </button>
+
+                    <p
+                        id="formMessage"
+                        class="form-message"
+                    ></p>
+
+                </form>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================
+         WHATSAPP
+    ========================== -->
+
+    <a
+        href="https://wa.me/918445209063"
+        target="_blank"
+        rel="noopener"
+        class="whatsapp"
+        aria-label="Chat with Wetech on WhatsApp"
+    >
+
+        <span class="whatsapp-icon">
+            ☎
+        </span>
+
+        <span class="whatsapp-text">
+
+            <strong>
+                WhatsApp
+            </strong>
+
+            <small>
+                +91 8445209063
+            </small>
+
+        </span>
+
+    </a>
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer class="footer">
+
+        <div class="footer-brand">
+
+            <a
+                href="#home"
+                class="brand"
+            >
+
+                <span class="brand-mark">
+                    W
+                </span>
+
+                <span class="brand-word">
+                    WE<span>TECH</span>
+                </span>
+
+            </a>
+
+            <p>
+                We build digital experiences
+                designed for what's next.
+            </p>
+
+        </div>
+
+
+        <div class="footer-links">
+
+            <a href="#services">
+                Services
+            </a>
+
+            <a href="#work">
+                Work
+            </a>
+
+            <a href="#pricing">
+                Pricing
+            </a>
+
+            <a href="#contact">
+                Contact
+            </a>
+
+        </div>
+
+
+        <div class="footer-copy">
+
+            © 2026 Wetech.
+            All rights reserved.
+
+        </div>
+
+    </footer>
+
+
+    <script
+        src="script.js"
+    ></script>
 
 </body>
 
