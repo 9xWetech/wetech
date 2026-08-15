@@ -854,552 +854,331 @@ document.addEventListener(
     }
 );
 /* =========================================================
-   WETECH W.A.I. — SMART GUIDED ASSISTANT
+   W.A.I. — WETECH ASSISTANT FIX
 ========================================================= */
 
-(() => {
+document.addEventListener("DOMContentLoaded", () => {
 
-    const system =
-        document.getElementById("waiSystem");
+    const system = document.getElementById("waiSystem");
+    const avatar = document.getElementById("waiAvatar");
+    const closeBtn = document.getElementById("waiClose");
+    const chat = document.getElementById("waiChat");
+    const options = document.getElementById("waiOptions");
 
-    const avatar =
-        document.getElementById("waiAvatar");
-
-    const closeButton =
-        document.getElementById("waiClose");
-
-    const chat =
-        document.getElementById("waiChat");
-
-    const options =
-        document.getElementById("waiOptions");
-
-
-    if(
-        !system ||
-        !avatar ||
-        !closeButton ||
-        !chat ||
-        !options
-    ){
+    if (!system || !avatar || !closeBtn || !chat || !options) {
+        console.warn("W.A.I. elements not found");
         return;
     }
 
 
-    const sleep =
-        ms =>
-        new Promise(
-            resolve =>
-                setTimeout(
-                    resolve,
-                    ms
-                )
-        );
+    const sleep = (ms) =>
+        new Promise(resolve => setTimeout(resolve, ms));
 
 
-    function addMessage(
-        text
-    ){
+    function showTyping() {
 
-        const message =
-            document.createElement(
-                "div"
-            );
-
-        message.className =
-            "wai-message";
-
-        message.textContent =
-            text;
-
-        chat.appendChild(
-            message
-        );
-
-        chat.scrollTop =
-            chat.scrollHeight;
+        chat.innerHTML = `
+            <div class="wai-message">
+                <span class="wai-typing">
+                    <i></i><i></i><i></i>
+                </span>
+            </div>
+        `;
     }
 
 
-    async function typeMessage(
-        text
-    ){
+    async function say(text) {
 
-        chat.innerHTML = "";
-
-        const typing =
-            document.createElement(
-                "span"
-            );
-
-        typing.className =
-            "wai-typing";
-
-        typing.innerHTML =
-            "<i></i><i></i><i></i>";
-
-        chat.appendChild(
-            typing
-        );
-
+        showTyping();
 
         await sleep(650);
 
+        chat.innerHTML = "";
 
-        typing.remove();
+        const message = document.createElement("div");
+        message.className = "wai-message";
 
+        chat.appendChild(message);
 
-        const message =
-            document.createElement(
-                "div"
-            );
+        let i = 0;
 
-        message.className =
-            "wai-message";
+        const timer = setInterval(() => {
 
+            message.textContent = text.slice(0, i);
+            i++;
 
-        chat.appendChild(
-            message
-        );
+            if (i > text.length) {
+                clearInterval(timer);
+            }
 
-
-        let index = 0;
-
-
-        const interval =
-            setInterval(
-                () => {
-
-                    message.textContent =
-                        text.slice(
-                            0,
-                            index
-                        );
-
-                    index++;
-
-
-                    if(
-                        index >
-                        text.length
-                    ){
-
-                        clearInterval(
-                            interval
-                        );
-
-                    }
-
-                },
-                16
-            );
-
+        }, 18);
     }
 
 
-    function setOptions(
-        items
-    ){
+    function choices(items) {
 
         options.innerHTML = "";
 
+        items.forEach(item => {
 
-        items.forEach(
-            item => {
+            const button =
+                document.createElement("button");
 
-                const button =
-                    document.createElement(
-                        "button"
-                    );
+            button.className =
+                "wai-option";
 
-                button.className =
-                    "wai-option";
+            button.textContent =
+                item.text;
 
-                button.textContent =
-                    item.label;
+            button.addEventListener(
+                "click",
+                item.action
+            );
 
+            options.appendChild(button);
 
-                button.addEventListener(
-                    "click",
-                    item.action
-                );
-
-
-                options.appendChild(
-                    button
-                );
-
-            }
-        );
-
+        });
     }
 
 
-    async function welcome(){
+    async function startAssistant() {
 
-        await typeMessage(
-            "Hey 👋 I'm W.A.I. — Wetech's digital assistant. What are you looking to build?"
+        await say(
+            "Hey 👋 I'm W.A.I., Wetech's digital assistant. How can I help you today?"
         );
 
-
-        setOptions([
+        choices([
 
             {
-                label:"🌐 I need a website",
-
-                action:
-                    () =>
-                    chooseWebsite()
+                text:"🌐 I need a website",
+                action:website
             },
 
-
             {
-                label:"📱 I need an app",
-
-                action:
-                    () =>
-                    chooseApp()
+                text:"📱 I need an app",
+                action:app
             },
 
-
             {
-                label:"🎨 Branding / Logo",
-
-                action:
-                    () =>
-                    chooseBranding()
+                text:"🎨 Logo / Branding",
+                action:branding
             },
 
-
             {
-                label:"🤖 AI / Automation",
-
-                action:
-                    () =>
-                    chooseAI()
+                text:"🤖 AI / Automation",
+                action:ai
             },
 
-
             {
-                label:"💬 I just want to talk",
-
-                action:
-                    () =>
-                    contactUs()
+                text:"💬 Talk to Wetech",
+                action:talk
             }
 
         ]);
-
     }
 
 
-    async function chooseWebsite(){
+    async function website() {
 
-        await typeMessage(
-            "Nice. What kind of website are you thinking about?"
+        await say(
+            "Awesome. What kind of website are you looking for?"
         );
 
-
-        setOptions([
+        choices([
 
             {
-                label:"⚡ Business website",
-
-                action:
-                    () =>
-                    projectReady(
-                        "business website"
-                    )
+                text:"Business Website",
+                action:project
             },
 
-
             {
-                label:"🚀 Premium website",
-
-                action:
-                    () =>
-                    projectReady(
-                        "premium website"
-                    )
+                text:"Premium Website",
+                action:project
             },
 
-
             {
-                label:"🛒 E-commerce",
-
-                action:
-                    () =>
-                    projectReady(
-                        "e-commerce website"
-                    )
+                text:"E-commerce",
+                action:project
             },
 
-
             {
-                label:"← Back",
-
-                action:
-                    () =>
-                    welcome()
+                text:"← Back",
+                action:startAssistant
             }
 
         ]);
-
     }
 
 
-    async function chooseApp(){
+    async function app() {
 
-        await typeMessage(
-            "Awesome. Are you looking for a mobile app or a web application?"
+        await say(
+            "Great. We can help with mobile apps and web applications."
         );
 
-
-        setOptions([
+        choices([
 
             {
-                label:"📱 Mobile App",
-
-                action:
-                    () =>
-                    projectReady(
-                        "mobile application"
-                    )
+                text:"📱 Mobile App",
+                action:project
             },
 
-
             {
-                label:"💻 Web Application",
-
-                action:
-                    () =>
-                    projectReady(
-                        "web application"
-                    )
+                text:"💻 Web App",
+                action:project
             },
 
-
             {
-                label:"← Back",
-
-                action:
-                    () =>
-                    welcome()
+                text:"← Back",
+                action:startAssistant
             }
 
         ]);
-
     }
 
 
-    async function chooseBranding(){
+    async function branding() {
 
-        await typeMessage(
-            "We can help create a complete visual identity. What do you need?"
+        await say(
+            "Nice. Wetech can create logos and complete visual identities."
         );
 
-
-        setOptions([
+        choices([
 
             {
-                label:"✦ Logo",
-
-                action:
-                    () =>
-                    projectReady(
-                        "logo design"
-                    )
+                text:"✦ Logo Design",
+                action:project
             },
 
-
             {
-                label:"🎯 Full Branding",
-
-                action:
-                    () =>
-                    projectReady(
-                        "complete branding"
-                    )
+                text:"🎯 Full Branding",
+                action:project
             },
 
-
             {
-                label:"📱 Social Media Design",
-
-                action:
-                    () =>
-                    projectReady(
-                        "social media branding"
-                    )
+                text:"📱 Social Media Branding",
+                action:project
             },
 
-
             {
-                label:"← Back",
-
-                action:
-                    () =>
-                    welcome()
+                text:"← Back",
+                action:startAssistant
             }
 
         ]);
-
     }
 
 
-    async function chooseAI(){
+    async function ai() {
 
-        await typeMessage(
-            "Interesting. Wetech can build AI assistants, automation workflows and custom AI products."
+        await say(
+            "Interesting. We can build AI assistants, automation and custom AI products."
         );
 
-
-        setOptions([
+        choices([
 
             {
-                label:"🤖 AI Assistant",
-
-                action:
-                    () =>
-                    projectReady(
-                        "AI assistant"
-                    )
+                text:"🤖 AI Assistant",
+                action:project
             },
 
-
             {
-                label:"⚙️ Business Automation",
-
-                action:
-                    () =>
-                    projectReady(
-                        "AI automation"
-                    )
+                text:"⚙️ Automation",
+                action:project
             },
 
-
             {
-                label:"🧠 Custom AI Product",
-
-                action:
-                    () =>
-                    projectReady(
-                        "custom AI product"
-                    )
+                text:"🧠 Custom AI",
+                action:project
             },
 
-
             {
-                label:"← Back",
-
-                action:
-                    () =>
-                    welcome()
+                text:"← Back",
+                action:startAssistant
             }
 
         ]);
-
     }
 
 
-    async function projectReady(
-        type
-    ){
+    async function project() {
 
-        await typeMessage(
-            `Perfect. A ${type} sounds like a great fit. Let's get the details and we'll help you take the next step.`
+        await say(
+            "Perfect. Let's take the next step and discuss your project."
         );
 
-
-        setOptions([
+        choices([
 
             {
-                label:"🚀 Start My Project",
-
-                action:
-                    () => {
-
-                        window.location.href =
-                            "#contact";
-
-                    }
+                text:"🚀 Start My Project",
+                action:goContact
             },
 
-
             {
-                label:"💬 WhatsApp Wetech",
-
-                action:
-                    () => {
-
-                        window.open(
-                            "https://wa.me/918445209063",
-                            "_blank"
-                        );
-
-                    }
+                text:"💬 WhatsApp Wetech",
+                action:whatsapp
             },
 
-
             {
-                label:"← Start Over",
-
-                action:
-                    () =>
-                    welcome()
+                text:"← Start Again",
+                action:startAssistant
             }
 
         ]);
-
     }
 
 
-    async function contactUs(){
+    async function talk() {
 
-        await typeMessage(
-            "Absolutely. You can reach Wetech directly on WhatsApp and we'll take it from there."
+        await say(
+            "I'm here. You can contact Wetech directly or send an enquiry."
         );
 
-
-        setOptions([
+        choices([
 
             {
-                label:"💬 WhatsApp +91 8445209063",
-
-                action:
-                    () => {
-
-                        window.open(
-                            "https://wa.me/918445209063",
-                            "_blank"
-                        );
-
-                    }
+                text:"💬 WhatsApp +91 8445209063",
+                action:whatsapp
             },
 
-
             {
-                label:"📩 Contact Form",
-
-                action:
-                    () => {
-
-                        window.location.href =
-                            "#contact";
-
-                    }
+                text:"📩 Contact Form",
+                action:goContact
             },
 
-
             {
-                label:"← Back",
-
-                action:
-                    () =>
-                    welcome()
+                text:"← Back",
+                action:startAssistant
             }
 
         ]);
+    }
+
+
+    function whatsapp() {
+
+        window.open(
+            "https://wa.me/918445209063",
+            "_blank",
+            "noopener"
+        );
+    }
+
+
+    function goContact() {
+
+        system.classList.remove("open");
+
+        const contact =
+            document.getElementById("contact");
+
+        if (contact) {
+
+            contact.scrollIntoView({
+                behavior:"smooth"
+            });
+
+        }
 
     }
 
@@ -1408,19 +1187,15 @@ document.addEventListener(
         "click",
         async () => {
 
-            system.classList.toggle(
-                "open"
-            );
+            const isOpen =
+                system.classList.toggle("open");
 
-
-            if(
-                system.classList.contains(
-                    "open"
-                ) &&
+            if (
+                isOpen &&
                 chat.children.length === 0
-            ){
+            ) {
 
-                await welcome();
+                await startAssistant();
 
             }
 
@@ -1428,41 +1203,37 @@ document.addEventListener(
     );
 
 
-    closeButton.addEventListener(
+    closeBtn.addEventListener(
         "click",
-        event => {
+        (event) => {
 
             event.stopPropagation();
 
-            system.classList.remove(
-                "open"
-            );
+            system.classList.remove("open");
 
         }
     );
 
 
-    /* Auto intro */
+    /* =========================
+       AUTO OPEN
+    ========================= */
 
     setTimeout(
         async () => {
 
-            if(
-                !system.classList.contains(
-                    "open"
-                )
-            ){
+            if (
+                !system.classList.contains("open")
+            ) {
 
-                system.classList.add(
-                    "open"
-                );
+                system.classList.add("open");
 
-                await welcome();
+                await startAssistant();
 
             }
 
         },
-        1800
+        1200
     );
 
-})();
+});
