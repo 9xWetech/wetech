@@ -1184,3 +1184,456 @@ footer{
     }
 
 }
+/* ==========================================================
+   WETECH V3 — PRODUCTION CINEMATIC ANIMATION LAYER
+   Optimized for Vercel / modern browsers
+========================================================== */
+
+:root{
+    --wx-cyan:#20e7ff;
+    --wx-blue:#3b82f6;
+    --wx-violet:#8b5cf6;
+    --wx-purple:#b15cff;
+}
+
+/* ---------- Cosmic base ---------- */
+
+body{
+    position:relative;
+    isolation:isolate;
+    overflow-x:hidden;
+}
+
+/* Nebula glow */
+
+body::after{
+    content:"";
+    position:fixed;
+    inset:-15%;
+    z-index:-10;
+    pointer-events:none;
+
+    background:
+        radial-gradient(
+            ellipse 32% 25% at 18% 20%,
+            rgba(24,210,255,.12),
+            transparent 70%
+        ),
+        radial-gradient(
+            ellipse 28% 26% at 82% 18%,
+            rgba(120,75,255,.15),
+            transparent 70%
+        ),
+        radial-gradient(
+            ellipse 36% 24% at 52% 80%,
+            rgba(40,110,255,.08),
+            transparent 72%
+        );
+
+    filter:blur(36px);
+
+    animation:wxNebula 18s ease-in-out infinite alternate;
+}
+
+@keyframes wxNebula{
+    0%{
+        transform:translate3d(-2%,0,0) scale(1);
+    }
+    50%{
+        transform:translate3d(2%,-1%,0) scale(1.035);
+    }
+    100%{
+        transform:translate3d(-1%,2%,0) scale(1.02);
+    }
+}
+
+/* ---------- Moving technical grid ---------- */
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:-40px;
+    z-index:-9;
+    pointer-events:none;
+
+    background-image:
+        linear-gradient(
+            rgba(65,160,255,.025) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(65,160,255,.025) 1px,
+            transparent 1px
+        );
+
+    background-size:
+        70px 70px;
+
+    mask-image:
+        radial-gradient(
+            ellipse at center,
+            black 0%,
+            transparent 82%
+        );
+
+    animation:wxGrid 24s linear infinite;
+}
+
+@keyframes wxGrid{
+    from{
+        transform:translate3d(0,0,0);
+    }
+
+    to{
+        transform:translate3d(70px,70px,0);
+    }
+}
+
+/* ---------- Particle canvas ---------- */
+
+#wetech-canvas{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    z-index:-8;
+    pointer-events:none;
+}
+
+/* ---------- Soft cinematic vignette ---------- */
+
+.wetech-vignette{
+    position:fixed;
+    inset:0;
+    z-index:-6;
+    pointer-events:none;
+
+    background:
+        radial-gradient(
+            ellipse at center,
+            transparent 30%,
+            rgba(0,0,0,.34) 100%
+        );
+}
+
+/* ---------- Hero glow ---------- */
+
+.hero{
+    position:relative;
+    isolation:isolate;
+}
+
+.hero::before{
+    content:"";
+    position:absolute;
+
+    width:min(70vw,760px);
+    height:min(70vw,760px);
+
+    left:56%;
+    top:43%;
+
+    transform:
+        translate(-50%,-50%);
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(32,231,255,.09) 0%,
+            rgba(59,130,246,.055) 28%,
+            rgba(139,92,246,.035) 48%,
+            transparent 70%
+        );
+
+    filter:blur(6px);
+
+    animation:
+        wxHeroGlow 8s ease-in-out infinite alternate;
+
+    z-index:-2;
+    pointer-events:none;
+}
+
+@keyframes wxHeroGlow{
+    0%{
+        transform:
+            translate(-50%,-50%)
+            scale(.94)
+            rotate(0deg);
+    }
+
+    100%{
+        transform:
+            translate(-50%,-50%)
+            scale(1.08)
+            rotate(8deg);
+    }
+}
+
+/* ---------- Animated headline ---------- */
+
+.hero h1 span{
+    background:
+        linear-gradient(
+            100deg,
+            #ffffff 0%,
+            var(--wx-cyan) 23%,
+            var(--wx-blue) 48%,
+            var(--wx-violet) 73%,
+            #d06cff 100%
+        );
+
+    background-size:300% 100%;
+
+    -webkit-background-clip:text;
+    background-clip:text;
+
+    color:transparent;
+
+    animation:
+        wxGradient 6s ease infinite;
+}
+
+@keyframes wxGradient{
+    0%,100%{
+        background-position:0% 50%;
+    }
+
+    50%{
+        background-position:100% 50%;
+    }
+}
+
+/* ---------- Premium glass cards ---------- */
+
+.card{
+    position:relative;
+    overflow:hidden;
+
+    transform-style:preserve-3d;
+
+    will-change:
+        transform;
+}
+
+.card::before{
+    content:"";
+    position:absolute;
+
+    width:180px;
+    height:180px;
+
+    left:
+        var(--mx,50%);
+    top:
+        var(--my,20%);
+
+    transform:
+        translate(-50%,-50%);
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(32,231,255,.09),
+            transparent 68%
+        );
+
+    opacity:0;
+
+    transition:
+        opacity .25s ease;
+
+    pointer-events:none;
+}
+
+.card:hover::before{
+    opacity:1;
+}
+
+/* ---------- Shine sweep ---------- */
+
+.card::after{
+    content:"";
+    position:absolute;
+    inset:-120%;
+
+    background:
+        linear-gradient(
+            115deg,
+            transparent 42%,
+            rgba(255,255,255,.075) 50%,
+            transparent 58%
+        );
+
+    transform:
+        translateX(-40%);
+
+    transition:
+        transform .9s ease;
+
+    pointer-events:none;
+}
+
+.card:hover::after{
+    transform:
+        translateX(40%);
+}
+
+/* ---------- Scroll reveal ---------- */
+
+.wx-reveal{
+    opacity:0;
+
+    transform:
+        translateY(28px)
+        scale(.985);
+
+    transition:
+        opacity .7s cubic-bezier(.16,1,.3,1),
+        transform .7s cubic-bezier(.16,1,.3,1);
+}
+
+.wx-reveal.wx-visible{
+    opacity:1;
+
+    transform:
+        translateY(0)
+        scale(1);
+}
+
+/* ---------- Shooting stars ---------- */
+
+.wx-shooting-star{
+    position:fixed;
+
+    width:120px;
+    height:1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(150,235,255,.95),
+            transparent
+        );
+
+    filter:
+        drop-shadow(
+            0 0 7px rgba(80,210,255,.7)
+        );
+
+    transform:
+        rotate(-28deg);
+
+    pointer-events:none;
+
+    z-index:-4;
+
+    opacity:0;
+}
+
+@keyframes wxShoot{
+    0%{
+        opacity:0;
+        transform:
+            translate3d(0,0,0)
+            rotate(-28deg);
+    }
+
+    8%{
+        opacity:.9;
+    }
+
+    22%{
+        opacity:0;
+        transform:
+            translate3d(-260px,170px,0)
+            rotate(-28deg);
+    }
+
+    100%{
+        opacity:0;
+    }
+}
+
+/* ---------- Tiny scan effect ---------- */
+
+.wx-scan{
+    position:fixed;
+    left:0;
+    right:0;
+    top:-2px;
+
+    height:1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(32,231,255,.55),
+            rgba(139,92,246,.55),
+            transparent
+        );
+
+    opacity:.22;
+
+    pointer-events:none;
+
+    z-index:9990;
+
+    animation:
+        wxScan 10s linear infinite;
+}
+
+@keyframes wxScan{
+    0%{
+        transform:translateY(0);
+    }
+
+    100%{
+        transform:translateY(100vh);
+    }
+}
+
+/* ---------- Mobile optimization ---------- */
+
+@media(max-width:800px){
+
+    body::before{
+        background-size:90px 90px;
+        animation-duration:32s;
+    }
+
+    body::after{
+        filter:blur(45px);
+    }
+
+    .hero::before{
+        width:430px;
+        height:430px;
+        left:50%;
+        top:48%;
+    }
+
+    .wx-scan{
+        display:none;
+    }
+}
+
+/* ---------- Accessibility ---------- */
+
+@media(prefers-reduced-motion:reduce){
+
+    *,
+    *::before,
+    *::after{
+        animation-duration:.01ms !important;
+        animation-iteration-count:1 !important;
+        transition-duration:.01ms !important;
+    }
+}
