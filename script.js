@@ -1,687 +1,528 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    /* =========================================
-       LIGHT PARTICLES
-    ========================================= */
+  /* =====================================================
+     COSMIC / TECH PARTICLES
+  ===================================================== */
 
-    const canvas =
-        document.getElementById(
-            "lightCanvas"
-        );
+  const canvas = document.getElementById("techCanvas");
+  const ctx = canvas.getContext("2d");
 
-    const ctx =
-        canvas.getContext("2d");
+  let width = 0;
+  let height = 0;
+  let particles = [];
 
+  function resizeCanvas() {
 
-    let width = 0;
-    let height = 0;
-
-    let particles = [];
-
-
-    function resize(){
-
-        const dpr =
-            Math.min(
-                window.devicePixelRatio || 1,
-                1.35
-            );
-
-
-        width =
-            window.innerWidth;
-
-        height =
-            window.innerHeight;
-
-
-        canvas.width =
-            width * dpr;
-
-        canvas.height =
-            height * dpr;
-
-        canvas.style.width =
-            width + "px";
-
-        canvas.style.height =
-            height + "px";
-
-
-        ctx.setTransform(
-            dpr,
-            0,
-            0,
-            dpr,
-            0,
-            0
-        );
-
-
-        const amount =
-            width < 700
-                ? 22
-                : 42;
-
-
-        particles =
-            Array.from(
-                {length:amount},
-                () => ({
-
-                    x:
-                        Math.random() * width,
-
-                    y:
-                        Math.random() * height,
-
-                    vx:
-                        (
-                            Math.random()
-                            - .5
-                        ) * .10,
-
-                    vy:
-                        (
-                            Math.random()
-                            - .5
-                        ) * .10,
-
-                    r:
-                        Math.random() * 1.1 + .25,
-
-                    a:
-                        Math.random() * .32 + .08
-
-                })
-            );
-
-    }
-
-
-    resize();
-
-
-    window.addEventListener(
-        "resize",
-        resize,
-        {
-            passive:true
-        }
+    const dpr = Math.min(
+      window.devicePixelRatio || 1,
+      1.35
     );
 
+    width = window.innerWidth;
+    height = window.innerHeight;
 
-    /* =========================================
-       PARTICLE LOOP
-    ========================================= */
+    canvas.width = Math.floor(width * dpr);
+    canvas.height = Math.floor(height * dpr);
 
-    let lastFrame = 0;
+    canvas.style.width = `${width}px`;
+    canvas.style.height = `${height}px`;
 
+    ctx.setTransform(
+      dpr,
+      0,
+      0,
+      dpr,
+      0,
+      0
+    );
 
-    function draw(time){
+    const count = width < 700 ? 24 : 48;
 
-        if(
-            time - lastFrame <
-            1000 / 40
-        ){
+    particles = Array.from(
+      { length: count },
+      () => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.10,
+        vy: (Math.random() - 0.5) * 0.10,
+        radius: Math.random() * 1.1 + 0.25,
+        alpha: Math.random() * 0.24 + 0.06
+      })
+    );
+  }
 
-            requestAnimationFrame(
-                draw
-            );
+  resizeCanvas();
 
-            return;
+  window.addEventListener(
+    "resize",
+    resizeCanvas,
+    { passive: true }
+  );
 
-        }
+  let lastFrame = 0;
 
+  function animateParticles(timestamp) {
 
-        lastFrame = time;
-
-
-        ctx.clearRect(
-            0,
-            0,
-            width,
-            height
-        );
-
-
-        particles.forEach(
-            particle => {
-
-                particle.x +=
-                    particle.vx;
-
-                particle.y +=
-                    particle.vy;
-
-
-                if(
-                    particle.x < -10
-                ){
-
-                    particle.x =
-                        width + 10;
-
-                }
-
-
-                if(
-                    particle.x >
-                    width + 10
-                ){
-
-                    particle.x =
-                        -10;
-
-                }
-
-
-                if(
-                    particle.y < -10
-                ){
-
-                    particle.y =
-                        height + 10;
-
-                }
-
-
-                if(
-                    particle.y >
-                    height + 10
-                ){
-
-                    particle.y =
-                        -10;
-
-                }
-
-
-                ctx.beginPath();
-
-
-                ctx.arc(
-                    particle.x,
-                    particle.y,
-                    particle.r,
-                    0,
-                    Math.PI * 2
-                );
-
-
-                ctx.fillStyle =
-                    `rgba(
-                        255,
-                        233,
-                        184,
-                        ${particle.a}
-                    )`;
-
-
-                ctx.shadowBlur =
-                    8;
-
-
-                ctx.shadowColor =
-                    "rgba(242,213,154,.45)";
-
-
-                ctx.fill();
-
-            }
-        );
-
-
-        requestAnimationFrame(
-            draw
-        );
-
+    if (timestamp - lastFrame < 1000 / 40) {
+      requestAnimationFrame(animateParticles);
+      return;
     }
 
+    lastFrame = timestamp;
+
+    ctx.clearRect(
+      0,
+      0,
+      width,
+      height
+    );
+
+    particles.forEach((particle) => {
+
+      particle.x += particle.vx;
+      particle.y += particle.vy;
+
+      if (particle.x < -10) {
+        particle.x = width + 10;
+      }
+
+      if (particle.x > width + 10) {
+        particle.x = -10;
+      }
+
+      if (particle.y < -10) {
+        particle.y = height + 10;
+      }
+
+      if (particle.y > height + 10) {
+        particle.y = -10;
+      }
+
+      ctx.beginPath();
+
+      ctx.arc(
+        particle.x,
+        particle.y,
+        particle.radius,
+        0,
+        Math.PI * 2
+      );
+
+      ctx.fillStyle =
+        `rgba(
+          213,
+          229,
+          235,
+          ${particle.alpha}
+        )`;
+
+      ctx.shadowBlur = 6;
+      ctx.shadowColor =
+        "rgba(199,255,74,.24)";
+
+      ctx.fill();
+
+    });
 
     requestAnimationFrame(
-        draw
+      animateParticles
+    );
+  }
+
+  requestAnimationFrame(
+    animateParticles
+  );
+
+
+  /* =====================================================
+     HERO OBJECT PARALLAX
+  ===================================================== */
+
+  const heroObject =
+    document.querySelector(".hero-object");
+
+  const hero =
+    document.querySelector(".hero");
+
+  if (
+    hero &&
+    heroObject &&
+    window.innerWidth >= 900
+  ) {
+
+    hero.addEventListener(
+      "pointermove",
+      (event) => {
+
+        const x =
+          event.clientX /
+          window.innerWidth -
+          0.5;
+
+        const y =
+          event.clientY /
+          window.innerHeight -
+          0.5;
+
+        heroObject.style.transform =
+          `
+          translate3d(
+            ${x * 10}px,
+            ${y * 8}px,
+            0
+          )
+          `;
+
+      },
+      { passive: true }
     );
 
-
-    /* =========================================
-       HERO PARALLAX
-    ========================================= */
-
-    const hero =
-        document.querySelector(
-            ".hero"
-        );
-
-
-    const monolith =
-        document.querySelector(
-            ".monolith-scene"
-        );
-
-
-    if(
-        hero &&
-        monolith &&
-        window.innerWidth >= 900
-    ){
-
-        hero.addEventListener(
-            "pointermove",
-            event => {
-
-                const x =
-                    event.clientX /
-                    window.innerWidth
-                    - .5;
-
-
-                const y =
-                    event.clientY /
-                    window.innerHeight
-                    - .5;
-
-
-                monolith.style.transform =
-                    `
-                    translate3d(
-                        ${x * 10}px,
-                        ${y * 8}px,
-                        0
-                    )
-                    `;
-
-            },
-            {
-                passive:true
-            }
-        );
-
-
-        hero.addEventListener(
-            "pointerleave",
-            () => {
-
-                monolith.style.transform =
-                    "";
-
-            }
-        );
-
-    }
-
-
-    /* =========================================
-       SCROLL REVEAL
-    ========================================= */
-
-    const revealTargets =
-        document.querySelectorAll(
-            ".service-card," +
-            ".work-card," +
-            ".process-card," +
-            ".pricing-card," +
-            ".contact-panel," +
-            ".statement-inner"
-        );
-
-
-    revealTargets.forEach(
-        item => {
-
-            item.style.opacity =
-                "0";
-
-            item.style.transform =
-                "translateY(24px)";
-
-            item.style.transition =
-                "opacity .7s ease," +
-                "transform .7s ease";
-
-        }
+    hero.addEventListener(
+      "pointerleave",
+      () => {
+        heroObject.style.transform = "";
+      }
     );
 
+  }
+
+
+  /* =====================================================
+     SCROLL REVEAL
+  ===================================================== */
+
+  const revealElements =
+    document.querySelectorAll(
+      ".reveal-up"
+    );
+
+  if ("IntersectionObserver" in window) {
 
     const observer =
-        new IntersectionObserver(
-            entries => {
+      new IntersectionObserver(
+        (entries) => {
 
-                entries.forEach(
-                    entry => {
+          entries.forEach(
+            (entry) => {
 
-                        if(
-                            entry.isIntersecting
-                        ){
+              if (
+                entry.isIntersecting
+              ) {
 
-                            entry.target.style.opacity =
-                                "1";
-
-                            entry.target.style.transform =
-                                "translateY(0)";
-
-                            observer.unobserve(
-                                entry.target
-                            );
-
-                        }
-
-                    }
+                entry.target.classList.add(
+                  "is-visible"
                 );
 
-            },
-            {
-                threshold:.08
+                observer.unobserve(
+                  entry.target
+                );
+
+              }
+
             }
-        );
+          );
 
+        },
+        {
+          threshold: 0.08
+        }
+      );
 
-    revealTargets.forEach(
-        target =>
-            observer.observe(target)
+    revealElements.forEach(
+      (element) => {
+        observer.observe(element);
+      }
     );
 
+  } else {
 
-    /* =========================================
-       CARD TILT
-    ========================================= */
+    revealElements.forEach(
+      (element) => {
+        element.classList.add(
+          "is-visible"
+        );
+      }
+    );
 
-    if(
-        window.innerWidth >= 900
-    ){
-
-        document
-            .querySelectorAll(
-                ".service-card," +
-                ".work-card," +
-                ".pricing-card"
-            )
-            .forEach(
-                card => {
-
-                    card.addEventListener(
-                        "pointermove",
-                        event => {
-
-                            const rect =
-                                card.getBoundingClientRect();
+  }
 
 
-                            const x =
-                                (
-                                    event.clientX -
-                                    rect.left
-                                )
-                                /
-                                rect.width
-                                - .5;
+  /* =====================================================
+     CARD INTERACTION
+  ===================================================== */
 
+  if (window.innerWidth >= 900) {
 
-                            const y =
-                                (
-                                    event.clientY -
-                                    rect.top
-                                )
-                                /
-                                rect.height
-                                - .5;
+    document
+      .querySelectorAll(
+        ".service-row, .service-feature, .work-main, .work-side, .price-card"
+      )
+      .forEach((card) => {
 
+        card.addEventListener(
+          "pointermove",
+          (event) => {
 
-                            card.style.transform =
-                                `
-                                perspective(900px)
-                                rotateX(${y * -2.5}deg)
-                                rotateY(${x * 2.5}deg)
-                                translateY(-5px)
-                                `;
+            const rect =
+              card.getBoundingClientRect();
 
-                        },
-                        {
-                            passive:true
-                        }
-                    );
+            const x =
+              (
+                event.clientX -
+                rect.left
+              ) /
+              rect.width -
+              0.5;
 
+            const y =
+              (
+                event.clientY -
+                rect.top
+              ) /
+              rect.height -
+              0.5;
 
-                    card.addEventListener(
-                        "pointerleave",
-                        () => {
+            card.style.transform =
+              `
+              perspective(900px)
+              rotateX(${y * -1.8}deg)
+              rotateY(${x * 1.8}deg)
+              translateY(-4px)
+              `;
 
-                            card.style.transform =
-                                "";
-
-                        }
-                    );
-
-                }
-            );
-
-    }
-
-
-    /* =========================================
-       CONTACT FORM
-    ========================================= */
-
-    const form =
-        document.getElementById(
-            "contactForm"
+          },
+          { passive: true }
         );
 
-
-    const message =
-        document.getElementById(
-            "formMessage"
+        card.addEventListener(
+          "pointerleave",
+          () => {
+            card.style.transform = "";
+          }
         );
 
+      });
 
-    if(form){
-
-        form.addEventListener(
-            "submit",
-            event => {
-
-                event.preventDefault();
+  }
 
 
-                if(message){
+  /* =====================================================
+     CONTACT FORM
+  ===================================================== */
 
-                    message.textContent =
-                        "✓ Thanks! Your enquiry has been received.";
+  const form =
+    document.getElementById(
+      "contactForm"
+    );
 
-                }
+  const formMessage =
+    document.getElementById(
+      "formMessage"
+    );
 
+  if (form) {
 
-                form.reset();
+    form.addEventListener(
+      "submit",
+      (event) => {
 
-            }
-        );
+        event.preventDefault();
 
-    }
+        if (formMessage) {
 
-
-    /* =========================================
-       LIGHT STREAKS
-    ========================================= */
-
-    function createLightStreak(){
-
-        if(
-            window.innerWidth < 700
-        ){
-
-            return;
+          formMessage.textContent =
+            "✓ Thanks! Your enquiry has been received.";
 
         }
 
+        form.reset();
 
-        const streak =
-            document.createElement(
-                "div"
-            );
-
-
-        streak.style.position =
-            "fixed";
-
-        streak.style.width =
-            "120px";
-
-        streak.style.height =
-            "1px";
-
-        streak.style.left =
-            (
-                65 +
-                Math.random()*25
-            ) + "%";
-
-        streak.style.top =
-            (
-                8 +
-                Math.random()*25
-            ) + "%";
-
-        streak.style.zIndex =
-            "-2";
-
-        streak.style.pointerEvents =
-            "none";
-
-        streak.style.background =
-            `
-            linear-gradient(
-                90deg,
-                transparent,
-                rgba(255,239,197,.92),
-                transparent
-            )
-            `;
-
-        streak.style.boxShadow =
-            `
-            0 0 10px
-            rgba(242,213,154,.45)
-            `;
-
-        streak.style.transform =
-            "rotate(-28deg)";
-
-
-        document.body.appendChild(
-            streak
-        );
-
-
-        const animation =
-            streak.animate(
-                [
-                    {
-                        opacity:0,
-                        transform:
-                            "translate(0,0) rotate(-28deg)"
-                    },
-
-                    {
-                        opacity:.7
-                    },
-
-                    {
-                        opacity:0,
-                        transform:
-                            "translate(-260px,165px) rotate(-28deg)"
-                    }
-
-                ],
-                {
-                    duration:1700,
-                    easing:"ease-out"
-                }
-            );
-
-
-        animation.onfinish =
-            () =>
-                streak.remove();
-
-    }
-
-
-    setInterval(
-        createLightStreak,
-        8500
+      }
     );
 
+  }
 
-    /* =========================================
-       MAGNETIC BUTTON FEEL
-    ========================================= */
+
+  /* =====================================================
+     LIGHT STREAKS
+  ===================================================== */
+
+  function createLightStreak() {
+
+    if (window.innerWidth < 700) {
+      return;
+    }
+
+    const streak =
+      document.createElement("div");
+
+    streak.style.position = "fixed";
+    streak.style.width = "110px";
+    streak.style.height = "1px";
+
+    streak.style.left =
+      `${65 + Math.random() * 25}%`;
+
+    streak.style.top =
+      `${8 + Math.random() * 28}%`;
+
+    streak.style.zIndex = "-2";
+    streak.style.pointerEvents = "none";
+
+    streak.style.background =
+      `
+      linear-gradient(
+        90deg,
+        transparent,
+        rgba(221,255,172,.85),
+        transparent
+      )
+      `;
+
+    streak.style.boxShadow =
+      "0 0 10px rgba(199,255,74,.32)";
+
+    streak.style.transform =
+      "rotate(-26deg)";
+
+    document.body.appendChild(
+      streak
+    );
+
+    const animation =
+      streak.animate(
+        [
+          {
+            opacity: 0,
+            transform:
+              "translate(0,0) rotate(-26deg)"
+          },
+          {
+            opacity: 0.75
+          },
+          {
+            opacity: 0,
+            transform:
+              "translate(-260px,165px) rotate(-26deg)"
+          }
+        ],
+        {
+          duration: 1600,
+          easing: "ease-out"
+        }
+      );
+
+    animation.onfinish = () => {
+      streak.remove();
+    };
+  }
+
+  setInterval(
+    createLightStreak,
+    9000
+  );
+
+
+  /* =====================================================
+     MAGNETIC BUTTONS
+  ===================================================== */
+
+  if (window.innerWidth >= 900) {
 
     document
-        .querySelectorAll(
-            ".btn"
-        )
-        .forEach(
-            button => {
+      .querySelectorAll(
+        ".btn, .nav-cta"
+      )
+      .forEach((button) => {
 
-                button.addEventListener(
-                    "pointermove",
-                    event => {
+        button.addEventListener(
+          "pointermove",
+          (event) => {
 
-                        if(
-                            window.innerWidth < 900
-                        ){
+            const rect =
+              button.getBoundingClientRect();
 
-                            return;
+            const x =
+              (
+                event.clientX -
+                rect.left -
+                rect.width / 2
+              ) * 0.05;
 
-                        }
+            const y =
+              (
+                event.clientY -
+                rect.top -
+                rect.height / 2
+              ) * 0.05;
 
+            button.style.transform =
+              `
+              translate(
+                ${x}px,
+                ${y}px
+              )
+              `;
 
-                        const rect =
-                            button.getBoundingClientRect();
-
-
-                        const x =
-                            (
-                                event.clientX -
-                                rect.left -
-                                rect.width/2
-                            ) * .08;
-
-
-                        const y =
-                            (
-                                event.clientY -
-                                rect.top -
-                                rect.height/2
-                            ) * .08;
-
-
-                        button.style.transform =
-                            `
-                            translate(
-                                ${x}px,
-                                ${y}px
-                            )
-                            `;
-
-                    },
-                    {
-                        passive:true
-                    }
-                );
-
-
-                button.addEventListener(
-                    "pointerleave",
-                    () => {
-
-                        button.style.transform =
-                            "";
-
-                    }
-                );
-
-            }
+          },
+          { passive: true }
         );
+
+        button.addEventListener(
+          "pointerleave",
+          () => {
+            button.style.transform = "";
+          }
+        );
+
+      });
+
+  }
+
+
+  /* =====================================================
+     SMOOTH INTERNAL LINKS
+  ===================================================== */
+
+  document
+    .querySelectorAll(
+      'a[href^="#"]'
+    )
+    .forEach((link) => {
+
+      link.addEventListener(
+        "click",
+        (event) => {
+
+          const targetId =
+            link.getAttribute("href");
+
+          if (
+            !targetId ||
+            targetId === "#"
+          ) {
+            return;
+          }
+
+          const target =
+            document.querySelector(
+              targetId
+            );
+
+          if (!target) {
+            return;
+          }
+
+          event.preventDefault();
+
+          target.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+          });
+
+        }
+      );
+
+    });
 
 });
