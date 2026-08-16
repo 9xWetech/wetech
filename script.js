@@ -3,13 +3,17 @@ document.addEventListener(
     () => {
 
         /* =====================================
-           COSMIC BACKGROUND
+           GOLD PARTICLES
         ===================================== */
 
         const canvas =
-            document.getElementById(
-                "cosmicCanvas"
-            );
+            document.createElement("canvas");
+
+        canvas.id =
+            "goldCanvas";
+
+        document.body.prepend(canvas);
+
 
         const ctx =
             canvas.getContext("2d");
@@ -18,13 +22,7 @@ document.addEventListener(
         let width = 0;
         let height = 0;
 
-        let stars = [];
-
-
-        const mouse = {
-            x:-1000,
-            y:-1000
-        };
+        let particles = [];
 
 
         function resize(){
@@ -50,11 +48,23 @@ document.addEventListener(
                 height * dpr;
 
 
+            canvas.style.position =
+                "fixed";
+
+            canvas.style.inset =
+                "0";
+
             canvas.style.width =
-                width + "px";
+                "100%";
 
             canvas.style.height =
-                height + "px";
+                "100%";
+
+            canvas.style.pointerEvents =
+                "none";
+
+            canvas.style.zIndex =
+                "-3";
 
 
             ctx.setTransform(
@@ -67,53 +77,42 @@ document.addEventListener(
             );
 
 
-            createStars();
-
-        }
-
-
-        function createStars(){
-
             const count =
                 width < 700
-                    ? 28
-                    : 58;
+                    ? 22
+                    : 42;
 
 
-            stars =
+            particles =
                 Array.from(
                     {length:count},
                     () => ({
 
                         x:
-                            Math.random()
-                            * width,
+                            Math.random()*width,
 
                         y:
-                            Math.random()
-                            * height,
+                            Math.random()*height,
 
                         vx:
                             (
                                 Math.random()
                                 -.5
-                            ) * .12,
+                            )*.10,
 
                         vy:
                             (
                                 Math.random()
                                 -.5
-                            ) * .12,
+                            )*.10,
 
                         r:
-                            Math.random()
-                            * 1.3
-                            + .25,
+                            Math.random()*1.1
+                            +.3,
 
-                        a:
-                            Math.random()
-                            * .45
-                            + .12
+                        alpha:
+                            Math.random()*.30
+                            +.08
 
                     })
                 );
@@ -133,24 +132,29 @@ document.addEventListener(
         );
 
 
-        window.addEventListener(
-            "pointermove",
-            e => {
+        let last =
+            0;
 
-                mouse.x =
-                    e.clientX;
 
-                mouse.y =
-                    e.clientY;
+        function animate(time){
 
-            },
-            {
-                passive:true
+            if(
+                time-last <
+                1000/40
+            ){
+
+                requestAnimationFrame(
+                    animate
+                );
+
+                return;
+
             }
-        );
 
 
-        function draw(){
+            last =
+                time;
+
 
             ctx.clearRect(
                 0,
@@ -160,102 +164,74 @@ document.addEventListener(
             );
 
 
-            for(
-                const star of stars
-            ){
+            particles.forEach(
+                p => {
 
-                star.x += star.vx;
-                star.y += star.vy;
+                    p.x += p.vx;
 
-
-                if(star.x < -10)
-                    star.x = width + 10;
-
-                if(star.x > width + 10)
-                    star.x = -10;
+                    p.y += p.vy;
 
 
-                if(star.y < -10)
-                    star.y = height + 10;
+                    if(p.x < -10)
+                        p.x = width+10;
 
-                if(star.y > height + 10)
-                    star.y = -10;
+                    if(p.x > width+10)
+                        p.x = -10;
+
+                    if(p.y < -10)
+                        p.y = height+10;
+
+                    if(p.y > height+10)
+                        p.y = -10;
 
 
-                const dx =
-                    mouse.x -
-                    star.x;
+                    ctx.beginPath();
 
-                const dy =
-                    mouse.y -
-                    star.y;
-
-                const distance =
-                    Math.sqrt(
-                        dx * dx +
-                        dy * dy
+                    ctx.arc(
+                        p.x,
+                        p.y,
+                        p.r,
+                        0,
+                        Math.PI*2
                     );
 
 
-                if(
-                    distance < 140
-                ){
+                    ctx.fillStyle =
+                        `rgba(
+                            214,
+                            179,
+                            106,
+                            ${p.alpha}
+                        )`;
 
-                    star.x -=
-                        dx * .0012;
 
-                    star.y -=
-                        dy * .0012;
+                    ctx.shadowBlur =
+                        8;
+
+                    ctx.shadowColor =
+                        "rgba(214,179,106,.35)";
+
+
+                    ctx.fill();
 
                 }
-
-
-                ctx.beginPath();
-
-                ctx.arc(
-                    star.x,
-                    star.y,
-                    star.r,
-                    0,
-                    Math.PI * 2
-                );
-
-
-                ctx.fillStyle =
-                    `rgba(
-                        120,
-                        225,
-                        255,
-                        ${star.a}
-                    )`;
-
-
-                ctx.shadowBlur =
-                    7;
-
-                ctx.shadowColor =
-                    "rgba(34,211,238,.5)";
-
-
-                ctx.fill();
-
-            }
+            );
 
 
             requestAnimationFrame(
-                draw
+                animate
             );
 
         }
 
 
         requestAnimationFrame(
-            draw
+            animate
         );
 
 
         /* =====================================
-           CHARACTER PARALLAX
+           HERO PARALLAX
         ===================================== */
 
         const hero =
@@ -264,15 +240,15 @@ document.addEventListener(
             );
 
 
-        const character =
-            document.getElementById(
-                "waiCharacter"
+        const visual =
+            document.querySelector(
+                ".hero-visual"
             );
 
 
         if(
             hero &&
-            character &&
+            visual &&
             window.innerWidth >= 900
         ){
 
@@ -281,22 +257,23 @@ document.addEventListener(
                 event => {
 
                     const x =
-                        event.clientX /
+                        event.clientX/
                         window.innerWidth
                         -.5;
 
 
                     const y =
-                        event.clientY /
+                        event.clientY/
                         window.innerHeight
                         -.5;
 
 
-                    character.style.transform =
+                    visual.style.transform =
                         `
-                        translate(
-                            ${x * 9}px,
-                            ${y * 7}px
+                        translate3d(
+                            ${x*9}px,
+                            ${y*8}px,
+                            0
                         )
                         `;
 
@@ -311,7 +288,7 @@ document.addEventListener(
                 "pointerleave",
                 () => {
 
-                    character.style.transform =
+                    visual.style.transform =
                         "";
 
                 }
@@ -321,82 +298,72 @@ document.addEventListener(
 
 
         /* =====================================
-           W.A.I. SPEECH INTERACTION
+           SCROLL REVEAL
         ===================================== */
 
-        const speech =
-            document.getElementById(
-                "waiSpeech"
-            );
-
-
-        const buttons =
+        const revealElements =
             document.querySelectorAll(
-                ".assistant-actions button"
+                ".service-card," +
+                ".work-card," +
+                ".process-step," +
+                ".pricing-card," +
+                ".contact-card"
             );
 
 
-        const defaultMessage =
-            "Hey 👋 I'm W.A.I. Your digital assistant.";
+        revealElements.forEach(
+            element => {
 
+                element.style.opacity =
+                    "0";
 
-        buttons.forEach(
-            button => {
+                element.style.transform =
+                    "translateY(25px)";
 
-                button.addEventListener(
-                    "click",
-                    () => {
-
-                        const message =
-                            button.dataset.message;
-
-
-                        if(!speech)
-                            return;
-
-
-                        speech.animate(
-                            [
-                                {
-                                    opacity:.4,
-                                    transform:
-                                        "translateY(5px)"
-                                },
-
-                                {
-                                    opacity:1,
-                                    transform:
-                                        "translateY(0)"
-                                }
-
-                            ],
-                            {
-                                duration:
-                                    300
-                            }
-                        );
-
-
-                        speech.textContent =
-                            "Got it — " +
-                            message +
-                            ". Let's build something great.";
-
-
-                        setTimeout(
-                            () => {
-
-                                speech.textContent =
-                                    defaultMessage;
-
-                            },
-                            3800
-                        );
-
-                    }
-                );
+                element.style.transition =
+                    "opacity .7s ease," +
+                    "transform .7s ease";
 
             }
+        );
+
+
+        const observer =
+            new IntersectionObserver(
+                entries => {
+
+                    entries.forEach(
+                        entry => {
+
+                            if(
+                                entry.isIntersecting
+                            ){
+
+                                entry.target.style.opacity =
+                                    "1";
+
+                                entry.target.style.transform =
+                                    "translateY(0)";
+
+                                observer.unobserve(
+                                    entry.target
+                                );
+
+                            }
+
+                        }
+                    );
+
+                },
+                {
+                    threshold:.08
+                }
+            );
+
+
+        revealElements.forEach(
+            el =>
+                observer.observe(el)
         );
 
 
@@ -442,82 +409,52 @@ document.addEventListener(
 
 
         /* =====================================
-           SCROLL REVEAL
+           BUTTON LIGHT SWEEP
         ===================================== */
 
-        const cards =
-            document.querySelectorAll(
-                ".service-card," +
-                ".work-card," +
-                ".process-card," +
-                ".pricing-card," +
-                ".contact-panel"
-            );
+        document
+            .querySelectorAll(
+                ".button"
+            )
+            .forEach(
+                button => {
 
+                    button.addEventListener(
+                        "pointerenter",
+                        () => {
 
-        cards.forEach(
-            card => {
+                            button.animate(
+                                [
+                                    {
+                                        backgroundPosition:
+                                            "-150% center"
+                                    },
 
-                card.style.opacity =
-                    "0";
+                                    {
+                                        backgroundPosition:
+                                            "150% center"
+                                    }
 
-                card.style.transform =
-                    "translateY(22px)";
-
-                card.style.transition =
-                    "opacity .65s ease," +
-                    "transform .65s ease";
-
-            }
-        );
-
-
-        const observer =
-            new IntersectionObserver(
-                entries => {
-
-                    entries.forEach(
-                        entry => {
-
-                            if(
-                                entry.isIntersecting
-                            ){
-
-                                entry.target.style.opacity =
-                                    "1";
-
-                                entry.target.style.transform =
-                                    "translateY(0)";
-
-                                observer.unobserve(
-                                    entry.target
-                                );
-
-                            }
+                                ],
+                                {
+                                    duration:600,
+                                    easing:
+                                        "ease-out"
+                                }
+                            );
 
                         }
                     );
 
-                },
-                {
-                    threshold:.08
                 }
             );
 
 
-        cards.forEach(
-            card =>
-                observer.observe(
-                    card
-                )
-        );
-
-
         /* =====================================
-           LIGHTWEIGHT SHOOTING STARS
+           SHOOTING LIGHT
         ===================================== */
 
-        function shootingStar(){
+        function createLight(){
 
             if(
                 window.innerWidth < 700
@@ -528,105 +465,93 @@ document.addEventListener(
             }
 
 
-            const star =
+            const line =
                 document.createElement(
                     "div"
                 );
 
 
-            star.style.position =
+            line.style.position =
                 "fixed";
 
-            star.style.width =
+            line.style.width =
                 "110px";
 
-            star.style.height =
+            line.style.height =
                 "1px";
 
-            star.style.left =
-                (
-                    60 +
-                    Math.random() * 30
-                ) + "%";
+            line.style.left =
+                (65+
+                Math.random()*25)+"%";
 
-            star.style.top =
-                (
-                    8 +
-                    Math.random() * 30
-                ) + "%";
+            line.style.top =
+                (8+
+                Math.random()*25)+"%";
 
-            star.style.zIndex =
-                "-3";
+            line.style.zIndex =
+                "-2";
 
-            star.style.pointerEvents =
+            line.style.pointerEvents =
                 "none";
 
-            star.style.background =
+            line.style.background =
                 `
                 linear-gradient(
                     90deg,
                     transparent,
-                    rgba(150,240,255,.9),
+                    rgba(240,220,168,.9),
                     transparent
                 )
                 `;
 
-            star.style.transform =
+            line.style.transform =
                 "rotate(-28deg)";
 
 
             document.body.appendChild(
-                star
+                line
             );
 
 
             const animation =
-                star.animate(
+                line.animate(
                     [
                         {
                             opacity:0,
 
                             transform:
                                 "translate(0,0) rotate(-28deg)"
-
                         },
 
                         {
-                            opacity:.85
+                            opacity:.65
                         },
 
                         {
                             opacity:0,
 
                             transform:
-                                "translate(-260px,160px) rotate(-28deg)"
-
+                                "translate(-250px,160px) rotate(-28deg)"
                         }
 
                     ],
                     {
-                        duration:
-                            1700,
-
-                        easing:
-                            "ease-out"
+                        duration:1600,
+                        easing:"ease-out"
                     }
                 );
 
 
             animation.onfinish =
-                () => {
-
-                    star.remove();
-
-                };
+                () =>
+                    line.remove();
 
         }
 
 
         setInterval(
-            shootingStar,
-            9000
+            createLight,
+            8500
         );
 
     }
