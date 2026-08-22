@@ -2,271 +2,261 @@ document.addEventListener(
   "DOMContentLoaded",
   () => {
 
-    /* =========================================
+    /* =========================
        BACKGROUND PARTICLES
-    ========================================= */
+    ========================= */
 
     const canvas =
       document.getElementById(
-        "techCanvas"
+        "backgroundCanvas"
       );
 
-    const ctx =
-      canvas.getContext("2d");
+    if (canvas) {
 
+      const ctx =
+        canvas.getContext("2d");
 
-    let width = 0;
+      let width = 0;
+      let height = 0;
 
-    let height = 0;
+      let particles = [];
 
-    let particles = [];
 
+      function resizeCanvas() {
 
-    function resizeCanvas(){
-
-      const dpr =
-        Math.min(
-          window.devicePixelRatio || 1,
-          1.35
-        );
-
-
-      width =
-        window.innerWidth;
-
-      height =
-        window.innerHeight;
-
-
-      canvas.width =
-        Math.floor(
-          width * dpr
-        );
-
-
-      canvas.height =
-        Math.floor(
-          height * dpr
-        );
-
-
-      canvas.style.width =
-        width + "px";
-
-      canvas.style.height =
-        height + "px";
-
-
-      ctx.setTransform(
-        dpr,
-        0,
-        0,
-        dpr,
-        0,
-        0
-      );
-
-
-      const amount =
-        width < 700
-          ? 24
-          : 48;
-
-
-      particles =
-        Array.from(
-          {
-            length:
-              amount
-          },
-          () => ({
-
-            x:
-              Math.random() *
-              width,
-
-            y:
-              Math.random() *
-              height,
-
-            vx:
-              (
-                Math.random()
-                - 0.5
-              ) * 0.10,
-
-            vy:
-              (
-                Math.random()
-                - 0.5
-              ) * 0.10,
-
-            radius:
-              Math.random()
-              * 1.1
-              + 0.25,
-
-            alpha:
-              Math.random()
-              * 0.24
-              + 0.06
-
-          })
-        );
-
-    }
-
-
-    resizeCanvas();
-
-
-    window.addEventListener(
-      "resize",
-      resizeCanvas,
-      {
-        passive:
-          true
-      }
-    );
-
-
-    let lastFrame = 0;
-
-
-    function animateParticles(
-      timestamp
-    ){
-
-      if(
-        timestamp -
-        lastFrame
-        <
-        1000 / 40
-      ){
-
-        requestAnimationFrame(
-          animateParticles
-        );
-
-        return;
-
-      }
-
-
-      lastFrame =
-        timestamp;
-
-
-      ctx.clearRect(
-        0,
-        0,
-        width,
-        height
-      );
-
-
-      particles.forEach(
-        particle => {
-
-          particle.x +=
-            particle.vx;
-
-          particle.y +=
-            particle.vy;
-
-
-          if(
-            particle.x < -10
-          ){
-
-            particle.x =
-              width + 10;
-
-          }
-
-
-          if(
-            particle.x >
-            width + 10
-          ){
-
-            particle.x =
-              -10;
-
-          }
-
-
-          if(
-            particle.y < -10
-          ){
-
-            particle.y =
-              height + 10;
-
-          }
-
-
-          if(
-            particle.y >
-            height + 10
-          ){
-
-            particle.y =
-              -10;
-
-          }
-
-
-          ctx.beginPath();
-
-
-          ctx.arc(
-            particle.x,
-            particle.y,
-            particle.radius,
-            0,
-            Math.PI * 2
+        const dpr =
+          Math.min(
+            window.devicePixelRatio || 1,
+            1.25
           );
 
 
-          ctx.fillStyle =
-            `rgba(
-              213,
-              229,
-              235,
-              ${particle.alpha}
-            )`;
+        width =
+          window.innerWidth;
+
+        height =
+          window.innerHeight;
 
 
-          ctx.shadowBlur =
-            6;
+        canvas.width =
+          Math.floor(
+            width * dpr
+          );
 
 
-          ctx.shadowColor =
-            "rgba(199,255,74,.24)";
+        canvas.height =
+          Math.floor(
+            height * dpr
+          );
 
 
-          ctx.fill();
+        canvas.style.width =
+          width + "px";
 
+        canvas.style.height =
+          height + "px";
+
+
+        ctx.setTransform(
+          dpr,
+          0,
+          0,
+          dpr,
+          0,
+          0
+        );
+
+
+        const count =
+          width < 700
+            ? 20
+            : 42;
+
+
+        particles =
+          Array.from(
+            { length: count },
+            () => ({
+
+              x:
+                Math.random() *
+                width,
+
+              y:
+                Math.random() *
+                height,
+
+              vx:
+                (
+                  Math.random()
+                  - 0.5
+                ) * 0.10,
+
+              vy:
+                (
+                  Math.random()
+                  - 0.5
+                ) * 0.10,
+
+              radius:
+                Math.random()
+                * 1.1
+                + 0.25,
+
+              opacity:
+                Math.random()
+                * 0.20
+                + 0.05
+
+            })
+          );
+
+      }
+
+
+      resizeCanvas();
+
+
+      window.addEventListener(
+        "resize",
+        resizeCanvas,
+        {
+          passive: true
         }
       );
 
 
+      let lastFrame =
+        0;
+
+
+      function animate(
+        timestamp
+      ) {
+
+        if (
+          timestamp -
+          lastFrame
+          <
+          1000 / 40
+        ) {
+
+          requestAnimationFrame(
+            animate
+          );
+
+          return;
+        }
+
+
+        lastFrame =
+          timestamp;
+
+
+        ctx.clearRect(
+          0,
+          0,
+          width,
+          height
+        );
+
+
+        particles.forEach(
+          particle => {
+
+            particle.x +=
+              particle.vx;
+
+            particle.y +=
+              particle.vy;
+
+
+            if (
+              particle.x < -10
+            ) {
+
+              particle.x =
+                width + 10;
+
+            }
+
+
+            if (
+              particle.x >
+              width + 10
+            ) {
+
+              particle.x =
+                -10;
+
+            }
+
+
+            if (
+              particle.y < -10
+            ) {
+
+              particle.y =
+                height + 10;
+
+            }
+
+
+            if (
+              particle.y >
+              height + 10
+            ) {
+
+              particle.y =
+                -10;
+
+            }
+
+
+            ctx.beginPath();
+
+
+            ctx.arc(
+              particle.x,
+              particle.y,
+              particle.radius,
+              0,
+              Math.PI * 2
+            );
+
+
+            ctx.fillStyle =
+              `rgba(
+                218,
+                229,
+                234,
+                ${particle.opacity}
+              )`;
+
+
+            ctx.fill();
+
+          }
+        );
+
+
+        requestAnimationFrame(
+          animate
+        );
+
+      }
+
+
       requestAnimationFrame(
-        animateParticles
+        animate
       );
 
     }
 
 
-    requestAnimationFrame(
-      animateParticles
-    );
-
-
-    /* =========================================
+    /* =========================
        HERO PARALLAX
-    ========================================= */
+    ========================= */
 
     const hero =
       document.querySelector(
@@ -274,17 +264,17 @@ document.addEventListener(
       );
 
 
-    const heroObject =
+    const visual =
       document.querySelector(
-        ".hero-object"
+        ".hero-visual"
       );
 
 
-    if(
+    if (
       hero &&
-      heroObject &&
+      visual &&
       window.innerWidth >= 900
-    ){
+    ) {
 
       hero.addEventListener(
         "pointermove",
@@ -302,19 +292,18 @@ document.addEventListener(
             - 0.5;
 
 
-          heroObject.style.transform =
+          visual.style.transform =
             `
             translate3d(
-              ${x * 10}px,
-              ${y * 8}px,
+              ${x * 9}px,
+              ${y * 7}px,
               0
             )
             `;
 
         },
         {
-          passive:
-            true
+          passive: true
         }
       );
 
@@ -323,7 +312,7 @@ document.addEventListener(
         "pointerleave",
         () => {
 
-          heroObject.style.transform =
+          visual.style.transform =
             "";
 
         }
@@ -332,20 +321,123 @@ document.addEventListener(
     }
 
 
-    /* =========================================
-       SCROLL REVEAL
-    ========================================= */
+    /* =========================
+       CARD HOVER
+    ========================= */
 
-    const revealElements =
+    if (
+      window.innerWidth >= 900
+    ) {
+
+      const interactiveCards =
+        document.querySelectorAll(
+          ".featured-service, " +
+          ".service-row, " +
+          ".work-card, " +
+          ".pricing-card"
+        );
+
+
+      interactiveCards.forEach(
+        card => {
+
+          card.addEventListener(
+            "pointermove",
+            event => {
+
+              const rect =
+                card.getBoundingClientRect();
+
+
+              const x =
+                (
+                  event.clientX -
+                  rect.left
+                )
+                /
+                rect.width
+                - 0.5;
+
+
+              const y =
+                (
+                  event.clientY -
+                  rect.top
+                )
+                /
+                rect.height
+                - 0.5;
+
+
+              card.style.transform =
+                `
+                perspective(900px)
+                rotateX(${y * -1.5}deg)
+                rotateY(${x * 1.5}deg)
+                translateY(-4px)
+                `;
+
+            },
+            {
+              passive: true
+            }
+          );
+
+
+          card.addEventListener(
+            "pointerleave",
+            () => {
+
+              card.style.transform =
+                "";
+
+            }
+          );
+
+        }
+      );
+
+    }
+
+
+    /* =========================
+       SCROLL REVEAL
+    ========================= */
+
+    const sections =
       document.querySelectorAll(
-        ".reveal-up"
+        ".section-heading, " +
+        ".featured-service, " +
+        ".service-row, " +
+        ".work-card, " +
+        ".process-item, " +
+        ".pricing-card, " +
+        ".contact-box, " +
+        ".statement-content"
       );
 
 
-    if(
+    sections.forEach(
+      element => {
+
+        element.style.opacity =
+          "0";
+
+        element.style.transform =
+          "translateY(22px)";
+
+        element.style.transition =
+          "opacity .7s ease, " +
+          "transform .7s ease";
+
+      }
+    );
+
+
+    if (
       "IntersectionObserver"
       in window
-    ){
+    ) {
 
       const observer =
         new IntersectionObserver(
@@ -354,13 +446,15 @@ document.addEventListener(
             entries.forEach(
               entry => {
 
-                if(
+                if (
                   entry.isIntersecting
-                ){
+                ) {
 
-                  entry.target.classList.add(
-                    "is-visible"
-                  );
+                  entry.target.style.opacity =
+                    "1";
+
+                  entry.target.style.transform =
+                    "translateY(0)";
 
 
                   observer.unobserve(
@@ -380,114 +474,35 @@ document.addEventListener(
         );
 
 
-      revealElements.forEach(
-        element => {
-
+      sections.forEach(
+        section =>
           observer.observe(
-            element
-          );
+            section
+          )
+      );
+
+    }
+    else {
+
+      sections.forEach(
+        section => {
+
+          section.style.opacity =
+            "1";
+
+          section.style.transform =
+            "none";
 
         }
       );
 
     }
-    else{
-
-      revealElements.forEach(
-        element => {
-
-          element.classList.add(
-            "is-visible"
-          );
-
-        }
-      );
-
-    }
 
 
-    /* =========================================
-       CARD INTERACTION
-    ========================================= */
-
-    if(
-      window.innerWidth >= 900
-    ){
-
-      document
-        .querySelectorAll(
-          ".service-row," +
-          ".service-feature," +
-          ".work-main," +
-          ".work-side," +
-          ".price-card"
-        )
-        .forEach(
-          card => {
-
-            card.addEventListener(
-              "pointermove",
-              event => {
-
-                const rect =
-                  card.getBoundingClientRect();
-
-
-                const x =
-                  (
-                    event.clientX -
-                    rect.left
-                  )
-                  /
-                  rect.width
-                  - 0.5;
-
-
-                const y =
-                  (
-                    event.clientY -
-                    rect.top
-                  )
-                  /
-                  rect.height
-                  - 0.5;
-
-
-                card.style.transform =
-                  `
-                  perspective(900px)
-                  rotateX(${y * -1.8}deg)
-                  rotateY(${x * 1.8}deg)
-                  translateY(-4px)
-                  `;
-
-              },
-              {
-                passive:
-                  true
-              }
-            );
-
-
-            card.addEventListener(
-              "pointerleave",
-              () => {
-
-                card.style.transform =
-                  "";
-
-              }
-            );
-
-          }
-        );
-
-    }
-
-
-    /* =========================================
-       REAL ENQUIRY FORM
-    ========================================= */
+    /* =========================
+       TEMPORARY CONTACT FORM
+       NO BACKEND YET
+    ========================= */
 
     const form =
       document.getElementById(
@@ -501,145 +516,19 @@ document.addEventListener(
       );
 
 
-    if(form){
+    if (form) {
 
       form.addEventListener(
         "submit",
-        async event => {
+        event => {
 
           event.preventDefault();
 
 
-          const submitButton =
-            form.querySelector(
-              'button[type="submit"]'
-            );
-
-
-          const originalText =
-            submitButton
-              ? submitButton.innerHTML
-              : "";
-
-
-          if(
-            submitButton
-          ){
-
-            submitButton.disabled =
-              true;
-
-            submitButton.innerHTML =
-              "Sending...";
-
-          }
-
-
-          if(
-            formMessage
-          ){
+          if (formMessage) {
 
             formMessage.textContent =
-              "";
-
-          }
-
-
-          const formData =
-            new FormData(form);
-
-
-          const payload =
-            Object.fromEntries(
-              formData.entries()
-            );
-
-
-          try{
-
-            const response =
-              await fetch(
-                "/api/contact",
-                {
-                  method:
-                    "POST",
-
-                  headers:{
-                    "Content-Type":
-                      "application/json"
-                  },
-
-                  body:
-                    JSON.stringify(
-                      payload
-                    )
-
-                }
-              );
-
-
-            const result =
-              await response.json();
-
-
-            if(
-              !response.ok ||
-              !result.success
-            ){
-
-              throw new Error(
-                result.message ||
-                "Unable to send enquiry."
-              );
-
-            }
-
-
-            if(
-              formMessage
-            ){
-
-              formMessage.textContent =
-                "✓ Enquiry received. Thanks for reaching out to Wetech — we'll be in touch shortly.";
-
-            }
-
-
-            form.reset();
-
-
-          }
-          catch(error){
-
-            console.error(
-              "Enquiry error:",
-              error
-            );
-
-
-            if(
-              formMessage
-            ){
-
-              formMessage.textContent =
-                "Sorry, we couldn't send your enquiry. Please try again or contact us on WhatsApp.";
-
-            }
-
-          }
-          finally{
-
-            if(
-              submitButton
-            ){
-
-              submitButton.disabled =
-                false;
-
-              submitButton.innerHTML =
-                originalText;
-
-            }
+              "Enquiry system is being connected. Please contact us on WhatsApp for now.";
 
           }
 
@@ -649,263 +538,139 @@ document.addEventListener(
     }
 
 
-    /* =========================================
-       LIGHT STREAKS
-    ========================================= */
+    /* =========================
+       BUTTON MAGNETIC EFFECT
+    ========================= */
 
-    function createLightStreak(){
-
-      if(
-        window.innerWidth < 700
-      ){
-
-        return;
-
-      }
-
-
-      const streak =
-        document.createElement(
-          "div"
-        );
-
-
-      streak.style.position =
-        "fixed";
-
-      streak.style.width =
-        "110px";
-
-      streak.style.height =
-        "1px";
-
-      streak.style.left =
-        (
-          65 +
-          Math.random() * 25
-        ) + "%";
-
-      streak.style.top =
-        (
-          8 +
-          Math.random() * 28
-        ) + "%";
-
-      streak.style.zIndex =
-        "-2";
-
-      streak.style.pointerEvents =
-        "none";
-
-      streak.style.background =
-        `
-        linear-gradient(
-          90deg,
-          transparent,
-          rgba(221,255,172,.85),
-          transparent
-        )
-        `;
-
-      streak.style.boxShadow =
-        "0 0 10px rgba(199,255,74,.32)";
-
-      streak.style.transform =
-        "rotate(-26deg)";
-
-
-      document.body.appendChild(
-        streak
-      );
-
-
-      const animation =
-        streak.animate(
-          [
-            {
-              opacity:
-                0,
-
-              transform:
-                "translate(0,0) rotate(-26deg)"
-            },
-
-            {
-              opacity:
-                0.75
-            },
-
-            {
-              opacity:
-                0,
-
-              transform:
-                "translate(-260px,165px) rotate(-26deg)"
-            }
-
-          ],
-          {
-            duration:
-              1600,
-
-            easing:
-              "ease-out"
-          }
-        );
-
-
-      animation.onfinish =
-        () => {
-
-          streak.remove();
-
-        };
-
-    }
-
-
-    setInterval(
-      createLightStreak,
-      9000
-    );
-
-
-    /* =========================================
-       MAGNETIC BUTTONS
-    ========================================= */
-
-    if(
+    if (
       window.innerWidth >= 900
-    ){
+    ) {
 
-      document
-        .querySelectorAll(
-          ".btn, .nav-cta"
-        )
-        .forEach(
-          button => {
-
-            button.addEventListener(
-              "pointermove",
-              event => {
-
-                const rect =
-                  button.getBoundingClientRect();
-
-
-                const x =
-                  (
-                    event.clientX -
-                    rect.left -
-                    rect.width / 2
-                  )
-                  * 0.05;
-
-
-                const y =
-                  (
-                    event.clientY -
-                    rect.top -
-                    rect.height / 2
-                  )
-                  * 0.05;
-
-
-                button.style.transform =
-                  `
-                  translate(
-                    ${x}px,
-                    ${y}px
-                  )
-                  `;
-
-              },
-              {
-                passive:
-                  true
-              }
-            );
-
-
-            button.addEventListener(
-              "pointerleave",
-              () => {
-
-                button.style.transform =
-                  "";
-
-              }
-            );
-
-          }
+      const buttons =
+        document.querySelectorAll(
+          ".button, .nav-button"
         );
 
-    }
 
+      buttons.forEach(
+        button => {
 
-    /* =========================================
-       INTERNAL LINKS
-    ========================================= */
-
-    document
-      .querySelectorAll(
-        'a[href^="#"]'
-      )
-      .forEach(
-        link => {
-
-          link.addEventListener(
-            "click",
+          button.addEventListener(
+            "pointermove",
             event => {
 
-              const targetId =
-                link.getAttribute(
-                  "href"
-                );
+              const rect =
+                button.getBoundingClientRect();
 
 
-              if(
-                !targetId ||
-                targetId === "#"
-              ){
-
-                return;
-
-              }
-
-
-              const target =
-                document.querySelector(
-                  targetId
-                );
+              const x =
+                (
+                  event.clientX -
+                  rect.left -
+                  rect.width / 2
+                )
+                * 0.04;
 
 
-              if(
-                !target
-              ){
-
-                return;
-
-              }
-
-
-              event.preventDefault();
+              const y =
+                (
+                  event.clientY -
+                  rect.top -
+                  rect.height / 2
+                )
+                * 0.04;
 
 
-              target.scrollIntoView({
-                behavior:
-                  "smooth",
+              button.style.transform =
+                `
+                translate(
+                  ${x}px,
+                  ${y}px
+                )
+                `;
 
-                block:
-                  "start"
+            },
+            {
+              passive: true
+            }
+          );
 
-              });
+
+          button.addEventListener(
+            "pointerleave",
+            () => {
+
+              button.style.transform =
+                "";
 
             }
           );
 
         }
       );
+
+    }
+
+
+    /* =========================
+       SMOOTH ANCHOR LINKS
+    ========================= */
+
+    const anchorLinks =
+      document.querySelectorAll(
+        'a[href^="#"]'
+      );
+
+
+    anchorLinks.forEach(
+      link => {
+
+        link.addEventListener(
+          "click",
+          event => {
+
+            const targetId =
+              link.getAttribute(
+                "href"
+              );
+
+
+            if (
+              !targetId ||
+              targetId === "#"
+            ) {
+
+              return;
+
+            }
+
+
+            const target =
+              document.querySelector(
+                targetId
+              );
+
+
+            if (!target) {
+
+              return;
+
+            }
+
+
+            event.preventDefault();
+
+
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start"
+            });
+
+          }
+        );
+
+      }
+    );
 
   }
 );
