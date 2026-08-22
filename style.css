@@ -1,27 +1,52 @@
 :root{
 
-  --black:#050607;
-  --graphite:#0b0e11;
-  --graphite-2:#111519;
-  --graphite-3:#171c20;
+  --bg:
+    #050607;
 
-  --white:#f4f7f8;
-  --white-hot:#ffffff;
-  --silver:#c4ccd2;
+  --bg-2:
+    #090c0f;
 
-  --muted:#8d979e;
-  --muted-2:#69727a;
+  --surface:
+    #0d1114;
 
-  --lime:#c7ff4a;
-  --lime-soft:#a7e642;
+  --surface-2:
+    #12171b;
+
+  --surface-3:
+    #171d21;
+
+  --white:
+    #f4f7f8;
+
+  --white-hot:
+    #ffffff;
+
+  --silver:
+    #c6cfd5;
+
+  --muted:
+    #96a0a7;
+
+  --muted-dark:
+    #68737b;
+
+  --lime:
+    #c7ff4a;
+
+  --lime-light:
+    #ddff91;
 
   --line:
-    rgba(210,220,226,.12);
+    rgba(220,230,235,.11);
 
   --line-bright:
-    rgba(199,255,74,.26);
+    rgba(199,255,74,.24);
 }
 
+
+/* =========================
+   RESET
+========================= */
 
 *{
   box-sizing:border-box;
@@ -42,15 +67,16 @@ body{
     sans-serif;
 
   background:
+
     radial-gradient(
-      circle at 18% 14%,
-      rgba(255,255,255,.035),
-      transparent 25%
+      circle at 18% 10%,
+      rgba(255,255,255,.045),
+      transparent 24%
     ),
 
     radial-gradient(
-      circle at 84% 24%,
-      rgba(199,255,74,.028),
+      circle at 85% 20%,
+      rgba(199,255,74,.035),
       transparent 25%
     ),
 
@@ -58,87 +84,107 @@ body{
       180deg,
       #07090a 0%,
       #050607 55%,
-      #080a0c 100%
+      #080b0d 100%
     );
 
   color:
     var(--white);
 
-  overflow-x:hidden;
+  overflow-x:
+    hidden;
 
-  line-height:1.6;
+  line-height:
+    1.6;
 }
 
 
-body::before{
+body::after{
 
   content:"";
 
-  position:fixed;
+  position:
+    fixed;
 
-  inset:0;
+  inset:
+    0;
 
-  pointer-events:none;
+  pointer-events:
+    none;
 
-  z-index:9998;
+  z-index:
+    9997;
 
   background:
+
     radial-gradient(
       ellipse at center,
       transparent 52%,
-      rgba(0,0,0,.24)
+      rgba(0,0,0,.20)
     );
 }
 
 
-.bg-noise{
+a{
 
-  position:fixed;
+  color:
+    inherit;
 
-  inset:0;
-
-  pointer-events:none;
-
-  z-index:9997;
-
-  opacity:.018;
-
-  background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='.3'/%3E%3C/svg%3E");
-
+  text-decoration:
+    none;
 }
 
 
-.bg-glow{
+button,
+input,
+textarea{
 
-  position:fixed;
-
-  border-radius:50%;
-
-  pointer-events:none;
-
-  z-index:-7;
-
-  filter:blur(95px);
-
+  font:
+    inherit;
 }
 
 
-.glow-one{
+/* =========================
+   BACKGROUND
+========================= */
 
-  width:480px;
+.ambient{
 
-  height:480px;
+  position:
+    fixed;
 
-  top:-220px;
+  border-radius:
+    50%;
 
-  left:-190px;
+  pointer-events:
+    none;
+
+  z-index:
+    -8;
+
+  filter:
+    blur(100px);
+}
+
+
+.ambient-1{
+
+  width:
+    500px;
+
+  height:
+    500px;
+
+  left:
+    -200px;
+
+  top:
+    -220px;
 
   background:
-    rgba(255,255,255,.08);
+    rgba(255,255,255,.07);
 
   animation:
-    glowDriftA
+    ambientMove1
     18s
     ease-in-out
     infinite
@@ -146,51 +192,59 @@ body::before{
 }
 
 
-.glow-two{
+.ambient-2{
 
-  width:430px;
+  width:
+    420px;
 
-  height:430px;
+  height:
+    420px;
 
-  top:90px;
+  right:
+    -160px;
 
-  right:-180px;
+  top:
+    100px;
 
   background:
-    rgba(199,255,74,.07);
+    rgba(199,255,74,.055);
 
   animation:
-    glowDriftB
-    22s
+    ambientMove2
+    21s
     ease-in-out
     infinite
     alternate;
 }
 
 
-.glow-three{
+.ambient-3{
 
-  width:360px;
+  width:
+    360px;
 
-  height:360px;
+  height:
+    360px;
 
-  left:45%;
+  left:
+    42%;
 
-  bottom:-220px;
+  bottom:
+    -230px;
 
   background:
-    rgba(180,200,210,.05);
+    rgba(180,200,210,.045);
 
   animation:
-    glowDriftC
-    18s
+    ambientMove3
+    17s
     ease-in-out
     infinite
     alternate;
 }
 
 
-@keyframes glowDriftA{
+@keyframes ambientMove1{
 
   to{
 
@@ -199,56 +253,57 @@ body::before{
       scale(1.12);
 
   }
-
 }
 
 
-@keyframes glowDriftB{
+@keyframes ambientMove2{
 
   to{
 
     transform:
-      translate(-100px,120px)
+      translate(-100px,100px)
       scale(1.14);
 
   }
-
 }
 
 
-@keyframes glowDriftC{
+@keyframes ambientMove3{
 
   to{
 
     transform:
-      translateY(-100px)
+      translateY(-90px)
       scale(1.12);
 
   }
-
 }
 
 
-.bg-grid{
+.background-grid{
 
-  position:fixed;
+  position:
+    fixed;
 
-  inset:-70px;
+  inset:
+    -60px;
 
-  z-index:-6;
+  z-index:
+    -7;
 
-  pointer-events:none;
+  pointer-events:
+    none;
 
   background-image:
 
     linear-gradient(
-      rgba(190,205,214,.022) 1px,
+      rgba(190,205,214,.02) 1px,
       transparent 1px
     ),
 
     linear-gradient(
       90deg,
-      rgba(190,205,214,.022) 1px,
+      rgba(190,205,214,.02) 1px,
       transparent 1px
     );
 
@@ -263,14 +318,14 @@ body::before{
     );
 
   animation:
-    gridMove
+    backgroundDrift
     32s
     linear
     infinite;
 }
 
 
-@keyframes gridMove{
+@keyframes backgroundDrift{
 
   to{
 
@@ -278,49 +333,36 @@ body::before{
       translate(72px,72px);
 
   }
-
 }
 
 
-#techCanvas{
+#backgroundCanvas{
 
-  position:fixed;
+  position:
+    fixed;
 
-  inset:0;
+  inset:
+    0;
 
-  width:100%;
+  width:
+    100%;
 
-  height:100%;
+  height:
+    100%;
 
-  pointer-events:none;
+  pointer-events:
+    none;
 
-  z-index:-4;
+  z-index:
+    -5;
 }
 
 
-a{
-
-  color:inherit;
-
-  text-decoration:none;
-
-}
-
-
-button,
-input,
-textarea{
-
-  font:inherit;
-
-}
-
-
-/* ==============================
+/* =========================
    NAVIGATION
-============================== */
+========================= */
 
-.site-nav{
+.navbar{
 
   width:
     min(92%,1320px);
@@ -360,7 +402,7 @@ textarea{
     15px;
 
   background:
-    rgba(8,11,13,.76);
+    rgba(8,11,13,.78);
 
   backdrop-filter:
     blur(20px);
@@ -368,11 +410,10 @@ textarea{
   box-shadow:
     0 18px 50px
     rgba(0,0,0,.28);
-
 }
 
 
-.logo{
+.brand{
 
   display:
     flex;
@@ -382,11 +423,10 @@ textarea{
 
   gap:
     9px;
-
 }
 
 
-.logo-box{
+.brand-mark{
 
   width:
     36px;
@@ -405,7 +445,7 @@ textarea{
 
   border:
     1px solid
-    rgba(199,255,74,.32);
+    rgba(199,255,74,.30);
 
   border-radius:
     9px;
@@ -413,12 +453,12 @@ textarea{
   background:
     linear-gradient(
       145deg,
-      #d7ff7f,
-      #8fc52f
+      #dbff90,
+      #91c82b
     );
 
   color:
-    #111;
+    #12150c;
 
   font-family:
     "Manrope",
@@ -433,11 +473,10 @@ textarea{
   box-shadow:
     0 8px 26px
     rgba(199,255,74,.12);
-
 }
 
 
-.logo-text{
+.brand-name{
 
   font-family:
     "Manrope",
@@ -450,31 +489,28 @@ textarea{
     800;
 
   letter-spacing:
-    -1.1px;
-
+    -1px;
 }
 
 
-.logo-text span{
+.brand-name span{
 
   color:
     var(--lime);
-
 }
 
 
-.nav-menu{
+.nav-links{
 
   display:
     flex;
 
   gap:
     4px;
-
 }
 
 
-.nav-menu a{
+.nav-links a{
 
   padding:
     8px 11px;
@@ -483,7 +519,7 @@ textarea{
     8px;
 
   color:
-    #9ea7ad;
+    #9ea8ae;
 
   font-size:
     11px;
@@ -493,22 +529,20 @@ textarea{
 
   transition:
     .25s ease;
-
 }
 
 
-.nav-menu a:hover{
+.nav-links a:hover{
 
   color:
     white;
 
   background:
     rgba(255,255,255,.045);
-
 }
 
 
-.nav-cta{
+.nav-button{
 
   padding:
     10px 15px;
@@ -521,14 +555,14 @@ textarea{
     9px;
 
   color:
-    #111;
+    #10130b;
 
   background:
     linear-gradient(
       135deg,
-      #dcff91,
+      #e1ff9a,
       #c7ff4a,
-      #95cc27
+      #96cc2f
     );
 
   font-size:
@@ -541,12 +575,25 @@ textarea{
     0 12px 30px
     rgba(199,255,74,.10);
 
+  transition:
+    .25s ease;
 }
 
 
-/* ==============================
+.nav-button:hover{
+
+  transform:
+    translateY(-2px);
+
+  box-shadow:
+    0 16px 34px
+    rgba(199,255,74,.17);
+}
+
+
+/* =========================
    HERO
-============================== */
+========================= */
 
 .hero{
 
@@ -558,6 +605,9 @@ textarea{
 
   margin:
     auto;
+
+  padding:
+    52px 2% 70px;
 
   display:
     grid;
@@ -571,33 +621,23 @@ textarea{
 
   gap:
     28px;
-
-  padding:
-    48px 2% 70px;
-
 }
 
 
-.hero-copy{
+.hero-content{
 
   max-width:
     760px;
 
-}
-
-
-.reveal-left{
-
   animation:
-    revealLeft
-    .95s
+    heroTextIn
+    .9s
     cubic-bezier(.16,1,.3,1)
     both;
-
 }
 
 
-@keyframes revealLeft{
+@keyframes heroTextIn{
 
   from{
 
@@ -605,58 +645,11 @@ textarea{
       0;
 
     transform:
-      translateX(-30px);
-
-    filter:
-      blur(9px);
-
-  }
-
-
-  to{
-
-    opacity:
-      1;
-
-    transform:
-      none;
-
-    filter:
-      blur(0);
-
-  }
-
-}
-
-
-.reveal-right{
-
-  animation:
-    revealRight
-    1.1s
-    .12s
-    cubic-bezier(.16,1,.3,1)
-    both;
-
-}
-
-
-@keyframes revealRight{
-
-  from{
-
-    opacity:
-      0;
-
-    transform:
-      translateX(30px)
-      scale(.94);
+      translateX(-28px);
 
     filter:
       blur(8px);
-
   }
-
 
   to{
 
@@ -668,13 +661,11 @@ textarea{
 
     filter:
       blur(0);
-
   }
-
 }
 
 
-.eyebrow{
+.hero-kicker{
 
   display:
     flex;
@@ -685,8 +676,11 @@ textarea{
   gap:
     10px;
 
+  margin-bottom:
+    18px;
+
   color:
-    #ccd3d7;
+    #cbd4d8;
 
   font-size:
     9px;
@@ -695,15 +689,11 @@ textarea{
     800;
 
   letter-spacing:
-    2.8px;
-
-  margin-bottom:
-    18px;
-
+    2.7px;
 }
 
 
-.eyebrow-line{
+.kicker-line{
 
   width:
     28px;
@@ -717,11 +707,10 @@ textarea{
   box-shadow:
     0 0 11px
     rgba(199,255,74,.65);
-
 }
 
 
-.hero h1{
+.hero-title{
 
   font-family:
     "Manrope",
@@ -738,11 +727,10 @@ textarea{
 
   font-weight:
     800;
-
 }
 
 
-.hero h1 span{
+.hero-title span{
 
   display:
     block;
@@ -755,29 +743,26 @@ textarea{
     rgba(199,255,74,.09);
 
   animation:
-    headlineGlow
+    limePulse
     5s
     ease-in-out
     infinite
     alternate;
-
 }
 
 
-@keyframes headlineGlow{
+@keyframes limePulse{
 
   to{
 
     text-shadow:
       0 0 42px
-      rgba(199,255,74,.16);
-
+      rgba(199,255,74,.15);
   }
-
 }
 
 
-.hero-description{
+.hero-text{
 
   max-width:
     620px;
@@ -786,14 +771,13 @@ textarea{
     27px;
 
   color:
-    #a6afb5;
+    #a7b0b5;
 
   font-size:
     15px;
 
   line-height:
     1.85;
-
 }
 
 
@@ -802,19 +786,18 @@ textarea{
   display:
     flex;
 
-  gap:
-    11px;
-
   flex-wrap:
     wrap;
 
+  gap:
+    11px;
+
   margin-top:
     28px;
-
 }
 
 
-.btn{
+.button{
 
   min-height:
     49px;
@@ -852,19 +835,17 @@ textarea{
     box-shadow .25s ease,
     border-color .25s ease,
     background .25s ease;
-
 }
 
 
-.btn:hover{
+.button:hover{
 
   transform:
     translateY(-4px);
-
 }
 
 
-.btn-primary{
+.button-primary{
 
   color:
     #10130b;
@@ -875,7 +856,7 @@ textarea{
   background:
     linear-gradient(
       135deg,
-      #e1ff9a,
+      #e0ff98,
       #c7ff4a,
       #97ce2d
     );
@@ -883,42 +864,38 @@ textarea{
   box-shadow:
     0 14px 34px
     rgba(199,255,74,.13);
-
 }
 
 
-.btn-primary:hover{
+.button-primary:hover{
 
   box-shadow:
     0 20px 44px
     rgba(199,255,74,.20);
-
 }
 
 
-.btn-secondary{
+.button-secondary{
 
   color:
     #edf2f4;
 
   background:
     rgba(255,255,255,.025);
-
 }
 
 
-.btn-secondary:hover{
+.button-secondary:hover{
 
   border-color:
-    rgba(199,255,74,.22);
+    rgba(199,255,74,.24);
 
   background:
     rgba(199,255,74,.035);
-
 }
 
 
-.hero-meta{
+.hero-stats{
 
   display:
     flex;
@@ -928,11 +905,10 @@ textarea{
 
   margin-top:
     43px;
-
 }
 
 
-.meta-item strong{
+.stat strong{
 
   display:
     block;
@@ -946,11 +922,10 @@ textarea{
 
   font-weight:
     700;
-
 }
 
 
-.meta-item span{
+.stat span{
 
   display:
     block;
@@ -959,19 +934,18 @@ textarea{
     2px;
 
   color:
-    #737d84;
+    #737e85;
 
   font-size:
     9px;
-
 }
 
 
-/* ==============================
-   MONOLITH
-============================== */
+/* =========================
+   HERO VISUAL
+========================= */
 
-.hero-object{
+.hero-visual{
 
   position:
     relative;
@@ -980,7 +954,7 @@ textarea{
     min(590px,46vw);
 
   aspect-ratio:
-    1/1.04;
+    1 / 1.04;
 
   margin:
     auto;
@@ -988,10 +962,45 @@ textarea{
   isolation:
     isolate;
 
+  animation:
+    heroObjectIn
+    1.1s
+    .12s
+    cubic-bezier(.16,1,.3,1)
+    both;
 }
 
 
-.object-aura{
+@keyframes heroObjectIn{
+
+  from{
+
+    opacity:
+      0;
+
+    transform:
+      translateX(30px)
+      scale(.93);
+
+    filter:
+      blur(8px);
+  }
+
+  to{
+
+    opacity:
+      1;
+
+    transform:
+      none;
+
+    filter:
+      blur(0);
+  }
+}
+
+
+.visual-glow{
 
   position:
     absolute;
@@ -1017,42 +1026,39 @@ textarea{
   background:
     radial-gradient(
       circle,
-      rgba(255,255,255,.15),
-      rgba(199,255,74,.09) 22%,
-      rgba(199,255,74,.045) 43%,
+      rgba(255,255,255,.14),
+      rgba(199,255,74,.085) 23%,
+      rgba(199,255,74,.045) 44%,
       transparent 72%
     );
 
   filter:
-    blur(23px);
+    blur(24px);
 
   animation:
-    auraBreath
+    visualGlowPulse
     4.5s
     ease-in-out
     infinite
     alternate;
-
 }
 
 
-@keyframes auraBreath{
+@keyframes visualGlowPulse{
 
   to{
 
     transform:
       translate(-50%,-50%)
-      scale(1.09);
+      scale(1.08);
 
     opacity:
       .9;
-
   }
-
 }
 
 
-.object-floor{
+.visual-floor{
 
   position:
     absolute;
@@ -1064,7 +1070,7 @@ textarea{
     9%;
 
   width:
-    65%;
+    66%;
 
   height:
     13%;
@@ -1079,7 +1085,7 @@ textarea{
     radial-gradient(
       ellipse,
       rgba(199,255,74,.12),
-      rgba(255,255,255,.045) 32%,
+      rgba(255,255,255,.045) 34%,
       transparent 72%
     );
 
@@ -1087,30 +1093,29 @@ textarea{
     blur(10px);
 
   animation:
-    floorPulse
+    floorGlow
     4s
     ease-in-out
     infinite
     alternate;
-
 }
 
 
-@keyframes floorPulse{
+@keyframes floorGlow{
 
   to{
 
     transform:
       translateX(-50%)
-      scale(1.10);
+      scale(1.1);
 
     opacity:
       .85;
-
   }
-
 }
 
+
+/* MONOLITH */
 
 .monolith{
 
@@ -1143,29 +1148,30 @@ textarea{
   background:
     linear-gradient(
       145deg,
-      rgba(255,255,255,.11),
-      rgba(17,21,24,.22) 45%,
-      rgba(2,4,5,.74)
+      rgba(255,255,255,.10),
+      rgba(17,21,24,.20) 45%,
+      rgba(2,4,5,.78)
     );
 
   border:
     1px solid
-    rgba(235,242,244,.14);
+    rgba(235,242,244,.13);
 
   box-shadow:
+
     inset
       10px 0 30px
       rgba(255,255,255,.025),
 
     inset
       -20px 0 40px
-      rgba(0,0,0,.32),
+      rgba(0,0,0,.34),
 
     0 35px 90px
       rgba(0,0,0,.44),
 
-    0 0 70px
-      rgba(199,255,74,.06);
+    0 0 75px
+      rgba(199,255,74,.065);
 
   backdrop-filter:
     blur(16px);
@@ -1176,7 +1182,6 @@ textarea{
     ease-in-out
     infinite
     alternate;
-
 }
 
 
@@ -1188,15 +1193,14 @@ textarea{
       translate(-50%,-53%)
       perspective(900px)
       rotateY(-5deg);
-
   }
-
 }
 
 
 .monolith::before{
 
-  content:"";
+  content:
+    "";
 
   position:
     absolute;
@@ -1208,7 +1212,7 @@ textarea{
     linear-gradient(
       115deg,
       transparent 30%,
-      rgba(255,255,255,.08) 48%,
+      rgba(255,255,255,.075) 48%,
       transparent 64%
     );
 
@@ -1222,8 +1226,7 @@ textarea{
     infinite;
 
   z-index:
-    5;
-
+    6;
 }
 
 
@@ -1233,21 +1236,17 @@ textarea{
 
     background-position:
       -130% 0;
-
   }
-
 
   55%,100%{
 
     background-position:
       130% 0;
-
   }
-
 }
 
 
-.energy-field{
+.energy-container{
 
   position:
     absolute;
@@ -1268,11 +1267,12 @@ textarea{
       rgba(199,255,74,.018),
       transparent 68%
     );
-
 }
 
 
-.energy-ribbon{
+/* ENERGY */
+
+.energy-stream{
 
   position:
     absolute;
@@ -1290,10 +1290,10 @@ textarea{
     linear-gradient(
       180deg,
       transparent,
-      rgba(255,255,255,.88) 13%,
-      rgba(218,255,148,.98) 28%,
+      rgba(255,255,255,.90) 13%,
+      rgba(220,255,156,.98) 28%,
       var(--lime) 52%,
-      rgba(199,255,74,.38) 75%,
+      rgba(199,255,74,.35) 75%,
       transparent
     );
 
@@ -1302,15 +1302,14 @@ textarea{
 
   box-shadow:
     0 0 18px
-    rgba(199,255,74,.55),
+    rgba(199,255,74,.52),
 
     0 0 40px
-    rgba(199,255,74,.24);
-
+    rgba(199,255,74,.22);
 }
 
 
-.ribbon-one{
+.stream-1{
 
   left:
     23%;
@@ -1322,15 +1321,14 @@ textarea{
     rotate(11deg);
 
   animation:
-    streamOne
+    energyMove1
     3.2s
     linear
     infinite;
-
 }
 
 
-.ribbon-two{
+.stream-2{
 
   left:
     47%;
@@ -1342,15 +1340,14 @@ textarea{
     rotate(-2deg);
 
   animation:
-    streamTwo
+    energyMove2
     2.6s
     linear
     infinite;
-
 }
 
 
-.ribbon-three{
+.stream-3{
 
   left:
     72%;
@@ -1362,15 +1359,14 @@ textarea{
     rotate(-12deg);
 
   animation:
-    streamThree
+    energyMove3
     3.8s
     linear
     infinite;
-
 }
 
 
-@keyframes streamOne{
+@keyframes energyMove1{
 
   from{
 
@@ -1380,7 +1376,6 @@ textarea{
 
   }
 
-
   to{
 
     transform:
@@ -1388,11 +1383,10 @@ textarea{
       rotate(11deg);
 
   }
-
 }
 
 
-@keyframes streamTwo{
+@keyframes energyMove2{
 
   from{
 
@@ -1402,7 +1396,6 @@ textarea{
 
   }
 
-
   to{
 
     transform:
@@ -1410,11 +1403,10 @@ textarea{
       rotate(-2deg);
 
   }
-
 }
 
 
-@keyframes streamThree{
+@keyframes energyMove3{
 
   from{
 
@@ -1424,7 +1416,6 @@ textarea{
 
   }
 
-
   to{
 
     transform:
@@ -1432,11 +1423,12 @@ textarea{
       rotate(-12deg);
 
   }
-
 }
 
 
-.energy-flare{
+/* ENERGY GLOW */
+
+.energy-glow{
 
   position:
     absolute;
@@ -1454,18 +1446,17 @@ textarea{
     radial-gradient(
       circle,
       rgba(255,255,255,.95),
-      rgba(220,255,156,.58) 15%,
-      rgba(199,255,74,.16) 45%,
+      rgba(220,255,156,.56) 16%,
+      rgba(199,255,74,.14) 46%,
       transparent 72%
     );
 
   filter:
     blur(6px);
-
 }
 
 
-.flare-one{
+.glow-center-1{
 
   left:
     35%;
@@ -1474,15 +1465,14 @@ textarea{
     38%;
 
   animation:
-    flarePulse
+    energyPulse
     3.4s
     ease-in-out
     infinite;
-
 }
 
 
-.flare-two{
+.glow-center-2{
 
   left:
     56%;
@@ -1491,16 +1481,15 @@ textarea{
     58%;
 
   animation:
-    flarePulse
+    energyPulse
     2.8s
     ease-in-out
     infinite
     reverse;
-
 }
 
 
-@keyframes flarePulse{
+@keyframes energyPulse{
 
   0%,100%{
 
@@ -1508,10 +1497,8 @@ textarea{
       scale(.65);
 
     opacity:
-      .52;
-
+      .5;
   }
-
 
   50%{
 
@@ -1520,13 +1507,13 @@ textarea{
 
     opacity:
       1;
-
   }
-
 }
 
 
-.glass-shine{
+/* GLASS REFLECTION */
+
+.monolith-reflection{
 
   position:
     absolute;
@@ -1547,7 +1534,7 @@ textarea{
     linear-gradient(
       180deg,
       transparent,
-      rgba(255,255,255,.12),
+      rgba(255,255,255,.11),
       transparent
     );
 
@@ -1555,23 +1542,21 @@ textarea{
     blur(2px);
 
   z-index:
-    6;
-
+    7;
 }
 
 
-.shine-one{
+.reflection-1{
 
   left:
     16%;
 
   transform:
     rotate(14deg);
-
 }
 
 
-.shine-two{
+.reflection-2{
 
   right:
     16%;
@@ -1581,11 +1566,12 @@ textarea{
 
   opacity:
     .42;
-
 }
 
 
-.edge{
+/* EDGE LIGHT */
+
+.monolith-edge{
 
   position:
     absolute;
@@ -1594,25 +1580,24 @@ textarea{
     linear-gradient(
       180deg,
       transparent,
-      rgba(255,255,255,.48),
-      rgba(199,255,74,.88),
+      rgba(255,255,255,.42),
+      rgba(199,255,74,.82),
       transparent
     );
 
   box-shadow:
     0 0 10px
-    rgba(199,255,74,.35),
+    rgba(199,255,74,.30),
 
-    0 0 28px
+    0 0 26px
     rgba(199,255,74,.10);
 
   z-index:
-    8;
-
+    9;
 }
 
 
-.top-edge{
+.edge-top{
 
   left:
     7%;
@@ -1625,11 +1610,13 @@ textarea{
 
   height:
     1px;
-
 }
 
 
-.right-edge{
+.edge-right{
+
+  right:
+    0;
 
   top:
     8%;
@@ -1637,16 +1624,12 @@ textarea{
   bottom:
     8%;
 
-  right:
-    0;
-
   width:
     1px;
-
 }
 
 
-.bottom-edge{
+.edge-bottom{
 
   left:
     7%;
@@ -1659,11 +1642,13 @@ textarea{
 
   height:
     1px;
-
 }
 
 
-.left-edge{
+.edge-left{
+
+  left:
+    0;
 
   top:
     8%;
@@ -1671,18 +1656,15 @@ textarea{
   bottom:
     8%;
 
-  left:
-    0;
-
   width:
     1px;
-
 }
 
 
-/* particles */
+/* VISUAL PARTICLES */
 
-.object-particle{
+.floating-particle,
+.energy-particle{
 
   position:
     absolute;
@@ -1697,90 +1679,89 @@ textarea{
     50%;
 
   background:
-    #ecffd0;
+    #efffd3;
 
   box-shadow:
     0 0 8px
     #d9ff8d,
 
-    0 0 20px
-    rgba(199,255,74,.45);
-
-  z-index:
-    10;
-
+    0 0 18px
+    rgba(199,255,74,.44);
 }
 
 
-.particle-1{
+.floating-particle{
+
+  z-index:
+    10;
+}
+
+
+.fp-1{
 
   left:
-    11%;
+    10%;
 
   top:
     28%;
 
   animation:
-    particleOne
+    floating1
     4.3s
     ease-in-out
     infinite;
-
 }
 
 
-.particle-2{
+.fp-2{
 
   right:
-    12%;
+    10%;
 
   top:
     24%;
 
   animation:
-    particleTwo
+    floating2
     5.1s
     ease-in-out
     infinite;
-
 }
 
 
-.particle-3{
+.fp-3{
 
   left:
-    8%;
+    7%;
 
   bottom:
     30%;
 
   animation:
-    particleThree
+    floating3
     4.7s
     ease-in-out
     infinite;
-
 }
 
 
-.particle-4{
+.fp-4{
 
   right:
-    9%;
+    8%;
 
   bottom:
     27%;
 
   animation:
-    particleFour
-    5.6s
+    floating4
+    5.5s
     ease-in-out
     infinite;
-
 }
 
 
-.particle-5{
+.fp-5{
 
   left:
     46%;
@@ -1789,15 +1770,14 @@ textarea{
     7%;
 
   animation:
-    particleFive
+    floating5
     4s
     ease-in-out
     infinite;
-
 }
 
 
-.particle-6{
+.fp-6{
 
   left:
     49%;
@@ -1806,156 +1786,221 @@ textarea{
     7%;
 
   animation:
-    particleSix
+    floating6
     4.8s
     ease-in-out
     infinite;
-
 }
 
 
-.particle-7{
-
-  left:
-    18%;
-
-  top:
-    46%;
-
-  animation:
-    particleSeven
-    3.8s
-    ease-in-out
-    infinite;
-
-}
-
-
-.particle-8{
-
-  right:
-    17%;
-
-  top:
-    54%;
-
-  animation:
-    particleEight
-    4.6s
-    ease-in-out
-    infinite;
-
-}
-
-
-@keyframes particleOne{
+@keyframes floating1{
 
   50%{
-
     transform:
       translate(18px,-18px)
       scale(1.3);
 
     opacity:
       .35;
-
   }
-
 }
 
 
-@keyframes particleTwo{
+@keyframes floating2{
 
   50%{
-
     transform:
       translate(-14px,16px)
       scale(.72);
-
   }
-
 }
 
 
-@keyframes particleThree{
+@keyframes floating3{
 
   50%{
-
     transform:
       translate(15px,-12px)
       scale(1.15);
-
   }
-
 }
 
 
-@keyframes particleFour{
+@keyframes floating4{
 
   50%{
-
     transform:
       translate(-13px,-15px)
       scale(.8);
-
   }
-
 }
 
 
-@keyframes particleFive{
+@keyframes floating5{
 
   50%{
-
     transform:
       translateY(-15px)
       scale(1.28);
-
   }
-
 }
 
 
-@keyframes particleSix{
+@keyframes floating6{
 
   50%{
-
     transform:
       translateY(14px)
       scale(.8);
-
   }
-
 }
 
 
-@keyframes particleSeven{
+/* ENERGY PARTICLES */
 
-  50%{
+.ep-1{
+  left:
+    23%;
 
+  top:
+    22%;
+
+  animation:
+    energyParticle1
+    2.8s
+    linear
+    infinite;
+}
+
+
+.ep-2{
+  left:
+    42%;
+
+  top:
+    58%;
+
+  animation:
+    energyParticle2
+    3.2s
+    linear
+    infinite;
+}
+
+
+.ep-3{
+  left:
+    64%;
+
+  top:
+    38%;
+
+  animation:
+    energyParticle3
+    2.6s
+    linear
+    infinite;
+}
+
+
+.ep-4{
+  left:
+    72%;
+
+  top:
+    70%;
+
+  animation:
+    energyParticle4
+    3.5s
+    linear
+    infinite;
+}
+
+
+.ep-5{
+  left:
+    34%;
+
+  top:
+    74%;
+
+  animation:
+    energyParticle5
+    2.9s
+    linear
+    infinite;
+}
+
+
+@keyframes energyParticle1{
+
+  to{
     transform:
-      translate(11px,9px)
-      scale(1.1);
+      translateY(190px)
+      translateX(10px);
 
+    opacity:
+      0;
   }
-
 }
 
 
-@keyframes particleEight{
+@keyframes energyParticle2{
 
-  50%{
-
+  to{
     transform:
-      translate(-10px,-10px)
-      scale(.85);
+      translateY(-180px)
+      translateX(-14px);
 
+    opacity:
+      0;
   }
-
 }
 
 
-.object-tag{
+@keyframes energyParticle3{
+
+  to{
+    transform:
+      translateY(190px)
+      translateX(-8px);
+
+    opacity:
+      0;
+  }
+}
+
+
+@keyframes energyParticle4{
+
+  to{
+    transform:
+      translateY(-180px)
+      translateX(11px);
+
+    opacity:
+      0;
+  }
+}
+
+
+@keyframes energyParticle5{
+
+  to{
+    transform:
+      translateY(-190px)
+      translateX(9px);
+
+    opacity:
+      0;
+  }
+}
+
+
+/* VISUAL LABELS */
+
+.visual-label{
 
   position:
     absolute;
@@ -1965,55 +2010,49 @@ textarea{
 
   border:
     1px solid
-    rgba(214,225,230,.12);
+    rgba(215,225,230,.11);
 
   border-radius:
     9px;
 
   background:
-    rgba(7,10,11,.75);
+    rgba(7,10,11,.76);
 
   backdrop-filter:
     blur(14px);
 
-  box-shadow:
-    0 14px 32px
-    rgba(0,0,0,.24);
-
   z-index:
-    12;
+    20;
 
   animation:
-    tagFloat
+    labelFloat
     4.6s
     ease-in-out
     infinite
     alternate;
-
 }
 
 
-.object-tag span{
+.visual-label span{
 
   display:
     block;
 
   color:
-    #737d84;
+    #707b82;
 
   font-size:
     6px;
 
+  letter-spacing:
+    1.5px;
+
   font-weight:
     700;
-
-  letter-spacing:
-    1.6px;
-
 }
 
 
-.object-tag strong{
+.visual-label strong{
 
   display:
     block;
@@ -2022,26 +2061,24 @@ textarea{
     2px;
 
   color:
-    #eff8d3;
+    #edffd0;
 
   font-size:
     9px;
-
 }
 
 
-.tag-left{
+.label-left{
 
   left:
     4%;
 
   top:
     23%;
-
 }
 
 
-.tag-right{
+.label-right{
 
   right:
     3%;
@@ -2051,33 +2088,32 @@ textarea{
 
   animation-delay:
     -2s;
-
 }
 
 
-@keyframes tagFloat{
+@keyframes labelFloat{
 
   to{
-
     transform:
       translateY(-8px);
-
   }
-
 }
 
 
-/* ==============================
-   TRUST
-============================== */
+/* =========================
+   SERVICE STRIP
+========================= */
 
-.trust-row{
+.service-strip{
 
   width:
     min(1180px,90%);
 
   margin:
     auto;
+
+  padding:
+    17px 20px;
 
   display:
     flex;
@@ -2091,9 +2127,6 @@ textarea{
   gap:
     18px;
 
-  padding:
-    17px 20px;
-
   border:
     1px solid
     var(--line);
@@ -2105,7 +2138,7 @@ textarea{
     rgba(11,14,16,.58);
 
   color:
-    #7f8a91;
+    #7d878e;
 
   font-size:
     8px;
@@ -2115,13 +2148,12 @@ textarea{
 
   letter-spacing:
     2.2px;
-
 }
 
 
-/* ==============================
-   SECTIONS
-============================== */
+/* =========================
+   GENERAL SECTION
+========================= */
 
 .section{
 
@@ -2133,25 +2165,23 @@ textarea{
 
   padding:
     110px 0;
-
 }
 
 
-.section-head{
+.section-heading{
 
   max-width:
     820px;
 
   margin-bottom:
     48px;
-
 }
 
 
-.section-kicker{
+.section-number{
 
   color:
-    #d6e0e5;
+    #d5dfe4;
 
   font-size:
     9px;
@@ -2161,11 +2191,10 @@ textarea{
 
   letter-spacing:
     2.6px;
-
 }
 
 
-.section-head h2{
+.section-heading h2{
 
   margin-top:
     10px;
@@ -2182,32 +2211,30 @@ textarea{
 
   letter-spacing:
     -3px;
-
 }
 
 
-.section-head p{
-
-  margin-top:
-    17px;
+.section-heading p{
 
   max-width:
     680px;
 
+  margin-top:
+    17px;
+
   color:
-    #9aa4aa;
+    #98a2a9;
 
   font-size:
     14px;
-
 }
 
 
-/* ==============================
+/* =========================
    SERVICES
-============================== */
+========================= */
 
-.service-layout{
+.services-layout{
 
   display:
     grid;
@@ -2217,11 +2244,10 @@ textarea{
 
   gap:
     18px;
-
 }
 
 
-.service-feature{
+.featured-service{
 
   position:
     relative;
@@ -2234,7 +2260,7 @@ textarea{
 
   border:
     1px solid
-    rgba(215,225,230,.13);
+    rgba(215,225,230,.12);
 
   border-radius:
     20px;
@@ -2251,13 +2277,13 @@ textarea{
 
   transition:
     .35s ease;
-
 }
 
 
-.service-feature::before{
+.featured-service::before{
 
-  content:"";
+  content:
+    "";
 
   position:
     absolute;
@@ -2283,11 +2309,10 @@ textarea{
       rgba(199,255,74,.10),
       transparent 70%
     );
-
 }
 
 
-.service-feature:hover{
+.featured-service:hover{
 
   transform:
     translateY(-7px);
@@ -2298,11 +2323,10 @@ textarea{
   box-shadow:
     0 25px 60px
     rgba(0,0,0,.28);
-
 }
 
 
-.service-number{
+.service-index{
 
   color:
     #7e8a91;
@@ -2312,11 +2336,10 @@ textarea{
 
   font-weight:
     800;
-
 }
 
 
-.service-symbol{
+.service-icon{
 
   width:
     55px;
@@ -2354,15 +2377,10 @@ textarea{
 
   font-weight:
     800;
-
-  box-shadow:
-    0 0 35px
-    rgba(199,255,74,.055);
-
 }
 
 
-.service-feature h3{
+.featured-service h3{
 
   margin-top:
     26px;
@@ -2372,11 +2390,10 @@ textarea{
 
   font-size:
     31px;
-
 }
 
 
-.service-feature p{
+.featured-service p{
 
   max-width:
     440px;
@@ -2392,11 +2409,10 @@ textarea{
 
   line-height:
     1.8;
-
 }
 
 
-.service-feature a{
+.featured-service a{
 
   display:
     inline-block;
@@ -2412,18 +2428,16 @@ textarea{
 
   font-weight:
     800;
-
 }
 
 
-.service-list{
+.services-list{
 
   display:
     grid;
 
   gap:
     10px;
-
 }
 
 
@@ -2456,7 +2470,6 @@ textarea{
 
   transition:
     .28s ease;
-
 }
 
 
@@ -2470,11 +2483,10 @@ textarea{
 
   background:
     rgba(199,255,74,.025);
-
 }
 
 
-.row-index{
+.service-row-number{
 
   color:
     #667179;
@@ -2484,7 +2496,6 @@ textarea{
 
   font-weight:
     800;
-
 }
 
 
@@ -2495,7 +2506,6 @@ textarea{
 
   font-size:
     16px;
-
 }
 
 
@@ -2509,7 +2519,6 @@ textarea{
 
   font-size:
     10px;
-
 }
 
 
@@ -2520,15 +2529,14 @@ textarea{
 
   font-size:
     14px;
-
 }
 
 
-/* ==============================
+/* =========================
    STATEMENT
-============================== */
+========================= */
 
-.statement{
+.statement-section{
 
   width:
     min(1100px,90%);
@@ -2541,22 +2549,20 @@ textarea{
 
   text-align:
     center;
-
 }
 
 
-.statement-wrap{
+.statement-content{
 
   max-width:
     950px;
 
   margin:
     auto;
-
 }
 
 
-.statement h2{
+.statement-content h2{
 
   margin-top:
     16px;
@@ -2572,11 +2578,10 @@ textarea{
 
   letter-spacing:
     -5px;
-
 }
 
 
-.statement h2 span{
+.statement-content h2 span{
 
   color:
     var(--lime);
@@ -2584,11 +2589,10 @@ textarea{
   text-shadow:
     0 0 32px
     rgba(199,255,74,.08);
-
 }
 
 
-.statement p{
+.statement-content p{
 
   max-width:
     650px;
@@ -2601,15 +2605,14 @@ textarea{
 
   font-size:
     14px;
-
 }
 
 
-/* ==============================
+/* =========================
    WORK
-============================== */
+========================= */
 
-.work-layout{
+.work-grid{
 
   display:
     grid;
@@ -2619,12 +2622,10 @@ textarea{
 
   gap:
     16px;
-
 }
 
 
-.work-main,
-.work-side{
+.work-card{
 
   position:
     relative;
@@ -2635,15 +2636,15 @@ textarea{
   padding:
     28px;
 
+  overflow:
+    hidden;
+
   border:
     1px solid
     rgba(220,228,232,.11);
 
   border-radius:
     19px;
-
-  overflow:
-    hidden;
 
   background:
     linear-gradient(
@@ -2654,7 +2655,6 @@ textarea{
 
   transition:
     .35s ease;
-
 }
 
 
@@ -2662,23 +2662,20 @@ textarea{
 
   min-height:
     440px;
-
 }
 
 
-.work-main:hover,
-.work-side:hover{
+.work-card:hover{
 
   transform:
     translateY(-8px);
 
   border-color:
     rgba(199,255,74,.22);
-
 }
 
 
-.work-light{
+.work-orb{
 
   position:
     absolute;
@@ -2704,21 +2701,17 @@ textarea{
       rgba(199,255,74,.11),
       transparent 70%
     );
-
 }
 
 
-.work-main > *,
-.work-side > *{
+.work-card > *{
 
   position:
     relative;
-
 }
 
 
-.work-main span,
-.work-side span{
+.work-card > span{
 
   color:
     #7f8d94;
@@ -2731,12 +2724,10 @@ textarea{
 
   letter-spacing:
     2px;
-
 }
 
 
-.work-main h3,
-.work-side h3{
+.work-card h3{
 
   margin-top:
     8px;
@@ -2746,7 +2737,6 @@ textarea{
 
   color:
     #eff6f8;
-
 }
 
 
@@ -2754,20 +2744,17 @@ textarea{
 
   font-size:
     55px;
-
 }
 
 
-.work-side h3{
+.work-card:not(.work-main) h3{
 
   font-size:
     37px;
-
 }
 
 
-.work-main p,
-.work-side p{
+.work-card p{
 
   max-width:
     300px;
@@ -2777,12 +2764,10 @@ textarea{
 
   font-size:
     11px;
-
 }
 
 
-.work-main a,
-.work-side a{
+.work-card a{
 
   display:
     inline-block;
@@ -2798,7 +2783,6 @@ textarea{
 
   font-weight:
     800;
-
 }
 
 
@@ -2812,22 +2796,20 @@ textarea{
 
   font-size:
     10px;
-
 }
 
 
-/* ==============================
+/* =========================
    PROCESS
-============================== */
+========================= */
 
-.process-track{
+.process-grid{
 
   display:
     grid;
 
   grid-template-columns:
     repeat(4,1fr);
-
 }
 
 
@@ -2843,7 +2825,6 @@ textarea{
   border-right:
     1px solid
     rgba(210,220,226,.06);
-
 }
 
 
@@ -2851,11 +2832,10 @@ textarea{
 
   border-right:
     none;
-
 }
 
 
-.process-item span{
+.process-item > span{
 
   color:
     var(--lime);
@@ -2865,7 +2845,6 @@ textarea{
 
   font-weight:
     800;
-
 }
 
 
@@ -2879,7 +2858,6 @@ textarea{
 
   font-size:
     18px;
-
 }
 
 
@@ -2893,15 +2871,14 @@ textarea{
 
   font-size:
     11px;
-
 }
 
 
-/* ==============================
+/* =========================
    PRICING
-============================== */
+========================= */
 
-.pricing-layout{
+.pricing-grid{
 
   display:
     grid;
@@ -2911,11 +2888,10 @@ textarea{
 
   gap:
     16px;
-
 }
 
 
-.price-card{
+.pricing-card{
 
   position:
     relative;
@@ -2932,11 +2908,10 @@ textarea{
 
   background:
     rgba(11,14,16,.76);
-
 }
 
 
-.price-card > span{
+.pricing-card > span{
 
   color:
     #7e8b92;
@@ -2949,11 +2924,10 @@ textarea{
 
   letter-spacing:
     2px;
-
 }
 
 
-.price-card h3{
+.pricing-card h3{
 
   margin-top:
     15px;
@@ -2963,11 +2937,10 @@ textarea{
 
   font-size:
     35px;
-
 }
 
 
-.price-card > p{
+.pricing-card > p{
 
   margin-top:
     3px;
@@ -2977,22 +2950,20 @@ textarea{
 
   font-size:
     11px;
-
 }
 
 
-.price-card ul{
+.pricing-card ul{
 
   list-style:
     none;
 
   margin:
     24px 0;
-
 }
 
 
-.price-card li{
+.pricing-card li{
 
   margin:
     9px 0;
@@ -3002,11 +2973,10 @@ textarea{
 
   font-size:
     11px;
-
 }
 
 
-.price-card li::before{
+.pricing-card li::before{
 
   content:
     "✓";
@@ -3016,11 +2986,10 @@ textarea{
 
   color:
     var(--lime);
-
 }
 
 
-.featured-price{
+.pricing-featured{
 
   border-color:
     rgba(199,255,74,.26);
@@ -3028,11 +2997,10 @@ textarea{
   box-shadow:
     0 22px 65px
     rgba(199,255,74,.045);
-
 }
 
 
-.price-badge{
+.popular-label{
 
   position:
     absolute;
@@ -3060,13 +3028,12 @@ textarea{
 
   font-weight:
     800;
-
 }
 
 
-/* ==============================
+/* =========================
    CONTACT
-============================== */
+========================= */
 
 .contact-box{
 
@@ -3090,6 +3057,7 @@ textarea{
     22px;
 
   background:
+
     radial-gradient(
       circle at 0 40%,
       rgba(199,255,74,.06),
@@ -3097,11 +3065,10 @@ textarea{
     ),
 
     rgba(12,15,17,.78);
-
 }
 
 
-.contact-copy h2{
+.contact-content h2{
 
   margin-top:
     11px;
@@ -3117,11 +3084,10 @@ textarea{
 
   letter-spacing:
     -3px;
-
 }
 
 
-.contact-copy > p{
+.contact-content > p{
 
   margin-top:
     16px;
@@ -3131,11 +3097,10 @@ textarea{
 
   font-size:
     13px;
-
 }
 
 
-.contact-info{
+.contact-details{
 
   display:
     grid;
@@ -3145,11 +3110,10 @@ textarea{
 
   margin-top:
     30px;
-
 }
 
 
-.contact-info span{
+.contact-details span{
 
   display:
     block;
@@ -3165,11 +3129,10 @@ textarea{
 
   font-weight:
     800;
-
 }
 
 
-.contact-info strong{
+.contact-details strong{
 
   display:
     block;
@@ -3182,7 +3145,6 @@ textarea{
 
   font-size:
     12px;
-
 }
 
 
@@ -3193,7 +3155,6 @@ textarea{
 
   gap:
     12px;
-
 }
 
 
@@ -3221,7 +3182,6 @@ textarea{
 
   outline:
     none;
-
 }
 
 
@@ -3234,7 +3194,6 @@ textarea{
   box-shadow:
     0 0 0 3px
     rgba(199,255,74,.04);
-
 }
 
 
@@ -3245,34 +3204,13 @@ textarea{
 
   resize:
     vertical;
-
-}
-
-
-.honeypot{
-
-  position:
-    absolute !important;
-
-  left:
-    -9999px !important;
-
-  width:
-    1px !important;
-
-  height:
-    1px !important;
-
-  opacity:
-    0 !important;
-
-  pointer-events:
-    none !important;
-
 }
 
 
 .form-message{
+
+  min-height:
+    18px;
 
   color:
     #caff63;
@@ -3282,15 +3220,14 @@ textarea{
 
   line-height:
     1.6;
-
 }
 
 
-/* ==============================
+/* =========================
    WHATSAPP
-============================== */
+========================= */
 
-.whatsapp{
+.whatsapp-button{
 
   position:
     fixed;
@@ -3332,7 +3269,6 @@ textarea{
   box-shadow:
     0 16px 42px
     rgba(0,0,0,.34);
-
 }
 
 
@@ -3361,22 +3297,20 @@ textarea{
 
   color:
     white;
-
 }
 
 
-.whatsapp-copy strong{
+.whatsapp-text strong{
 
   display:
     block;
 
   font-size:
     9px;
-
 }
 
 
-.whatsapp-copy small{
+.whatsapp-text small{
 
   display:
     block;
@@ -3389,13 +3323,12 @@ textarea{
 
   font-size:
     8px;
-
 }
 
 
-/* ==============================
+/* =========================
    FOOTER
-============================== */
+========================= */
 
 .footer{
 
@@ -3423,7 +3356,6 @@ textarea{
   border-top:
     1px solid
     rgba(220,228,232,.07);
-
 }
 
 
@@ -3437,7 +3369,6 @@ textarea{
 
   font-size:
     10px;
-
 }
 
 
@@ -3448,7 +3379,6 @@ textarea{
 
   gap:
     16px;
-
 }
 
 
@@ -3459,7 +3389,6 @@ textarea{
 
   font-size:
     9px;
-
 }
 
 
@@ -3473,55 +3402,23 @@ textarea{
 
   font-size:
     9px;
-
 }
 
 
-/* ==============================
-   REVEAL
-============================== */
-
-.reveal-up{
-
-  opacity:
-    0;
-
-  transform:
-    translateY(24px);
-
-  transition:
-    opacity .7s ease,
-    transform .7s ease;
-
-}
-
-
-.reveal-up.is-visible{
-
-  opacity:
-    1;
-
-  transform:
-    none;
-
-}
-
-
-/* ==============================
+/* =========================
    TABLET
-============================== */
+========================= */
 
 @media(max-width:1000px){
 
-  .site-nav{
+  .navbar{
 
     flex-wrap:
       wrap;
-
   }
 
 
-  .nav-menu{
+  .nav-links{
 
     width:
       100%;
@@ -3534,7 +3431,6 @@ textarea{
 
     overflow-x:
       auto;
-
   }
 
 
@@ -3548,70 +3444,69 @@ textarea{
 
     padding-top:
       48px;
-
   }
 
 
-  .hero-copy{
+  .hero-content{
 
     margin:
       auto;
-
   }
 
 
-  .hero-description{
+  .hero-kicker{
+
+    justify-content:
+      center;
+  }
+
+
+  .hero-text{
 
     margin-left:
       auto;
 
     margin-right:
       auto;
-
   }
 
 
   .hero-actions,
-  .hero-meta{
+  .hero-stats{
 
     justify-content:
       center;
-
   }
 
 
-  .hero-object{
+  .hero-visual{
 
     width:
       min(610px,88vw);
 
     margin-top:
       0;
-
   }
 
 
-  .service-layout{
+  .services-layout{
 
     grid-template-columns:
       1fr;
-
   }
 
 
-  .service-feature{
+  .featured-service{
 
     min-height:
       360px;
-
   }
 
 
-  .work-layout{
+  .work-grid{
 
     grid-template-columns:
       1fr 1fr;
-
   }
 
 
@@ -3622,31 +3517,27 @@ textarea{
 
     min-height:
       360px;
-
   }
 
 
-  .process-track{
+  .process-grid{
 
     grid-template-columns:
       1fr 1fr;
-
   }
 
 
-  .pricing-layout{
+  .pricing-grid{
 
     grid-template-columns:
       1fr 1fr;
-
   }
 
 
-  .price-card:last-child{
+  .pricing-card:last-child{
 
     grid-column:
       1 / -1;
-
   }
 
 
@@ -3654,49 +3545,45 @@ textarea{
 
     grid-template-columns:
       1fr;
-
   }
 
 }
 
 
-/* ==============================
+/* =========================
    MOBILE
-============================== */
+========================= */
 
 @media(max-width:700px){
 
-  .site-nav{
+  .navbar{
 
     width:
       94%;
 
     padding:
       11px 13px;
-
   }
 
 
-  .logo-text{
+  .brand-name{
 
     font-size:
       20px;
-
   }
 
 
-  .nav-menu{
-
-    gap:
-      0;
+  .nav-links{
 
     justify-content:
       flex-start;
 
+    gap:
+      0;
   }
 
 
-  .nav-menu a{
+  .nav-links a{
 
     padding:
       6px 7px;
@@ -3706,15 +3593,13 @@ textarea{
 
     white-space:
       nowrap;
-
   }
 
 
-  .nav-cta{
+  .nav-button{
 
     display:
       none;
-
   }
 
 
@@ -3728,26 +3613,23 @@ textarea{
 
     padding:
       52px 0 60px;
-
   }
 
 
-  .hero h1{
+  .hero-title{
 
     font-size:
       clamp(48px,15vw,80px);
 
     letter-spacing:
       -4px;
-
   }
 
 
-  .hero-description{
+  .hero-text{
 
     font-size:
       14px;
-
   }
 
 
@@ -3755,35 +3637,31 @@ textarea{
 
     flex-direction:
       column;
-
   }
 
 
-  .hero-actions .btn{
+  .hero-actions .button{
 
     width:
       100%;
-
   }
 
 
-  .hero-meta{
+  .hero-stats{
 
     gap:
       24px;
-
   }
 
 
-  .meta-item strong{
+  .stat strong{
 
     font-size:
       23px;
-
   }
 
 
-  .hero-object{
+  .hero-visual{
 
     width:
       100%;
@@ -3796,7 +3674,6 @@ textarea{
 
     margin-top:
       12px;
-
   }
 
 
@@ -3807,39 +3684,34 @@ textarea{
 
     height:
       67%;
-
   }
 
 
-  .object-tag{
+  .visual-label{
 
     transform:
       scale(.86);
-
   }
 
 
-  .tag-left{
+  .label-left{
 
     left:
       2%;
-
   }
 
 
-  .tag-right{
+  .label-right{
 
     right:
       2%;
-
   }
 
 
-  .trust-row{
+  .service-strip{
 
     justify-content:
       center;
-
   }
 
 
@@ -3847,26 +3719,23 @@ textarea{
 
     padding:
       82px 0;
-
   }
 
 
-  .section-head h2{
+  .section-heading h2{
 
     font-size:
       clamp(38px,11vw,56px);
 
     letter-spacing:
       -3px;
-
   }
 
 
-  .service-feature{
+  .featured-service{
 
     min-height:
       350px;
-
   }
 
 
@@ -3877,37 +3746,33 @@ textarea{
 
     padding:
       16px 14px;
-
   }
 
 
-  .statement{
+  .statement-section{
 
     width:
       94%;
 
     padding:
       75px 0;
-
   }
 
 
-  .statement h2{
+  .statement-content h2{
 
     font-size:
       clamp(44px,12vw,72px);
 
     letter-spacing:
       -4px;
-
   }
 
 
-  .work-layout{
+  .work-grid{
 
     grid-template-columns:
       1fr;
-
   }
 
 
@@ -3915,23 +3780,20 @@ textarea{
 
     min-height:
       330px;
-
   }
 
 
-  .work-side{
+  .work-card:not(.work-main){
 
     min-height:
       280px;
-
   }
 
 
-  .process-track{
+  .process-grid{
 
     grid-template-columns:
       1fr;
-
   }
 
 
@@ -3939,23 +3801,20 @@ textarea{
 
     border-right:
       none;
-
   }
 
 
-  .pricing-layout{
+  .pricing-grid{
 
     grid-template-columns:
       1fr;
-
   }
 
 
-  .price-card:last-child{
+  .pricing-card:last-child{
 
     grid-column:
       auto;
-
   }
 
 
@@ -3963,7 +3822,6 @@ textarea{
 
     padding:
       24px;
-
   }
 
 
@@ -3971,7 +3829,6 @@ textarea{
 
     grid-template-columns:
       1fr;
-
   }
 
 
@@ -3979,11 +3836,10 @@ textarea{
 
     text-align:
       left;
-
   }
 
 
-  .whatsapp{
+  .whatsapp-button{
 
     width:
       56px;
@@ -3999,63 +3855,56 @@ textarea{
 
     justify-content:
       center;
-
   }
 
 
-  .whatsapp-copy{
+  .whatsapp-text{
 
     display:
       none;
-
   }
 
 }
 
 
-/* ==============================
-   EXTRA SMALL PHONES
-============================== */
+/* =========================
+   VERY SMALL PHONES
+========================= */
 
 @media(max-width:390px){
 
-  .hero h1{
+  .hero-title{
 
     font-size:
       47px;
-
   }
 
 
-  .hero-meta{
+  .hero-stats{
 
     gap:
       18px;
-
   }
 
 
-  .hero-object{
+  .hero-visual{
 
     min-height:
       390px;
-
   }
 
 
-  .object-tag{
+  .visual-label{
 
     transform:
       scale(.72);
-
   }
 
 
-  .service-feature{
+  .featured-service{
 
     min-height:
       320px;
-
   }
 
 }
