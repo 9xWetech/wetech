@@ -1,586 +1,448 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#050607" />
-  <meta
-    name="description"
-    content="Wetech builds websites, applications, AI systems, branding and digital experiences."
-  />
+const RESEND_API_URL = "https://api.resend.com/emails";
 
-  <title>Wetech — Build What's Next.</title>
+function clean(value, maxLength = 3000) {
+  if (typeof value !== "string") return "";
+  return value
+    .trim()
+    .replace(/[<>]/g, "")
+    .slice(0, maxLength);
+}
 
-  <link rel="icon" href="favicon.png" />
+function isValidEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+function escapeHtml(value) {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet"
-  />
+async function sendEmail({
+  from,
+  to,
+  subject,
+  html,
+  replyTo
+}) {
+  const response = await fetch(RESEND_API_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${process.env.RESEND_API_KEY}`
+    },
+    body: JSON.stringify({
+      from,
+      to: Array.isArray(to) ? to : [to],
+      subject,
+      html,
+      ...(replyTo ? { reply_to: replyTo } : {})
+    })
+  });
 
-  <link rel="stylesheet" href="style.css" />
-</head>
+  const data = await response.json();
 
-<body>
+  if (!response.ok) {
+    throw new Error(
+      data?.message ||
+      data?.error ||
+      "Email service failed"
+    );
+  }
 
-  <!-- Ambient background -->
-  <div class="bg-noise"></div>
-  <div class="bg-glow glow-one"></div>
-  <div class="bg-glow glow-two"></div>
-  <div class="bg-glow glow-three"></div>
-  <div class="bg-grid"></div>
+  return data;
+}
 
-  <canvas id="techCanvas" aria-hidden="true"></canvas>
+async function sendWhatsApp({
+  name,
+  email,
+  phone,
+  message
+}) {
+  const {
+    WHATSAPP_TOKEN,
+    WHATSAPP_PHONE_NUMBER_ID,
+    WHATSAPP_TO,
+    WHATSAPP_TEMPLATE_NAME,
+    WHATSAPP_TEMPLATE_LANGUAGE
+  } = process.env;
 
-  <!-- NAV -->
-  <header class="site-nav">
-    <a href="#home" class="logo">
-      <span class="logo-box">W</span>
-      <span class="logo-text">WE<span>TECH</span></span>
-    </a>
+  // WhatsApp is optional until these variables are configured.
+  if (
+    !WHATSAPP_TOKEN ||
+    !WHATSAPP_PHONE_NUMBER_ID ||
+    !WHATSAPP_TO ||
+    !WHATSAPP_TEMPLATE_NAME
+  ) {
+    return {
+      skipped: true
+    };
+  }
 
-    <nav class="nav-menu">
-      <a href="#home">Home</a>
-      <a href="#services">Services</a>
-      <a href="#work">Work</a>
-      <a href="#process">Process</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#contact">Contact</a>
-    </nav>
+  const url =
+    `https://graph.facebook.com/vXX.X/` +
+    `${WHATSAPP_PHONE_NUMBER_ID}/messages`;
 
-    <a href="#contact" class="nav-cta">
-      Start a Project
-      <span>↗</span>
-    </a>
-  </header>
+  const payload = {
+    messaging_product: "whatsapp",
+    to: WHATSAPP_TO,
+    type: "template",
+    template: {
+      name: WHATSAPP_TEMPLATE_NAME,
+      language: {
+        code:
+          WHATSAPP_TEMPLATE_LANGUAGE ||
+          "en_US"
+      },
+      components: [
+        {
+          type: "body",
+          parameters: [
+            {
+              type: "text",
+              text: name || "Not provided"
+            },
+            {
+              type: "text",
+              text: email || "Not provided"
+            },
+            {
+              type: "text",
+              text: phone || "Not provided"
+            },
+            {
+              type: "text",
+              text: message || "No message"
+            }
+          ]
+        }
+      ]
+    }
+  };
 
-  <main>
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      Authorization:
+        `Bearer ${WHATSAPP_TOKEN}`,
+      "Content-Type":
+        "application/json"
+    },
+    body: JSON.stringify(payload)
+  });
 
-    <!-- HERO -->
-    <section class="hero" id="home">
+  const data = await response.json();
 
-      <div class="hero-copy reveal-left">
+  if (!response.ok) {
+    throw new Error(
+      data?.error?.message ||
+      "WhatsApp API failed"
+    );
+  }
 
-        <div class="eyebrow">
-          <span class="eyebrow-line"></span>
-          WETECH / DIGITAL STUDIO
-        </div>
+  return data;
+}
 
-        <h1>
-          BUILD
-          <span>WHAT'S NEXT.</span>
-        </h1>
+module.exports = async function handler(req, res) {
 
-        <p class="hero-description">
-          We create websites, applications, AI systems and digital
-          experiences for ambitious businesses that want to stand apart.
-        </p>
+  if (req.method !== "POST") {
+    return res.status(405).json({
+      success: false,
+      message: "Method not allowed"
+    });
+  }
 
-        <div class="hero-actions">
-          <a href="#contact" class="btn btn-primary">
-            Start a Project
-            <span>↗</span>
-          </a>
+  try {
 
-          <a href="#services" class="btn btn-secondary">
-            Explore Wetech
-            <span>↓</span>
-          </a>
-        </div>
+    if (!process.env.RESEND_API_KEY) {
+      throw new Error(
+        "RESEND_API_KEY is not configured"
+      );
+    }
 
-        <div class="hero-meta">
-          <div class="meta-item">
-            <strong>50+</strong>
-            <span>Projects</span>
-          </div>
+    if (!process.env.OWNER_EMAIL) {
+      throw new Error(
+        "OWNER_EMAIL is not configured"
+      );
+    }
 
-          <div class="meta-item">
-            <strong>30+</strong>
-            <span>Clients</span>
-          </div>
+    const body = req.body || {};
 
-          <div class="meta-item">
-            <strong>10+</strong>
-            <span>Services</span>
-          </div>
-        </div>
+    const name =
+      clean(body.name, 120);
 
-      </div>
+    const email =
+      clean(body.email, 180).toLowerCase();
 
-      <!-- MONOLITH -->
-      <div class="hero-object reveal-right">
+    const phone =
+      clean(body.phone, 60);
 
-        <div class="object-aura"></div>
+    const message =
+      clean(body.message, 4000);
 
-        <div class="object-floor"></div>
+    const service =
+      clean(body.service, 120);
 
-        <div class="object-particle particle-1"></div>
-        <div class="object-particle particle-2"></div>
-        <div class="object-particle particle-3"></div>
-        <div class="object-particle particle-4"></div>
-        <div class="object-particle particle-5"></div>
-        <div class="object-particle particle-6"></div>
-        <div class="object-particle particle-7"></div>
-        <div class="object-particle particle-8"></div>
+    // Honeypot anti-spam field
+    const website =
+      clean(body.website, 100);
 
-        <div class="monolith">
+    if (website) {
+      return res.status(200).json({
+        success: true
+      });
+    }
 
-          <div class="glass-shine shine-one"></div>
-          <div class="glass-shine shine-two"></div>
+    if (!name || !email || !message) {
+      return res.status(400).json({
+        success: false,
+        message:
+          "Name, email and message are required."
+      });
+    }
 
-          <div class="energy-field">
+    if (!isValidEmail(email)) {
+      return res.status(400).json({
+        success: false,
+        message:
+          "Please enter a valid email address."
+      });
+    }
 
-            <div class="energy-ribbon ribbon-one"></div>
-            <div class="energy-ribbon ribbon-two"></div>
-            <div class="energy-ribbon ribbon-three"></div>
+    const safeName =
+      escapeHtml(name);
 
-            <div class="energy-flare flare-one"></div>
-            <div class="energy-flare flare-two"></div>
+    const safeEmail =
+      escapeHtml(email);
 
-            <div class="energy-speck speck-one"></div>
-            <div class="energy-speck speck-two"></div>
-            <div class="energy-speck speck-three"></div>
-            <div class="energy-speck speck-four"></div>
-            <div class="energy-speck speck-five"></div>
+    const safePhone =
+      escapeHtml(phone || "Not provided");
 
-          </div>
+    const safeService =
+      escapeHtml(
+        service || "General enquiry"
+      );
 
-          <div class="edge top-edge"></div>
-          <div class="edge right-edge"></div>
-          <div class="edge bottom-edge"></div>
-          <div class="edge left-edge"></div>
+    const safeMessage =
+      escapeHtml(message)
+        .replace(/\n/g, "<br>");
 
-        </div>
+    /* -----------------------------------------
+       1. Email to Wetech
+    ----------------------------------------- */
 
-        <div class="object-tag tag-left">
-          <span>ENERGY</span>
-          <strong>FLOW</strong>
-        </div>
+    await sendEmail({
+      from:
+        process.env.RESEND_FROM ||
+        "Wetech <onboarding@resend.dev>",
 
-        <div class="object-tag tag-right">
-          <span>SYSTEM</span>
-          <strong>ACTIVE</strong>
-        </div>
+      to:
+        process.env.OWNER_EMAIL,
 
-      </div>
+      replyTo:
+        email,
 
-    </section>
+      subject:
+        `🔔 New Wetech Enquiry — ${name}`,
 
-    <!-- TRUST -->
-    <section class="trust-row">
-      <span>WEB</span>
-      <span>APPS</span>
-      <span>AI</span>
-      <span>UI / UX</span>
-      <span>BRANDING</span>
-      <span>GROWTH</span>
-    </section>
+      html: `
+        <div style="
+          font-family:Arial,sans-serif;
+          max-width:650px;
+          margin:auto;
+          background:#080a0c;
+          color:#f4f7f8;
+          padding:30px;
+          border-radius:16px;
+        ">
 
-    <!-- SERVICES -->
-    <section class="section" id="services">
+          <h1 style="
+            margin:0 0 6px;
+            font-size:24px;
+          ">
+            New Wetech Enquiry
+          </h1>
 
-      <div class="section-head reveal-up">
-        <span class="section-kicker">01 / SERVICES</span>
-        <h2>Digital products. Built properly.</h2>
-        <p>
-          Strategy, design and technology combined into one sharp
-          digital experience.
-        </p>
-      </div>
-
-      <div class="service-layout">
-
-        <article class="service-feature reveal-up">
-          <span class="service-number">01</span>
-
-          <div class="service-symbol">&lt;/&gt;</div>
-
-          <h3>Web Development</h3>
-
-          <p>
-            High-performance websites, landing pages and digital
-            platforms designed around your business.
+          <p style="
+            color:#9ba5ab;
+            margin-top:0;
+          ">
+            A new enquiry has been submitted
+            from the Wetech website.
           </p>
 
-          <a href="#contact">Start a conversation ↗</a>
-        </article>
-
-        <div class="service-list">
-
-          <article class="service-row reveal-up">
-            <div class="row-index">02</div>
-            <div>
-              <h3>App Development</h3>
-              <p>Modern web and mobile applications.</p>
-            </div>
-            <a href="#contact">↗</a>
-          </article>
-
-          <article class="service-row reveal-up">
-            <div class="row-index">03</div>
-            <div>
-              <h3>UI / UX Design</h3>
-              <p>Clean interfaces built around real users.</p>
-            </div>
-            <a href="#contact">↗</a>
-          </article>
-
-          <article class="service-row reveal-up">
-            <div class="row-index">04</div>
-            <div>
-              <h3>Branding</h3>
-              <p>Identity systems people remember.</p>
-            </div>
-            <a href="#contact">↗</a>
-          </article>
-
-          <article class="service-row reveal-up">
-            <div class="row-index">05</div>
-            <div>
-              <h3>Digital Marketing</h3>
-              <p>Content, campaigns and growth strategy.</p>
-            </div>
-            <a href="#contact">↗</a>
-          </article>
-
-          <article class="service-row reveal-up">
-            <div class="row-index">06</div>
-            <div>
-              <h3>AI Solutions</h3>
-              <p>Assistants, automation and intelligent systems.</p>
-            </div>
-            <a href="#contact">↗</a>
-          </article>
-
-        </div>
-
-      </div>
-
-    </section>
-
-    <!-- STATEMENT -->
-    <section class="statement">
-
-      <div class="statement-wrap reveal-up">
-
-        <span class="section-kicker">02 / WETECH MINDSET</span>
-
-        <h2>
-          Make it
-          <span>meaningful.</span>
-        </h2>
-
-        <p>
-          We don't build digital products just to make them exist.
-          We build them to be felt, remembered and used.
-        </p>
-
-      </div>
-
-    </section>
-
-    <!-- WORK -->
-    <section class="section" id="work">
-
-      <div class="section-head reveal-up">
-        <span class="section-kicker">03 / SELECTED WORK</span>
-        <h2>Ideas with a point of view.</h2>
-        <p>
-          Concept directions for the kind of digital products
-          Wetech can create.
-        </p>
-      </div>
-
-      <div class="work-layout">
-
-        <article class="work-main reveal-up">
-          <div class="work-light"></div>
-
-          <span>SAAS / WEB</span>
-          <h3>NOVA</h3>
+          <hr style="
+            border:none;
+            border-top:1px solid #22282d;
+            margin:24px 0;
+          ">
 
           <p>
-            A high-contrast SaaS experience built to feel fast,
-            intelligent and unmistakably modern.
+            <strong>Name:</strong>
+            ${safeName}
           </p>
-
-          <a href="#contact">View Concept ↗</a>
-        </article>
-
-        <article class="work-side reveal-up">
-          <div class="work-light"></div>
-
-          <span>BRAND / IDENTITY</span>
-          <h3>ORBIT</h3>
 
           <p>
-            A technology identity designed with confidence.
+            <strong>Email:</strong>
+            ${safeEmail}
           </p>
-
-          <a href="#contact">View Concept ↗</a>
-        </article>
-
-        <article class="work-side reveal-up">
-          <div class="work-light"></div>
-
-          <span>AI / PRODUCT</span>
-          <h3>NEURAL</h3>
 
           <p>
-            An intelligent automation product for modern teams.
+            <strong>Phone:</strong>
+            ${safePhone}
           </p>
-
-          <a href="#contact">View Concept ↗</a>
-        </article>
-
-      </div>
-
-      <p class="concept-note">
-        Concept projects should be replaced with verified client work
-        before public publication.
-      </p>
-
-    </section>
-
-    <!-- PROCESS -->
-    <section class="section" id="process">
-
-      <div class="section-head reveal-up">
-        <span class="section-kicker">04 / PROCESS</span>
-        <h2>Simple process. Serious execution.</h2>
-      </div>
-
-      <div class="process-track">
-
-        <article class="process-item reveal-up">
-          <span>01</span>
-          <h3>Discover</h3>
-          <p>Understand the business, audience and objective.</p>
-        </article>
-
-        <article class="process-item reveal-up">
-          <span>02</span>
-          <h3>Design</h3>
-          <p>Turn strategy into a clear visual experience.</p>
-        </article>
-
-        <article class="process-item reveal-up">
-          <span>03</span>
-          <h3>Build</h3>
-          <p>Develop with quality, speed and precision.</p>
-        </article>
-
-        <article class="process-item reveal-up">
-          <span>04</span>
-          <h3>Launch</h3>
-          <p>Test, refine and take it live.</p>
-        </article>
-
-      </div>
-
-    </section>
-
-    <!-- PRICING -->
-    <section class="section" id="pricing">
-
-      <div class="section-head reveal-up">
-        <span class="section-kicker">05 / PRICING</span>
-        <h2>A clear place to start.</h2>
-      </div>
-
-      <div class="pricing-layout">
-
-        <article class="price-card reveal-up">
-
-          <span>STARTER</span>
-
-          <h3>₹10,000</h3>
-
-          <p>Professional business website.</p>
-
-          <ul>
-            <li>Responsive design</li>
-            <li>Business pages</li>
-            <li>Contact section</li>
-            <li>Basic SEO structure</li>
-          </ul>
-
-          <a href="#contact" class="btn btn-secondary">
-            Get Started
-          </a>
-
-        </article>
-
-        <article class="price-card featured-price reveal-up">
-
-          <div class="price-badge">MOST POPULAR</div>
-
-          <span>PROFESSIONAL</span>
-
-          <h3>₹15,000</h3>
-
-          <p>Premium digital experience.</p>
-
-          <ul>
-            <li>Everything in Starter</li>
-            <li>Advanced UI / UX</li>
-            <li>Premium animations</li>
-            <li>Enhanced experience</li>
-          </ul>
-
-          <a href="#contact" class="btn btn-primary">
-            Choose Professional
-          </a>
-
-        </article>
-
-        <article class="price-card reveal-up">
-
-          <span>CUSTOM</span>
-
-          <h3>Let's Talk</h3>
-
-          <p>For larger digital products.</p>
-
-          <ul>
-            <li>Web applications</li>
-            <li>Mobile apps</li>
-            <li>E-commerce</li>
-            <li>AI solutions</li>
-          </ul>
-
-          <a href="#contact" class="btn btn-secondary">
-            Discuss Project
-          </a>
-
-        </article>
-
-      </div>
-
-    </section>
-
-    <!-- CONTACT -->
-    <section class="section contact-section" id="contact">
-
-      <div class="contact-box reveal-up">
-
-        <div class="contact-copy">
-
-          <span class="section-kicker">06 / CONTACT</span>
-
-          <h2>
-            Let's build something
-            worth remembering.
-          </h2>
 
           <p>
-            Tell us what you're building and we'll take it from there.
+            <strong>Service:</strong>
+            ${safeService}
           </p>
 
-          <div class="contact-info">
+          <div style="
+            margin-top:20px;
+            padding:18px;
+            background:#101418;
+            border-radius:12px;
+            color:#c9d0d5;
+          ">
+            <strong>Message</strong>
 
-            <div>
-              <span>WHATSAPP</span>
-              <strong>+91 8445209063</strong>
-            </div>
-
-            <div>
-              <span>EMAIL</span>
-              <strong>hello@wetech.in</strong>
-            </div>
-
+            <p style="
+              line-height:1.7;
+              margin-bottom:0;
+            ">
+              ${safeMessage}
+            </p>
           </div>
 
+          <p style="
+            margin-top:25px;
+            color:#7d888f;
+            font-size:12px;
+          ">
+            Reply directly to this email to contact the client.
+          </p>
+
         </div>
+      `
+    });
 
-        <form id="contactForm">
+    /* -----------------------------------------
+       2. Confirmation email to client
+    ----------------------------------------- */
 
-          <input
-            type="text"
-            name="name"
-            placeholder="Your name"
-            required
-          />
+    await sendEmail({
+      from:
+        process.env.RESEND_FROM ||
+        "Wetech <onboarding@resend.dev>",
 
-          <input
-            type="email"
-            name="email"
-            placeholder="Your email"
-            required
-          />
+      to:
+        email,
 
-          <input
-            type="tel"
-            name="phone"
-            placeholder="Phone / WhatsApp"
-          />
+      subject:
+        "We received your enquiry — Wetech",
 
-          <textarea
-            name="message"
-            placeholder="Tell us about your project..."
-            required
-          ></textarea>
+      html: `
+        <div style="
+          font-family:Arial,sans-serif;
+          max-width:650px;
+          margin:auto;
+          color:#222;
+          padding:30px;
+        ">
 
-          <button type="submit" class="btn btn-primary">
-            Send Enquiry
-            <span>→</span>
-          </button>
+          <h1 style="
+            margin-bottom:8px;
+          ">
+            Hi ${safeName},
+          </h1>
 
-          <p id="formMessage"></p>
+          <p>
+            Thank you for reaching out to Wetech.
+          </p>
 
-        </form>
+          <p style="
+            line-height:1.7;
+          ">
+            We've received your enquiry regarding
+            <strong>${safeService}</strong>
+            and our team will review the details
+            and get back to you shortly.
+          </p>
 
-      </div>
+          <p style="
+            line-height:1.7;
+          ">
+            We're excited to learn more about your
+            project and explore how we can build
+            something great together.
+          </p>
 
-    </section>
+          <br>
 
-  </main>
+          <p>
+            Best regards,<br>
+            <strong>Wetech</strong><br>
+            Digital Studio<br>
+            WhatsApp: +91 8445209063
+          </p>
 
-  <!-- WHATSAPP -->
-  <a
-    href="https://wa.me/918445209063"
-    target="_blank"
-    rel="noopener noreferrer"
-    class="whatsapp"
-    aria-label="Chat with Wetech on WhatsApp"
-  >
-    <span class="whatsapp-icon">☎</span>
+        </div>
+      `
+    });
 
-    <div class="whatsapp-copy">
-      <strong>WhatsApp</strong>
-      <small>+91 8445209063</small>
-    </div>
-  </a>
+    /* -----------------------------------------
+       3. WhatsApp notification
+    ----------------------------------------- */
 
-  <!-- FOOTER -->
-  <footer class="footer">
+    let whatsappStatus = "not_configured";
 
-    <div>
-      <a href="#home" class="logo">
-        <span class="logo-box">W</span>
-        <span class="logo-text">WE<span>TECH</span></span>
-      </a>
+    try {
 
-      <p>Digital experiences, engineered for what's next.</p>
-    </div>
+      const whatsapp =
+        await sendWhatsApp({
+          name,
+          email,
+          phone,
+          message
+        });
 
-    <div class="footer-links">
-      <a href="#services">Services</a>
-      <a href="#work">Work</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#contact">Contact</a>
-    </div>
+      whatsappStatus =
+        whatsapp?.skipped
+          ? "not_configured"
+          : "sent";
 
-    <div class="footer-copy">
-      © 2026 Wetech.
-    </div>
+    } catch (whatsappError) {
 
-  </footer>
+      console.error(
+        "WhatsApp notification error:",
+        whatsappError
+      );
 
-  <script src="script.js"></script>
+      whatsappStatus =
+        "failed";
 
-</body>
-</html>
+    }
+
+
+    return res.status(200).json({
+      success: true,
+      whatsapp: whatsappStatus
+    });
+
+  } catch (error) {
+
+    console.error(
+      "Contact API error:",
+      error
+    );
+
+    return res.status(500).json({
+      success: false,
+      message:
+        "We couldn't process your enquiry right now. Please try again."
+    });
+  }
+};
