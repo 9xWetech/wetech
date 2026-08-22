@@ -1,64 +1,1031 @@
-const RESEND_API_URL = "https://api.resend.com/emails";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
 
-function clean(value, maxLength = 3000) {
-  if (typeof value !== "string") return "";
-  return value
-    .trim()
-    .replace(/[<>]/g, "")
-    .slice(0, maxLength);
-}
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
-function isValidEmail(email) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-}
+  <meta
+    name="theme-color"
+    content="#050607"
+  >
 
-function escapeHtml(value) {
-  return value
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
-}
+  <meta
+    name="description"
+    content="Wetech builds websites, applications, AI systems, branding and digital experiences."
+  >
 
-async function sendEmail({
-  from,
-  to,
-  subject,
-  html,
-  replyTo
-}) {
-  const response = await fetch(RESEND_API_URL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${process.env.RESEND_API_KEY}`
-    },
-    body: JSON.stringify({
-      from,
-      to: Array.isArray(to) ? to : [to],
-      subject,
-      html,
-      ...(replyTo ? { reply_to: replyTo } : {})
-    })
-  });
+  <title>Wetech — Build What's Next.</title>
 
-  const data = await response.json();
+  <link rel="icon" href="favicon.png">
 
-  if (!response.ok) {
-    throw new Error(
-      data?.message ||
-      data?.error ||
-      "Email service failed"
-    );
-  }
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  return data;
-}
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
 
-async function sendWhatsApp({
-  name,
-  email,
-  phone,
-  message
-}) {
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- BACKGROUND -->
+  <div class="ambient ambient-1"></div>
+  <div class="ambient ambient-2"></div>
+  <div class="ambient ambient-3"></div>
+
+  <div class="background-grid"></div>
+
+  <canvas
+    id="backgroundCanvas"
+    aria-hidden="true"
+  ></canvas>
+
+
+  <!-- NAVIGATION -->
+  <header class="navbar">
+
+    <a
+      href="#home"
+      class="brand"
+      aria-label="Wetech Home"
+    >
+      <span class="brand-mark">W</span>
+
+      <span class="brand-name">
+        WE<span>TECH</span>
+      </span>
+    </a>
+
+
+    <nav class="nav-links">
+
+      <a href="#home">Home</a>
+      <a href="#services">Services</a>
+      <a href="#work">Work</a>
+      <a href="#process">Process</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#contact">Contact</a>
+
+    </nav>
+
+
+    <a
+      href="#contact"
+      class="nav-button"
+    >
+      Start a Project
+      <span>↗</span>
+    </a>
+
+  </header>
+
+
+  <main>
+
+    <!-- HERO -->
+    <section
+      class="hero"
+      id="home"
+    >
+
+      <div class="hero-content">
+
+        <div class="hero-kicker">
+
+          <span class="kicker-line"></span>
+
+          WETECH / DIGITAL STUDIO
+
+        </div>
+
+
+        <h1 class="hero-title">
+
+          BUILD
+
+          <span>
+            WHAT'S NEXT.
+          </span>
+
+        </h1>
+
+
+        <p class="hero-text">
+
+          We create websites, applications,
+          AI systems and digital experiences
+          for ambitious businesses that want
+          to stand apart.
+
+        </p>
+
+
+        <div class="hero-actions">
+
+          <a
+            href="#contact"
+            class="button button-primary"
+          >
+            Start a Project
+            <span>↗</span>
+          </a>
+
+
+          <a
+            href="#services"
+            class="button button-secondary"
+          >
+            Explore Wetech
+            <span>↓</span>
+          </a>
+
+        </div>
+
+
+        <div class="hero-stats">
+
+          <div class="stat">
+
+            <strong>50+</strong>
+
+            <span>Projects</span>
+
+          </div>
+
+
+          <div class="stat">
+
+            <strong>30+</strong>
+
+            <span>Clients</span>
+
+          </div>
+
+
+          <div class="stat">
+
+            <strong>10+</strong>
+
+            <span>Services</span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- HERO VISUAL -->
+      <div class="hero-visual">
+
+        <div class="visual-glow"></div>
+
+        <div class="visual-floor"></div>
+
+
+        <!-- floating particles -->
+
+        <span class="floating-particle fp-1"></span>
+        <span class="floating-particle fp-2"></span>
+        <span class="floating-particle fp-3"></span>
+        <span class="floating-particle fp-4"></span>
+        <span class="floating-particle fp-5"></span>
+        <span class="floating-particle fp-6"></span>
+
+
+        <!-- glass monolith -->
+
+        <div class="monolith">
+
+          <div class="monolith-reflection reflection-1"></div>
+          <div class="monolith-reflection reflection-2"></div>
+
+
+          <div class="energy-container">
+
+            <div class="energy-stream stream-1"></div>
+            <div class="energy-stream stream-2"></div>
+            <div class="energy-stream stream-3"></div>
+
+            <div class="energy-glow glow-center-1"></div>
+            <div class="energy-glow glow-center-2"></div>
+
+
+            <span class="energy-particle ep-1"></span>
+            <span class="energy-particle ep-2"></span>
+            <span class="energy-particle ep-3"></span>
+            <span class="energy-particle ep-4"></span>
+            <span class="energy-particle ep-5"></span>
+
+          </div>
+
+
+          <div class="monolith-edge edge-top"></div>
+          <div class="monolith-edge edge-right"></div>
+          <div class="monolith-edge edge-bottom"></div>
+          <div class="monolith-edge edge-left"></div>
+
+        </div>
+
+
+        <div class="visual-label label-left">
+
+          <span>ENERGY</span>
+
+          <strong>FLOW</strong>
+
+        </div>
+
+
+        <div class="visual-label label-right">
+
+          <span>SYSTEM</span>
+
+          <strong>ACTIVE</strong>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- SERVICE STRIP -->
+    <section class="service-strip">
+
+      <span>WEB</span>
+      <span>APPS</span>
+      <span>AI</span>
+      <span>UI / UX</span>
+      <span>BRANDING</span>
+      <span>GROWTH</span>
+
+    </section>
+
+
+    <!-- SERVICES -->
+    <section
+      class="section"
+      id="services"
+    >
+
+      <div class="section-heading">
+
+        <span class="section-number">
+          01 / SERVICES
+        </span>
+
+        <h2>
+          Digital products.
+          Built properly.
+        </h2>
+
+        <p>
+          Strategy, design and technology
+          combined into one sharp digital experience.
+        </p>
+
+      </div>
+
+
+      <div class="services-layout">
+
+
+        <article class="featured-service">
+
+          <span class="service-index">
+            01
+          </span>
+
+
+          <div class="service-icon">
+            &lt;/&gt;
+          </div>
+
+
+          <h3>
+            Web Development
+          </h3>
+
+
+          <p>
+            High-performance websites,
+            landing pages and digital platforms
+            designed around your business.
+          </p>
+
+
+          <a href="#contact">
+            Start a conversation ↗
+          </a>
+
+        </article>
+
+
+        <div class="services-list">
+
+
+          <article class="service-row">
+
+            <span class="service-row-number">
+              02
+            </span>
+
+            <div>
+
+              <h3>
+                App Development
+              </h3>
+
+              <p>
+                Modern web and mobile applications.
+              </p>
+
+            </div>
+
+            <a href="#contact">
+              ↗
+            </a>
+
+          </article>
+
+
+          <article class="service-row">
+
+            <span class="service-row-number">
+              03
+            </span>
+
+            <div>
+
+              <h3>
+                UI / UX Design
+              </h3>
+
+              <p>
+                Clean interfaces built around real users.
+              </p>
+
+            </div>
+
+            <a href="#contact">
+              ↗
+            </a>
+
+          </article>
+
+
+          <article class="service-row">
+
+            <span class="service-row-number">
+              04
+            </span>
+
+            <div>
+
+              <h3>
+                Branding
+              </h3>
+
+              <p>
+                Identity systems people remember.
+              </p>
+
+            </div>
+
+            <a href="#contact">
+              ↗
+            </a>
+
+          </article>
+
+
+          <article class="service-row">
+
+            <span class="service-row-number">
+              05
+            </span>
+
+            <div>
+
+              <h3>
+                Digital Marketing
+              </h3>
+
+              <p>
+                Content, campaigns and growth strategy.
+              </p>
+
+            </div>
+
+            <a href="#contact">
+              ↗
+            </a>
+
+          </article>
+
+
+          <article class="service-row">
+
+            <span class="service-row-number">
+              06
+            </span>
+
+            <div>
+
+              <h3>
+                AI Solutions
+              </h3>
+
+              <p>
+                Assistants, automation and intelligent systems.
+              </p>
+
+            </div>
+
+            <a href="#contact">
+              ↗
+            </a>
+
+          </article>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- STATEMENT -->
+    <section class="statement-section">
+
+      <div class="statement-content">
+
+        <span class="section-number">
+          02 / WETECH MINDSET
+        </span>
+
+        <h2>
+          Make it
+          <span>meaningful.</span>
+        </h2>
+
+        <p>
+          We don't build digital products
+          just to make them exist.
+          We build them to be felt,
+          remembered and used.
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- WORK -->
+    <section
+      class="section"
+      id="work"
+    >
+
+      <div class="section-heading">
+
+        <span class="section-number">
+          03 / SELECTED WORK
+        </span>
+
+        <h2>
+          Ideas with a point of view.
+        </h2>
+
+        <p>
+          Concept directions for the type
+          of digital products Wetech can create.
+        </p>
+
+      </div>
+
+
+      <div class="work-grid">
+
+
+        <article class="work-card work-main">
+
+          <div class="work-orb"></div>
+
+          <span>
+            SAAS / WEB
+          </span>
+
+          <h3>
+            NOVA
+          </h3>
+
+          <p>
+            A high-contrast SaaS experience
+            built to feel fast, intelligent
+            and unmistakably modern.
+          </p>
+
+          <a href="#contact">
+            View Concept ↗
+          </a>
+
+        </article>
+
+
+        <article class="work-card">
+
+          <div class="work-orb"></div>
+
+          <span>
+            BRAND / IDENTITY
+          </span>
+
+          <h3>
+            ORBIT
+          </h3>
+
+          <p>
+            A technology identity designed
+            with confidence.
+          </p>
+
+          <a href="#contact">
+            View Concept ↗
+          </a>
+
+        </article>
+
+
+        <article class="work-card">
+
+          <div class="work-orb"></div>
+
+          <span>
+            AI / PRODUCT
+          </span>
+
+          <h3>
+            NEURAL
+          </h3>
+
+          <p>
+            An intelligent automation product
+            for modern teams.
+          </p>
+
+          <a href="#contact">
+            View Concept ↗
+          </a>
+
+        </article>
+
+      </div>
+
+
+      <p class="concept-note">
+        Concept projects should be replaced with verified
+        client work before public publication.
+      </p>
+
+    </section>
+
+
+    <!-- PROCESS -->
+    <section
+      class="section"
+      id="process"
+    >
+
+      <div class="section-heading">
+
+        <span class="section-number">
+          04 / PROCESS
+        </span>
+
+        <h2>
+          Simple process.
+          Serious execution.
+        </h2>
+
+      </div>
+
+
+      <div class="process-grid">
+
+
+        <article class="process-item">
+
+          <span>01</span>
+
+          <h3>
+            Discover
+          </h3>
+
+          <p>
+            Understand the business,
+            audience and objective.
+          </p>
+
+        </article>
+
+
+        <article class="process-item">
+
+          <span>02</span>
+
+          <h3>
+            Design
+          </h3>
+
+          <p>
+            Turn strategy into
+            a clear visual experience.
+          </p>
+
+        </article>
+
+
+        <article class="process-item">
+
+          <span>03</span>
+
+          <h3>
+            Build
+          </h3>
+
+          <p>
+            Develop with quality,
+            speed and precision.
+          </p>
+
+        </article>
+
+
+        <article class="process-item">
+
+          <span>04</span>
+
+          <h3>
+            Launch
+          </h3>
+
+          <p>
+            Test, refine and
+            take it live.
+          </p>
+
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- PRICING -->
+    <section
+      class="section"
+      id="pricing"
+    >
+
+      <div class="section-heading">
+
+        <span class="section-number">
+          05 / PRICING
+        </span>
+
+        <h2>
+          A clear place to start.
+        </h2>
+
+      </div>
+
+
+      <div class="pricing-grid">
+
+
+        <article class="pricing-card">
+
+          <span>
+            STARTER
+          </span>
+
+          <h3>
+            ₹10,000
+          </h3>
+
+          <p>
+            Professional business website.
+          </p>
+
+          <ul>
+
+            <li>Responsive design</li>
+            <li>Business pages</li>
+            <li>Contact section</li>
+            <li>Basic SEO structure</li>
+
+          </ul>
+
+
+          <a
+            href="#contact"
+            class="button button-secondary"
+          >
+            Get Started
+          </a>
+
+        </article>
+
+
+        <article class="pricing-card pricing-featured">
+
+          <div class="popular-label">
+            MOST POPULAR
+          </div>
+
+          <span>
+            PROFESSIONAL
+          </span>
+
+          <h3>
+            ₹15,000
+          </h3>
+
+          <p>
+            Premium digital experience.
+          </p>
+
+          <ul>
+
+            <li>Everything in Starter</li>
+            <li>Advanced UI / UX</li>
+            <li>Premium animations</li>
+            <li>Enhanced experience</li>
+
+          </ul>
+
+
+          <a
+            href="#contact"
+            class="button button-primary"
+          >
+            Choose Professional
+          </a>
+
+        </article>
+
+
+        <article class="pricing-card">
+
+          <span>
+            CUSTOM
+          </span>
+
+          <h3>
+            Let's Talk
+          </h3>
+
+          <p>
+            For larger digital products.
+          </p>
+
+          <ul>
+
+            <li>Web applications</li>
+            <li>Mobile apps</li>
+            <li>E-commerce</li>
+            <li>AI solutions</li>
+
+          </ul>
+
+
+          <a
+            href="#contact"
+            class="button button-secondary"
+          >
+            Discuss Project
+          </a>
+
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- CONTACT -->
+    <section
+      class="section"
+      id="contact"
+    >
+
+      <div class="contact-box">
+
+
+        <div class="contact-content">
+
+          <span class="section-number">
+            06 / CONTACT
+          </span>
+
+          <h2>
+            Let's build something
+            worth remembering.
+          </h2>
+
+          <p>
+            Tell us what you're building
+            and we'll take it from there.
+          </p>
+
+
+          <div class="contact-details">
+
+            <div>
+
+              <span>
+                WHATSAPP
+              </span>
+
+              <strong>
+                +91 8445209063
+              </strong>
+
+            </div>
+
+
+            <div>
+
+              <span>
+                EMAIL
+              </span>
+
+              <strong>
+                hello@wetech.in
+              </strong>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- TEMPORARY FORM -->
+        <!-- Backend will be connected later -->
+
+        <form
+          id="contactForm"
+        >
+
+          <input
+            type="text"
+            name="name"
+            placeholder="Your name"
+            autocomplete="name"
+            required
+          >
+
+
+          <input
+            type="email"
+            name="email"
+            placeholder="Your email"
+            autocomplete="email"
+            required
+          >
+
+
+          <input
+            type="tel"
+            name="phone"
+            placeholder="Phone / WhatsApp"
+            autocomplete="tel"
+          >
+
+
+          <input
+            type="text"
+            name="service"
+            placeholder="What do you need?"
+          >
+
+
+          <textarea
+            name="message"
+            placeholder="Tell us about your project..."
+            required
+          ></textarea>
+
+
+          <button
+            type="submit"
+            class="button button-primary"
+          >
+            Send Enquiry
+            <span>→</span>
+          </button>
+
+
+          <p
+            id="formMessage"
+            class="form-message"
+            aria-live="polite"
+          ></p>
+
+        </form>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- WHATSAPP -->
+  <a
+    href="https://wa.me/918445209063"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="whatsapp-button"
+    aria-label="Chat with Wetech on WhatsApp"
+  >
+
+    <span class="whatsapp-icon">
+      ☎
+    </span>
+
+    <span class="whatsapp-text">
+
+      <strong>
+        WhatsApp
+      </strong>
+
+      <small>
+        +91 8445209063
+      </small>
+
+    </span>
+
+  </a>
+
+
+  <!-- FOOTER -->
+  <footer class="footer">
+
+    <div>
+
+      <a
+        href="#home"
+        class="brand"
+      >
+
+        <span class="brand-mark">
+          W
+        </span>
+
+        <span class="brand-name">
+          WE<span>TECH</span>
+        </span>
+
+      </a>
+
+
+      <p>
+        Digital experiences,
+        engineered for what's next.
+      </p>
+
+    </div>
+
+
+    <div class="footer-links">
+
+      <a href="#services">Services</a>
+      <a href="#work">Work</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#contact">Contact</a>
+
+    </div>
+
+
+    <div class="footer-copy">
+      © 2026 Wetech.
+    </div>
+
+  </footer>
+
+
+  <script src="script.js"></script>
+
+</body>
+</html>
