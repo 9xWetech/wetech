@@ -2,19 +2,22 @@ document.addEventListener(
   "DOMContentLoaded",
   () => {
 
-    /* =========================
+
+    /* =====================================
        BACKGROUND PARTICLES
-    ========================= */
+    ===================================== */
 
     const canvas =
       document.getElementById(
         "backgroundCanvas"
       );
 
-    if (canvas) {
+
+    if(canvas){
 
       const ctx =
         canvas.getContext("2d");
+
 
       let width = 0;
       let height = 0;
@@ -22,7 +25,7 @@ document.addEventListener(
       let particles = [];
 
 
-      function resizeCanvas() {
+      function resizeCanvas(){
 
         const dpr =
           Math.min(
@@ -33,6 +36,7 @@ document.addEventListener(
 
         width =
           window.innerWidth;
+
 
         height =
           window.innerHeight;
@@ -53,6 +57,7 @@ document.addEventListener(
         canvas.style.width =
           width + "px";
 
+
         canvas.style.height =
           height + "px";
 
@@ -69,44 +74,46 @@ document.addEventListener(
 
         const count =
           width < 700
-            ? 20
+            ? 18
             : 42;
 
 
         particles =
           Array.from(
-            { length: count },
+            {
+              length:count
+            },
             () => ({
 
               x:
-                Math.random() *
-                width,
+                Math.random()
+                * width,
 
               y:
-                Math.random() *
-                height,
+                Math.random()
+                * height,
 
               vx:
                 (
                   Math.random()
-                  - 0.5
-                ) * 0.10,
+                  -.5
+                ) * .075,
 
               vy:
                 (
                   Math.random()
-                  - 0.5
-                ) * 0.10,
+                  -.5
+                ) * .075,
 
               radius:
                 Math.random()
-                * 1.1
-                + 0.25,
+                * 1
+                + .25,
 
               opacity:
                 Math.random()
-                * 0.20
-                + 0.05
+                * .18
+                + .04
 
             })
           );
@@ -121,25 +128,22 @@ document.addEventListener(
         "resize",
         resizeCanvas,
         {
-          passive: true
+          passive:true
         }
       );
 
 
-      let lastFrame =
-        0;
+      let lastFrame = 0;
 
 
-      function animate(
-        timestamp
-      ) {
+      function animate(timestamp){
 
-        if (
+        if(
           timestamp -
           lastFrame
           <
           1000 / 40
-        ) {
+        ){
 
           requestAnimationFrame(
             animate
@@ -171,45 +175,37 @@ document.addEventListener(
               particle.vy;
 
 
-            if (
+            if(
               particle.x < -10
-            ) {
-
+            ){
               particle.x =
                 width + 10;
-
             }
 
 
-            if (
+            if(
               particle.x >
               width + 10
-            ) {
-
+            ){
               particle.x =
                 -10;
-
             }
 
 
-            if (
+            if(
               particle.y < -10
-            ) {
-
+            ){
               particle.y =
                 height + 10;
-
             }
 
 
-            if (
+            if(
               particle.y >
               height + 10
-            ) {
-
+            ){
               particle.y =
                 -10;
-
             }
 
 
@@ -227,11 +223,18 @@ document.addEventListener(
 
             ctx.fillStyle =
               `rgba(
-                218,
-                229,
-                234,
+                155,
+                214,
+                255,
                 ${particle.opacity}
               )`;
+
+
+            ctx.shadowBlur = 6;
+
+
+            ctx.shadowColor =
+              "rgba(40,230,255,.32)";
 
 
             ctx.fill();
@@ -254,9 +257,9 @@ document.addEventListener(
     }
 
 
-    /* =========================
+    /* =====================================
        HERO PARALLAX
-    ========================= */
+    ===================================== */
 
     const hero =
       document.querySelector(
@@ -270,11 +273,11 @@ document.addEventListener(
       );
 
 
-    if (
+    if(
       hero &&
       visual &&
-      window.innerWidth >= 900
-    ) {
+      window.innerWidth >= 950
+    ){
 
       hero.addEventListener(
         "pointermove",
@@ -283,27 +286,27 @@ document.addEventListener(
           const x =
             event.clientX /
             window.innerWidth
-            - 0.5;
+            - .5;
 
 
           const y =
             event.clientY /
             window.innerHeight
-            - 0.5;
+            - .5;
 
 
           visual.style.transform =
             `
             translate3d(
-              ${x * 9}px,
-              ${y * 7}px,
+              ${x * 7}px,
+              ${y * 6}px,
               0
             )
             `;
 
         },
         {
-          passive: true
+          passive:true
         }
       );
 
@@ -321,24 +324,26 @@ document.addEventListener(
     }
 
 
-    /* =========================
+    /* =====================================
        CARD HOVER
-    ========================= */
+    ===================================== */
 
-    if (
-      window.innerWidth >= 900
-    ) {
+    if(
+      window.innerWidth >= 950
+    ){
 
-      const interactiveCards =
+      const cards =
         document.querySelectorAll(
-          ".featured-service, " +
-          ".service-row, " +
-          ".work-card, " +
-          ".pricing-card"
+          [
+            ".featured-service",
+            ".service-row",
+            ".work-card",
+            ".pricing-card"
+          ].join(",")
         );
 
 
-      interactiveCards.forEach(
+      cards.forEach(
         card => {
 
           card.addEventListener(
@@ -356,7 +361,7 @@ document.addEventListener(
                 )
                 /
                 rect.width
-                - 0.5;
+                -.5;
 
 
               const y =
@@ -366,20 +371,20 @@ document.addEventListener(
                 )
                 /
                 rect.height
-                - 0.5;
+                -.5;
 
 
               card.style.transform =
                 `
                 perspective(900px)
-                rotateX(${y * -1.5}deg)
-                rotateY(${x * 1.5}deg)
+                rotateX(${y * -1.2}deg)
+                rotateY(${x * 1.2}deg)
                 translateY(-4px)
                 `;
 
             },
             {
-              passive: true
+              passive:true
             }
           );
 
@@ -400,44 +405,48 @@ document.addEventListener(
     }
 
 
-    /* =========================
+    /* =====================================
        SCROLL REVEAL
-    ========================= */
+    ===================================== */
 
-    const sections =
+    const reveal =
       document.querySelectorAll(
-        ".section-heading, " +
-        ".featured-service, " +
-        ".service-row, " +
-        ".work-card, " +
-        ".process-item, " +
-        ".pricing-card, " +
-        ".contact-box, " +
-        ".statement-content"
+        [
+          ".section-heading",
+          ".featured-service",
+          ".service-row",
+          ".work-card",
+          ".process-item",
+          ".pricing-card",
+          ".contact-box",
+          ".statement-content"
+        ].join(",")
       );
 
 
-    sections.forEach(
+    reveal.forEach(
       element => {
 
         element.style.opacity =
           "0";
 
+
         element.style.transform =
-          "translateY(22px)";
+          "translateY(20px)";
+
 
         element.style.transition =
           "opacity .7s ease, " +
-          "transform .7s ease";
+          "transform .7s cubic-bezier(.16,1,.3,1)";
 
       }
     );
 
 
-    if (
+    if(
       "IntersectionObserver"
       in window
-    ) {
+    ){
 
       const observer =
         new IntersectionObserver(
@@ -446,12 +455,13 @@ document.addEventListener(
             entries.forEach(
               entry => {
 
-                if (
+                if(
                   entry.isIntersecting
-                ) {
+                ){
 
                   entry.target.style.opacity =
                     "1";
+
 
                   entry.target.style.transform =
                     "translateY(0)";
@@ -468,29 +478,28 @@ document.addEventListener(
 
           },
           {
-            threshold:
-              0.08
+            threshold:.08
           }
         );
 
 
-      sections.forEach(
-        section =>
+      reveal.forEach(
+        element =>
           observer.observe(
-            section
+            element
           )
       );
 
     }
-    else {
+    else{
 
-      sections.forEach(
-        section => {
+      reveal.forEach(
+        element => {
 
-          section.style.opacity =
+          element.style.opacity =
             "1";
 
-          section.style.transform =
+          element.style.transform =
             "none";
 
         }
@@ -499,10 +508,9 @@ document.addEventListener(
     }
 
 
-    /* =========================
-       TEMPORARY CONTACT FORM
-       NO BACKEND YET
-    ========================= */
+    /* =====================================
+       TEMPORARY FORM
+    ===================================== */
 
     const form =
       document.getElementById(
@@ -516,7 +524,7 @@ document.addEventListener(
       );
 
 
-    if (form) {
+    if(form){
 
       form.addEventListener(
         "submit",
@@ -525,7 +533,7 @@ document.addEventListener(
           event.preventDefault();
 
 
-          if (formMessage) {
+          if(formMessage){
 
             formMessage.textContent =
               "Enquiry system is being connected. Please contact us on WhatsApp for now.";
@@ -538,13 +546,13 @@ document.addEventListener(
     }
 
 
-    /* =========================
-       BUTTON MAGNETIC EFFECT
-    ========================= */
+    /* =====================================
+       MAGNETIC BUTTONS
+    ===================================== */
 
-    if (
-      window.innerWidth >= 900
-    ) {
+    if(
+      window.innerWidth >= 950
+    ){
 
       const buttons =
         document.querySelectorAll(
@@ -569,7 +577,7 @@ document.addEventListener(
                   rect.left -
                   rect.width / 2
                 )
-                * 0.04;
+                * .025;
 
 
               const y =
@@ -578,7 +586,7 @@ document.addEventListener(
                   rect.top -
                   rect.height / 2
                 )
-                * 0.04;
+                * .025;
 
 
               button.style.transform =
@@ -591,7 +599,7 @@ document.addEventListener(
 
             },
             {
-              passive: true
+              passive:true
             }
           );
 
@@ -612,369 +620,60 @@ document.addEventListener(
     }
 
 
-    /* =========================
-       SMOOTH ANCHOR LINKS
-    ========================= */
+    /* =====================================
+       SMOOTH ANCHORS
+    ===================================== */
 
-    const anchorLinks =
-      document.querySelectorAll(
+    document
+      .querySelectorAll(
         'a[href^="#"]'
-      );
+      )
+      .forEach(
+        link => {
 
+          link.addEventListener(
+            "click",
+            event => {
 
-    anchorLinks.forEach(
-      link => {
+              const id =
+                link.getAttribute(
+                  "href"
+                );
 
-        link.addEventListener(
-          "click",
-          event => {
 
-            const targetId =
-              link.getAttribute(
-                "href"
-              );
+              if(
+                !id ||
+                id === "#"
+              ){
 
-
-            if (
-              !targetId ||
-              targetId === "#"
-            ) {
-
-              return;
-
-            }
-
-
-            const target =
-              document.querySelector(
-                targetId
-              );
-
-
-            if (!target) {
-
-              return;
-
-            }
-
-
-            event.preventDefault();
-
-
-            target.scrollIntoView({
-              behavior: "smooth",
-              block: "start"
-            });
-
-          }
-        );
-
-      }
-    );
-
-  }
-);
-/* =========================================================
-   W.A.I. ASSISTANT ENGINE
-========================================================= */
-
-document.addEventListener(
-  "DOMContentLoaded",
-  () => {
-
-    const robot =
-      document.getElementById(
-        "waiCharacter"
-      );
-
-    const speech =
-      document.getElementById(
-        "waiSpeech"
-      );
-
-    const buttons =
-      document.querySelectorAll(
-        ".wai-controls button"
-      );
-
-
-    if(!robot){
-      return;
-    }
-
-
-    /* ---------------------------------------
-       IDLE MOVEMENT
-    --------------------------------------- */
-
-    let start =
-      performance.now();
-
-
-    function robotIdle(
-      time
-    ){
-
-      const seconds =
-        (
-          time -
-          start
-        ) / 1000;
-
-
-      const bob =
-        Math.sin(
-          seconds * 1.25
-        ) * 3;
-
-
-      const tilt =
-        Math.sin(
-          seconds * .72
-        ) * .45;
-
-
-      robot.style.transform =
-        `
-        translate(
-          -50%,
-          calc(
-            -50% + ${bob}px
-          )
-        )
-        rotate(
-          ${tilt}deg
-        )
-        `;
-
-
-      requestAnimationFrame(
-        robotIdle
-      );
-
-    }
-
-
-    requestAnimationFrame(
-      robotIdle
-    );
-
-
-    /* ---------------------------------------
-       BLINK
-    --------------------------------------- */
-
-    const eyes =
-      document.querySelectorAll(
-        ".wai-eye"
-      );
-
-
-    function blink(){
-
-      eyes.forEach(
-        eye => {
-
-          eye.style.transform =
-            "scaleY(.12)";
-
-        }
-      );
-
-
-      setTimeout(
-        () => {
-
-          eyes.forEach(
-            eye => {
-
-              eye.style.transform =
-                "scaleY(1)";
-
-            }
-          );
-
-        },
-        110
-      );
-
-    }
-
-
-    setInterval(
-      blink,
-      4300
-    );
-
-
-    /* ---------------------------------------
-       TALK REACTION
-    --------------------------------------- */
-
-    function robotReact(){
-
-      robot.animate(
-        [
-
-          {
-            filter:
-              "brightness(1)"
-          },
-
-          {
-            filter:
-              "brightness(1.18)"
-          },
-
-          {
-            filter:
-              "brightness(1)"
-          }
-
-        ],
-        {
-          duration:
-            650,
-
-          easing:
-            "ease-in-out"
-        }
-      );
-
-
-      eyes.forEach(
-        eye => {
-
-          eye.animate(
-            [
-
-              {
-                transform:
-                  "scaleY(1)"
-              },
-
-              {
-                transform:
-                  "scaleY(.45)"
-              },
-
-              {
-                transform:
-                  "scaleY(1.15)"
-              },
-
-              {
-                transform:
-                  "scaleY(1)"
+                return;
               }
 
-            ],
-            {
-              duration:
-                620,
 
-              easing:
-                "ease-in-out"
+              const target =
+                document.querySelector(
+                  id
+                );
+
+
+              if(!target){
+                return;
+              }
+
+
+              event.preventDefault();
+
+
+              target.scrollIntoView({
+                behavior:"smooth",
+                block:"start"
+              });
+
             }
           );
 
         }
       );
-
-    }
-
-
-    /* ---------------------------------------
-       BUTTONS
-    --------------------------------------- */
-
-    buttons.forEach(
-      button => {
-
-        button.addEventListener(
-          "click",
-          () => {
-
-            const message =
-              button.dataset.waiMessage;
-
-
-            if(
-              message &&
-              speech
-            ){
-
-              speech.innerHTML =
-                message;
-
-            }
-
-
-            robotReact();
-
-
-            /* Talk button */
-
-            if(
-              button.classList.contains(
-                "wai-talk-button"
-              )
-            ){
-
-              const contact =
-                document.getElementById(
-                  "contact"
-                );
-
-
-              if(contact){
-
-                setTimeout(
-                  () => {
-
-                    contact.scrollIntoView({
-                      behavior:
-                        "smooth",
-
-                      block:
-                        "start"
-                    });
-
-                  },
-                  350
-                );
-
-              }
-
-            }
-
-          }
-        );
-
-      }
-    );
-
-
-    /* ---------------------------------------
-       SPEECH INTRO
-    --------------------------------------- */
-
-    if(speech){
-
-      setTimeout(
-        () => {
-
-          speech.innerHTML =
-            `
-            Hey 👋 I'm W.A.I.<br>
-            Your digital assistant.
-            `;
-
-        },
-        900
-      );
-
-    }
 
   }
 );
