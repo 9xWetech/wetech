@@ -507,45 +507,118 @@ document.addEventListener(
 
     }
 
+/* =====================================
+   LIVE CONTACT FORM
+===================================== */
 
-    /* =====================================
-       TEMPORARY FORM
-    ===================================== */
+const form =
+  document.getElementById("contactForm");
 
-    const form =
-      document.getElementById(
-        "contactForm"
-      );
+const formMessage =
+  document.getElementById("formMessage");
 
+if (form) {
 
-    const formMessage =
-      document.getElementById(
-        "formMessage"
-      );
+  form.addEventListener(
+    "submit",
+    async (event) => {
 
+      event.preventDefault();
 
-    if(form){
+      const submitButton =
+        form.querySelector(
+          'button[type="submit"]'
+        );
 
-      form.addEventListener(
-        "submit",
-        event => {
+      const originalText =
+        submitButton
+          ? submitButton.innerHTML
+          : "";
 
-          event.preventDefault();
+      if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.innerHTML = "Sending...";
+      }
 
+      if (formMessage) {
+        formMessage.textContent =
+          "Sending your enquiry...";
+      }
 
-          if(formMessage){
+      const formData =
+        new FormData(form);
 
-            formMessage.textContent =
-              "Enquiry system is being connected. Please contact us on WhatsApp for now.";
+      const payload =
+        Object.fromEntries(
+          formData.entries()
+        );
 
-          }
+      try {
 
+        const response =
+          await fetch(
+            "/api/contact",
+            {
+              method: "POST",
+
+              headers: {
+                "Content-Type":
+                  "application/json"
+              },
+
+              body:
+                JSON.stringify(
+                  payload
+                )
+            }
+          );
+
+        const data =
+          await response.json();
+
+        if (
+          !response.ok ||
+          !data.success
+        ) {
+          throw new Error(
+            data.message ||
+            "Unable to send enquiry."
+          );
         }
-      );
+
+        form.reset();
+
+        if (formMessage) {
+          formMessage.textContent =
+            "✓ Enquiry sent successfully. A confirmation email has been sent.";
+        }
+
+      } catch (error) {
+
+        console.error(
+          "Contact form error:",
+          error
+        );
+
+        if (formMessage) {
+          formMessage.textContent =
+            "Unable to send right now. Please contact us on WhatsApp.";
+        }
+
+      } finally {
+
+        if (submitButton) {
+          submitButton.disabled = false;
+          submitButton.innerHTML =
+            originalText;
+        }
+
+      }
 
     }
+  );
 
-
+}
     /* =====================================
        MAGNETIC BUTTONS
     ===================================== */
