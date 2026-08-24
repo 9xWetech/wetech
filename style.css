@@ -3939,3 +3939,657 @@ textarea{
   }
 
 }
+/* =========================================================
+   WETECH — SECTION POLISH V1
+   Services / Work / Process / Pricing / Contact / Footer
+========================================================= */
+
+/* =========================
+   GLOBAL SECTION RHYTHM
+========================= */
+
+.section{
+  position:relative;
+}
+
+.section::before{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  top:0;
+  height:1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(54,230,255,.16),
+      rgba(118,93,255,.10),
+      transparent
+    );
+
+  opacity:.75;
+}
+
+.section-heading{
+  position:relative;
+}
+
+.section-heading::after{
+  content:"";
+  display:block;
+
+  width:70px;
+  height:2px;
+
+  margin-top:20px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #35e7ff,
+      #4c87ff,
+      transparent
+    );
+
+  box-shadow:
+    0 0 14px
+    rgba(54,230,255,.24);
+}
+
+
+/* =========================
+   SERVICES
+========================= */
+
+.services-layout{
+  align-items:stretch;
+}
+
+.featured-service{
+  min-height:520px;
+
+  background:
+    radial-gradient(
+      circle at 90% 10%,
+      rgba(54,230,255,.08),
+      transparent 25%
+    ),
+    linear-gradient(
+      145deg,
+      rgba(11,25,43,.96),
+      rgba(4,12,22,.92)
+    );
+
+  box-shadow:
+    inset 0 1px 0
+    rgba(255,255,255,.025),
+
+    0 22px 55px
+    rgba(0,0,0,.18);
+}
+
+.featured-service::after{
+  content:"01";
+
+  position:absolute;
+
+  right:24px;
+  bottom:18px;
+
+  font-family:
+    "Space Grotesk",
+    sans-serif;
+
+  font-size:88px;
+  font-weight:700;
+
+  color:rgba(94,150,205,.045);
+
+  line-height:1;
+
+  pointer-events:none;
+}
+
+.service-icon{
+  position:relative;
+
+  box-shadow:
+    inset 0 0 18px
+    rgba(54,230,255,.05),
+
+    0 0 25px
+    rgba(54,230,255,.05);
+}
+
+.service-icon::after{
+  content:"";
+
+  position:absolute;
+  inset:-7px;
+
+  border-radius:18px;
+
+  border:1px solid
+    rgba(54,230,255,.06);
+
+  animation:
+    serviceIconPulse
+    3.2s
+    ease-in-out
+    infinite;
+}
+
+@keyframes serviceIconPulse{
+  0%,100%{
+    transform:scale(.96);
+    opacity:.35;
+  }
+
+  50%{
+    transform:scale(1.05);
+    opacity:.9;
+  }
+}
+
+.service-row{
+  position:relative;
+  overflow:hidden;
+
+  background:
+    linear-gradient(
+      100deg,
+      rgba(8,19,33,.80),
+      rgba(5,13,23,.64)
+    );
+}
+
+.service-row::before{
+  content:"";
+
+  position:absolute;
+
+  left:0;
+  top:0;
+  bottom:0;
+
+  width:2px;
+
+  background:
+    linear-gradient(
+      180deg,
+      transparent,
+      #35e7ff,
+      transparent
+    );
+
+  opacity:0;
+
+  transition:
+    opacity .25s ease;
+}
+
+.service-row:hover::before{
+  opacity:1;
+}
+
+.service-row > a{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  width:28px;
+  height:28px;
+
+  border-radius:50%;
+
+  background:
+    rgba(54,230,255,.045);
+
+  border:1px solid
+    rgba(54,230,255,.10);
+}
+
+
+/* =========================
+   MINDSET / STATEMENT
+========================= */
+
+.statement-section{
+  position:relative;
+}
+
+.statement-section::before{
+  content:"";
+  position:absolute;
+
+  left:50%;
+  top:50%;
+
+  width:min(720px,90vw);
+  height:360px;
+
+  transform:
+    translate(-50%,-50%);
+
+  border-radius:50%;
+
+  background:
+    radial-gradient(
+      ellipse,
+      rgba(54,230,255,.055),
+      rgba(78,131,255,.025) 38%,
+      transparent 72%
+    );
+
+  filter:blur(18px);
+
+  pointer-events:none;
+}
+
+.statement-content{
+  position:relative;
+}
+
+.statement-content h2{
+  text-shadow:
+    0 0 24px
+    rgba(255,255,255,.025);
+}
+
+.statement-content h2 span{
+  text-shadow:
+    0 0 28px
+    rgba(54,230,255,.10);
+}
+
+
+/* =========================
+   WORK
+========================= */
+
+.work-grid{
+  perspective:1200px;
+}
+
+.work-card{
+  box-shadow:
+    inset 0 1px 0
+    rgba(255,255,255,.018),
+
+    0 18px 48px
+    rgba(0,0,0,.18);
+}
+
+.work-card::after{
+  content:"";
+
+  position:absolute;
+  inset:0;
+
+  background:
+    linear-gradient(
+      125deg,
+      transparent 30%,
+      rgba(255,255,255,.035) 49%,
+      transparent 68%
+    );
+
+  background-size:230% 100%;
+
+  transform:
+    translateX(-100%);
+
+  transition:
+    transform .9s ease;
+
+  pointer-events:none;
+}
+
+.work-card:hover::after{
+  transform:
+    translateX(100%);
+}
+
+.work-main{
+  background:
+    radial-gradient(
+      circle at 80% 20%,
+      rgba(59,130,255,.075),
+      transparent 30%
+    ),
+    linear-gradient(
+      145deg,
+      #0c1829,
+      #050c16
+    );
+}
+
+.work-card h3{
+  letter-spacing:-1px;
+}
+
+.work-card a{
+  position:relative;
+  z-index:2;
+}
+
+
+/* =========================
+   PROCESS
+========================= */
+
+.process-grid{
+  position:relative;
+
+  border:
+    1px solid
+    rgba(130,180,225,.08);
+
+  border-radius:18px;
+
+  overflow:hidden;
+
+  background:
+    rgba(5,13,23,.45);
+}
+
+.process-item{
+  position:relative;
+
+  min-height:190px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.008),
+      transparent
+    );
+
+  transition:
+    background .25s ease,
+    transform .25s ease;
+}
+
+.process-item:hover{
+  background:
+    rgba(54,230,255,.025);
+
+  transform:
+    translateY(-3px);
+}
+
+.process-item > span{
+  display:inline-flex;
+
+  align-items:center;
+  justify-content:center;
+
+  width:31px;
+  height:31px;
+
+  border-radius:50%;
+
+  border:1px solid
+    rgba(54,230,255,.15);
+
+  background:
+    rgba(54,230,255,.035);
+
+  box-shadow:
+    inset 0 0 12px
+    rgba(54,230,255,.04);
+}
+
+.process-item h3{
+  margin-top:18px;
+}
+
+
+/* =========================
+   PRICING
+========================= */
+
+.pricing-card{
+  min-height:430px;
+
+  display:flex;
+  flex-direction:column;
+
+  box-shadow:
+    inset 0 1px 0
+    rgba(255,255,255,.015),
+
+    0 20px 50px
+    rgba(0,0,0,.16);
+}
+
+.pricing-card ul{
+  flex:1;
+}
+
+.pricing-card .button{
+  width:100%;
+}
+
+.pricing-featured{
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(54,230,255,.08),
+      transparent 34%
+    ),
+    rgba(6,17,29,.88);
+}
+
+.pricing-featured::before{
+  content:"";
+
+  position:absolute;
+  left:16px;
+  right:16px;
+  top:0;
+
+  height:1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      #35e7ff,
+      transparent
+    );
+
+  box-shadow:
+    0 0 16px
+    rgba(54,230,255,.34);
+}
+
+.popular-label{
+  box-shadow:
+    0 0 18px
+    rgba(40,230,255,.18);
+}
+
+
+/* =========================
+   CONTACT
+========================= */
+
+.contact-box{
+  position:relative;
+  overflow:hidden;
+
+  box-shadow:
+    inset 0 1px 0
+    rgba(255,255,255,.02),
+
+    0 26px 70px
+    rgba(0,0,0,.20);
+}
+
+.contact-box::before{
+  content:"";
+
+  position:absolute;
+
+  width:360px;
+  height:360px;
+
+  left:-180px;
+  bottom:-180px;
+
+  border-radius:50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(54,230,255,.075),
+      transparent 70%
+    );
+
+  pointer-events:none;
+}
+
+.contact-content,
+#contactForm{
+  position:relative;
+  z-index:2;
+}
+
+.contact-details > div{
+  padding:
+    12px 14px;
+
+  border:
+    1px solid
+    rgba(130,180,225,.075);
+
+  border-radius:10px;
+
+  background:
+    rgba(255,255,255,.012);
+}
+
+#contactForm input,
+#contactForm textarea{
+  transition:
+    border-color .25s ease,
+    box-shadow .25s ease,
+    background .25s ease;
+}
+
+#contactForm input:hover,
+#contactForm textarea:hover{
+  border-color:
+    rgba(130,180,225,.20);
+}
+
+#contactForm input:focus,
+#contactForm textarea:focus{
+  background:
+    rgba(54,230,255,.018);
+}
+
+
+/* =========================
+   WHATSAPP
+========================= */
+
+.whatsapp-button{
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease,
+    border-color .25s ease;
+}
+
+.whatsapp-button:hover{
+  transform:
+    translateY(-4px);
+
+  border-color:
+    rgba(34,197,94,.38);
+
+  box-shadow:
+    0 20px 50px
+    rgba(0,0,0,.42);
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer{
+  position:relative;
+
+  padding-top:40px;
+}
+
+.footer-links a{
+  position:relative;
+
+  transition:
+    color .22s ease;
+}
+
+.footer-links a::after{
+  content:"";
+
+  position:absolute;
+
+  left:0;
+  bottom:-5px;
+
+  width:0;
+  height:1px;
+
+  background:
+    #36e7ff;
+
+  box-shadow:
+    0 0 8px
+    rgba(54,230,255,.30);
+
+  transition:
+    width .22s ease;
+}
+
+.footer-links a:hover::after{
+  width:100%;
+}
+
+
+/* =========================
+   RESPONSIVE SECTION POLISH
+========================= */
+
+@media(max-width:700px){
+
+  .section::before{
+    opacity:.5;
+  }
+
+  .section-heading::after{
+    width:55px;
+    margin-top:16px;
+  }
+
+  .featured-service{
+    min-height:370px;
+  }
+
+  .process-item{
+    min-height:150px;
+  }
+
+  .pricing-card{
+    min-height:400px;
+  }
+
+  .contact-details > div{
+    padding:11px 12px;
+  }
+
+}
