@@ -3237,3 +3237,243 @@ textarea{
       scale(.72);
   }
 }
+/* =====================================================
+   WETECH — BRIGHT UI TEXT POLISH
+===================================================== */
+
+/* NAVIGATION */
+.nav-links a{
+  color:#ffffff !important;
+  font-weight:600;
+  opacity:1;
+}
+
+.nav-links a:hover{
+  color:#ffffff !important;
+  text-shadow:
+    0 0 12px rgba(40,230,255,.32);
+}
+
+
+/* BRAND */
+.brand-name{
+  color:#ffffff !important;
+}
+
+.brand-name span{
+  color:#38e8ff !important;
+}
+
+
+/* SECTION LABELS */
+.section-number{
+  color:#ffffff !important;
+  opacity:.92;
+}
+
+
+/* SERVICE STRIP */
+.service-strip span{
+  color:#ffffff !important;
+  opacity:.88;
+}
+
+
+/* ALL SECTION HEADINGS */
+.section-heading h2{
+  color:#ffffff !important;
+
+  text-shadow:
+    0 0 18px rgba(255,255,255,.035);
+}
+
+
+/* SECTION DESCRIPTIONS */
+.section-heading p{
+  color:#d4e0eb !important;
+}
+
+
+/* SERVICE TITLES */
+.featured-service h3,
+.service-row h3{
+  color:#ffffff !important;
+}
+
+
+/* SERVICE BODY TEXT */
+.featured-service p,
+.service-row p{
+  color:#c4d2df !important;
+}
+
+
+/* SERVICE NUMBERS */
+.service-index,
+.service-row-number{
+  color:#b9cde0 !important;
+}
+
+
+/* SERVICE LINKS */
+.featured-service a,
+.service-row > a{
+  color:#63edff !important;
+}
+
+
+/* STATEMENT */
+.statement-content h2{
+  color:#ffffff !important;
+}
+
+.statement-content p{
+  color:#c9d7e4 !important;
+}
+
+
+/* WORK */
+.work-card > span{
+  color:#c8d8e6 !important;
+}
+
+.work-card h3{
+  color:#ffffff !important;
+}
+
+.work-card p{
+  color:#c0cfdd !important;
+}
+
+.work-card a{
+  color:#69edff !important;
+}
+
+.concept-note{
+  color:#9bb0c2 !important;
+}
+
+
+/* PROCESS */
+.process-item > span{
+  color:#5ceaff !important;
+}
+
+.process-item h3{
+  color:#ffffff !important;
+}
+
+.process-item p{
+  color:#c4d2df !important;
+}
+
+
+/* PRICING */
+.pricing-card > span{
+  color:#c8d8e6 !important;
+}
+
+.pricing-card h3{
+  color:#ffffff !important;
+}
+
+.pricing-card > p{
+  color:#c2d0dc !important;
+}
+
+.pricing-card li{
+  color:#d0dce7 !important;
+}
+
+.pricing-card li::before{
+  color:#45eaff !important;
+}
+
+
+/* CONTACT */
+.contact-content h2{
+  color:#ffffff !important;
+}
+
+.contact-content > p{
+  color:#ccd9e4 !important;
+}
+
+.contact-details span{
+  color:#a8bed1 !important;
+}
+
+.contact-details strong{
+  color:#ffffff !important;
+}
+
+
+/* FORM */
+#contactForm input,
+#contactForm textarea{
+  color:#ffffff !important;
+}
+
+#contactForm input::placeholder,
+#contactForm textarea::placeholder{
+  color:#8ea4b8 !important;
+}
+
+
+/* FOOTER */
+.footer p{
+  color:#a8bacb !important;
+}
+
+.footer-links a{
+  color:#d4e0eb !important;
+}
+
+.footer-links a:hover{
+  color:#ffffff !important;
+}
+
+.footer-copy{
+  color:#a1b4c6 !important;
+}
+
+
+/* HERO STATS */
+.stat strong{
+  color:#ffffff !important;
+}
+
+.stat span{
+  color:#b1c5d7 !important;
+}
+
+
+/* VISUAL LABELS */
+.visual-label span{
+  color:#a9c0d3 !important;
+}
+
+.visual-label strong{
+  color:#eaffff !important;
+}
+
+
+/* MOBILE — KEEP TEXT BRIGHT */
+@media(max-width:700px){
+
+  .nav-links a{
+    color:#ffffff !important;
+  }
+
+  .section-heading p,
+  .featured-service p,
+  .service-row p,
+  .statement-content p,
+  .work-card p,
+  .process-item p,
+  .pricing-card > p,
+  .pricing-card li,
+  .contact-content > p{
+    color:#cbd9e5 !important;
+  }
+}
