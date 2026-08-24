@@ -674,3 +674,307 @@ document.addEventListener(
 
   }
 );
+/* =========================================================
+   W.A.I. ASSISTANT ENGINE
+========================================================= */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  () => {
+
+    const robot =
+      document.getElementById(
+        "waiCharacter"
+      );
+
+    const speech =
+      document.getElementById(
+        "waiSpeech"
+      );
+
+    const buttons =
+      document.querySelectorAll(
+        ".wai-controls button"
+      );
+
+
+    if(!robot){
+      return;
+    }
+
+
+    /* ---------------------------------------
+       IDLE MOVEMENT
+    --------------------------------------- */
+
+    let start =
+      performance.now();
+
+
+    function robotIdle(
+      time
+    ){
+
+      const seconds =
+        (
+          time -
+          start
+        ) / 1000;
+
+
+      const bob =
+        Math.sin(
+          seconds * 1.25
+        ) * 3;
+
+
+      const tilt =
+        Math.sin(
+          seconds * .72
+        ) * .45;
+
+
+      robot.style.transform =
+        `
+        translate(
+          -50%,
+          calc(
+            -50% + ${bob}px
+          )
+        )
+        rotate(
+          ${tilt}deg
+        )
+        `;
+
+
+      requestAnimationFrame(
+        robotIdle
+      );
+
+    }
+
+
+    requestAnimationFrame(
+      robotIdle
+    );
+
+
+    /* ---------------------------------------
+       BLINK
+    --------------------------------------- */
+
+    const eyes =
+      document.querySelectorAll(
+        ".wai-eye"
+      );
+
+
+    function blink(){
+
+      eyes.forEach(
+        eye => {
+
+          eye.style.transform =
+            "scaleY(.12)";
+
+        }
+      );
+
+
+      setTimeout(
+        () => {
+
+          eyes.forEach(
+            eye => {
+
+              eye.style.transform =
+                "scaleY(1)";
+
+            }
+          );
+
+        },
+        110
+      );
+
+    }
+
+
+    setInterval(
+      blink,
+      4300
+    );
+
+
+    /* ---------------------------------------
+       TALK REACTION
+    --------------------------------------- */
+
+    function robotReact(){
+
+      robot.animate(
+        [
+
+          {
+            filter:
+              "brightness(1)"
+          },
+
+          {
+            filter:
+              "brightness(1.18)"
+          },
+
+          {
+            filter:
+              "brightness(1)"
+          }
+
+        ],
+        {
+          duration:
+            650,
+
+          easing:
+            "ease-in-out"
+        }
+      );
+
+
+      eyes.forEach(
+        eye => {
+
+          eye.animate(
+            [
+
+              {
+                transform:
+                  "scaleY(1)"
+              },
+
+              {
+                transform:
+                  "scaleY(.45)"
+              },
+
+              {
+                transform:
+                  "scaleY(1.15)"
+              },
+
+              {
+                transform:
+                  "scaleY(1)"
+              }
+
+            ],
+            {
+              duration:
+                620,
+
+              easing:
+                "ease-in-out"
+            }
+          );
+
+        }
+      );
+
+    }
+
+
+    /* ---------------------------------------
+       BUTTONS
+    --------------------------------------- */
+
+    buttons.forEach(
+      button => {
+
+        button.addEventListener(
+          "click",
+          () => {
+
+            const message =
+              button.dataset.waiMessage;
+
+
+            if(
+              message &&
+              speech
+            ){
+
+              speech.innerHTML =
+                message;
+
+            }
+
+
+            robotReact();
+
+
+            /* Talk button */
+
+            if(
+              button.classList.contains(
+                "wai-talk-button"
+              )
+            ){
+
+              const contact =
+                document.getElementById(
+                  "contact"
+                );
+
+
+              if(contact){
+
+                setTimeout(
+                  () => {
+
+                    contact.scrollIntoView({
+                      behavior:
+                        "smooth",
+
+                      block:
+                        "start"
+                    });
+
+                  },
+                  350
+                );
+
+              }
+
+            }
+
+          }
+        );
+
+      }
+    );
+
+
+    /* ---------------------------------------
+       SPEECH INTRO
+    --------------------------------------- */
+
+    if(speech){
+
+      setTimeout(
+        () => {
+
+          speech.innerHTML =
+            `
+            Hey 👋 I'm W.A.I.<br>
+            Your digital assistant.
+            `;
+
+        },
+        900
+      );
+
+    }
+
+  }
+);
