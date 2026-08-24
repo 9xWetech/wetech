@@ -2500,3 +2500,221 @@ document.addEventListener(
   }
 
 }
+/* =====================================================
+   HERO TEXT — VISIBILITY / CINEMATIC POLISH
+===================================================== */
+
+.hero-title{
+  font-size:clamp(78px,9.2vw,132px);
+  line-height:.82;
+  letter-spacing:-7px;
+  font-weight:800;
+
+  color:#f8fcff;
+
+  text-shadow:
+    0 0 18px rgba(255,255,255,.06),
+    0 0 55px rgba(34,230,255,.05);
+}
+
+
+.hero-title span{
+  display:block;
+
+  margin-top:6px;
+
+  font-size:1.04em;
+
+  background:
+    linear-gradient(
+      100deg,
+      #ffffff 0%,
+      #d8faff 20%,
+      #63ecff 48%,
+      #3d8cff 76%,
+      #a8bcff 100%
+    );
+
+  background-size:220% 100%;
+
+  -webkit-background-clip:text;
+  background-clip:text;
+
+  -webkit-text-fill-color:transparent;
+
+  text-shadow:none;
+
+  filter:
+    drop-shadow(
+      0 0 14px
+      rgba(34,230,255,.18)
+    );
+
+  animation:
+    heroGradientFlow
+    7s
+    ease-in-out
+    infinite;
+}
+
+
+@keyframes heroGradientFlow{
+
+  0%,100%{
+    background-position:0% 50%;
+  }
+
+  50%{
+    background-position:100% 50%;
+  }
+}
+
+
+.hero-kicker{
+  color:#d5e9f7;
+
+  font-size:10px;
+
+  letter-spacing:3px;
+}
+
+
+.kicker-line{
+  width:34px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #36e7ff,
+      #5b8cff
+    );
+
+  box-shadow:
+    0 0 14px
+    rgba(34,230,255,.75);
+}
+
+
+.hero-text{
+  max-width:650px;
+
+  margin-top:30px;
+
+  color:#b4c6d8;
+
+  font-size:16px;
+
+  line-height:1.85;
+
+  text-shadow:
+    0 1px 14px
+    rgba(0,0,0,.25);
+}
+
+
+.hero-actions{
+  margin-top:30px;
+}
+
+
+.hero-stats{
+  margin-top:46px;
+}
+
+
+.stat strong{
+  font-size:30px;
+
+  color:#f4fbff;
+
+  text-shadow:
+    0 0 18px
+    rgba(34,230,255,.08);
+}
+
+
+.stat span{
+  color:#7f96ab;
+
+  font-size:9px;
+
+  letter-spacing:.4px;
+}
+
+
+/* Better visibility on medium screens */
+
+@media(max-width:1100px){
+
+  .hero-title{
+    font-size:
+      clamp(70px,8.8vw,108px);
+
+    letter-spacing:
+      -5.5px;
+  }
+
+}
+
+
+/* Mobile */
+
+@media(max-width:700px){
+
+  .hero-title{
+
+    font-size:
+      clamp(54px,16vw,84px);
+
+    line-height:
+      .86;
+
+    letter-spacing:
+      -4px;
+  }
+
+
+  .hero-title span{
+    margin-top:4px;
+  }
+
+
+  .hero-text{
+
+    font-size:14px;
+
+    line-height:1.75;
+
+    margin-top:22px;
+  }
+
+
+  .hero-kicker{
+
+    font-size:8px;
+
+    letter-spacing:2.2px;
+  }
+
+
+  .hero-stats{
+    margin-top:34px;
+  }
+
+}
+
+
+/* Very small screens */
+
+@media(max-width:390px){
+
+  .hero-title{
+    font-size:52px;
+    letter-spacing:-3.2px;
+  }
+
+  .hero-text{
+    font-size:13px;
+  }
+
+}
