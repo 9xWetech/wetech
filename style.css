@@ -5950,3 +5950,184 @@ button,
 
 }
 ```
+```css
+/* ============================================================
+   ENQUIRY FORM — SELECT MATCH INPUT STYLE
+   ============================================================ */
+
+#contactForm select {
+  width: 100%;
+  min-height: 48px;
+
+  padding: 0 42px 0 14px;
+
+  box-sizing: border-box;
+
+  appearance: none;
+  -webkit-appearance: none;
+
+  border: 1px solid rgba(140, 170, 195, 0.16);
+  border-radius: 10px;
+
+  background-color: rgba(3, 10, 19, 0.78);
+
+  color: #ffffff;
+
+  font-family:
+    "DM Sans",
+    sans-serif;
+
+  font-size: 13px;
+  font-weight: 400;
+
+  outline: none;
+
+  cursor: pointer;
+
+  transition:
+    border-color .25s ease,
+    background-color .25s ease,
+    box-shadow .25s ease,
+    transform .2s ease;
+
+  /* Same dropdown arrow, integrated into field */
+  background-image:
+    linear-gradient(
+      45deg,
+      transparent 50%,
+      #6f8499 50%
+    ),
+    linear-gradient(
+      135deg,
+      #6f8499 50%,
+      transparent 50%
+    );
+
+  background-position:
+    calc(100% - 18px) 20px,
+    calc(100% - 13px) 20px;
+
+  background-size:
+    5px 5px,
+    5px 5px;
+
+  background-repeat:
+    no-repeat;
+}
+
+
+/* Placeholder = EXACT same muted tone as inputs */
+
+#contactForm select:invalid {
+  color: #6f8499 !important;
+}
+
+
+/* Once an actual service is selected = white */
+
+#contactForm select:valid {
+  color: #ffffff !important;
+}
+
+
+/* Dropdown options */
+
+#contactForm select option {
+  color: #ffffff;
+  background: #07111d;
+}
+
+
+/* First placeholder option */
+
+#contactForm select option[value=""] {
+  color: #6f8499;
+}
+
+
+/* Focus */
+
+#contactForm select:focus {
+
+  border-color:
+    rgba(40, 230, 255, .42);
+
+  background-color:
+    rgba(40, 230, 255, .025);
+
+  box-shadow:
+    0 0 0 3px rgba(40, 230, 255, .045),
+    0 12px 30px rgba(0, 0, 0, .16);
+
+  transform:
+    translateY(-1px);
+
+}
+
+
+/* Invalid */
+
+#contactForm select[aria-invalid="true"] {
+
+  border-color:
+    rgba(255, 100, 120, .55);
+
+  box-shadow:
+    0 0 0 3px rgba(255, 100, 120, .06);
+
+}
+
+
+/* Confirmation / error message */
+
+#formMessage {
+
+  min-height: 20px;
+
+  margin: 2px 0 0;
+
+  font-family:
+    "DM Sans",
+    sans-serif;
+
+  font-size: 11px;
+
+  line-height: 1.5;
+
+  opacity: 0;
+
+  transition:
+    opacity .25s ease;
+
+}
+
+
+#formMessage[data-type="success"] {
+  color: #9defff;
+}
+
+
+#formMessage[data-type="error"] {
+  color: #ff9da9;
+}
+
+
+#formMessage[data-type="info"] {
+  color: #8ea4b8;
+}
+
+
+/* Mobile */
+
+@media (max-width: 700px) {
+
+  #contactForm select {
+
+    min-height: 50px;
+
+    font-size: 14px;
+
+  }
+
+}
+```
