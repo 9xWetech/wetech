@@ -1,930 +1,1221 @@
 ```javascript
-document.addEventListener("DOMContentLoaded", () => {
+/* ============================================================
+   WETECH — MAIN JAVASCRIPT
+   Performance + Animation + WhatsApp Enquiry System
+   ============================================================ */
+
+(() => {
   "use strict";
 
-  /*
-   * ============================================================
-   * WETECH — PERFORMANCE + ANIMATION ENGINE
-   * ============================================================
-   *
-   * Improvements:
-   * - Optimized background particles
-   * - 30 FPS particle rendering
-   * - Animation pauses when tab is hidden
-   * - Reduced canvas pixel workload
-   * - Smooth hero parallax
-   * - Smooth 3D card hover
-   * - Scroll reveal using IntersectionObserver
-   * - Reduced-motion accessibility
-   * - Mobile-friendly animation behavior
-   * - Smooth magnetic buttons
-   * - Smooth anchor scrolling
-   */
+  /* ==========================================================
+     CONFIG
+  ========================================================== */
+
+  const WETECH_WHATSAPP = "918445209063";
 
   const prefersReducedMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
   ).matches;
 
-  const finePointer = window.matchMedia(
-    "(pointer: fine)"
+  const isMobile = window.matchMedia(
+    "(max-width: 700px)"
   ).matches;
 
-  const desktopMotion =
-    window.innerWidth >= 950 &&
-    finePointer &&
-    !prefersReducedMotion;
 
-  /* ============================================================
-     BACKGROUND PARTICLES
-     ============================================================ */
+  /* ==========================================================
+     HELPERS
+  ========================================================== */
 
-  const canvas = document.getElementById("backgroundCanvas");
+  const $ = (selector, parent = document) =>
+    parent.querySelector(selector);
 
-  if (canvas && !prefersReducedMotion) {
-    const ctx = canvas.getContext("2d", {
-      alpha: true,
-      desynchronized: true
+  const $$ = (selector, parent = document) =>
+    Array.from(parent.querySelectorAll(selector));
+
+
+  /* ==========================================================
+     SMOOTH INTERNAL NAVIGATION
+  ========================================================== */
+
+  const internalLinks = $$('a[href^="#"]');
+
+  internalLinks.forEach((link) => {
+
+    link.addEventListener("click", (event) => {
+
+      const targetId = link.getAttribute("href");
+
+      if (!targetId || targetId === "#") {
+        return;
+      }
+
+      const target = $(targetId);
+
+      if (!target) {
+        return;
+      }
+
+      event.preventDefault();
+
+      target.scrollIntoView({
+        behavior: prefersReducedMotion ? "auto" : "smooth",
+        block: "start"
+      });
+
+      /*
+       * Keep keyboard/screen-reader focus meaningful.
+       */
+      if (!target.hasAttribute("tabindex")) {
+        target.setAttribute("tabindex", "-1");
+      }
+
+      window.setTimeout(() => {
+        target.focus({
+          preventScroll: true
+        });
+      }, prefersReducedMotion ? 0 : 500);
+
     });
 
-    if (ctx) {
-      let width = 0;
-      let height = 0;
-      let dpr = 1;
+  });
 
-      let particles = [];
 
-      let frameId = 0;
-      let resizeTimer = 0;
-      let lastFrame = 0;
-      let running = !document.hidden;
+  /* ==========================================================
+     SCROLL REVEAL
+  ========================================================== */
 
-      const getParticleCount = () => {
-        const area = width * height;
+  const revealElements = [
+    ".section-heading",
+    ".featured-service",
+    ".service-row",
+    ".statement-content",
+    ".work-card",
+    ".process-item",
+    ".pricing-card",
+    ".contact-box"
+  ];
 
-        if (width < 700) {
-          return 12;
-        }
+  const revealTargets = $$(revealElements.join(", "));
 
-        if (area < 900000) {
-          return 20;
-        }
 
-        if (area < 1600000) {
-          return 28;
-        }
+  if (!prefersReducedMotion && "IntersectionObserver" in window) {
 
-        return 36;
-      };
+    revealTargets.forEach((element, index) => {
 
-      const createParticles = () => {
-        const count = getParticleCount();
+      element.classList.add("wetech-reveal");
 
-        particles = Array.from(
-          { length: count },
-          () => ({
-            x: Math.random() * width,
-            y: Math.random() * height,
+      const delay =
+        Math.min(index * 35, 280);
 
-            vx: (Math.random() - 0.5) * 0.055,
-            vy: (Math.random() - 0.5) * 0.055,
+      element.style.setProperty(
+        "--reveal-delay",
+        `${delay}ms`
+      );
 
-            radius: Math.random() * 0.8 + 0.3,
+    });
 
-            alpha:
-              Math.random() * 0.14 + 0.035
-          })
-        );
-      };
 
-      const resizeCanvas = () => {
-        width = window.innerWidth;
-        height = window.innerHeight;
+    const revealObserver =
+      new IntersectionObserver(
+        (entries, observer) => {
 
-        /*
-         * Cap DPR to avoid unnecessary canvas workload
-         * on high-density mobile displays.
-         */
-        dpr = Math.min(
-          window.devicePixelRatio || 1,
-          1.25
-        );
+          entries.forEach((entry) => {
 
-        canvas.width = Math.max(
-          1,
-          Math.floor(width * dpr)
-        );
+            if (!entry.isIntersecting) {
+              return;
+            }
 
-        canvas.height = Math.max(
-          1,
-          Math.floor(height * dpr)
-        );
-
-        canvas.style.width = `${width}px`;
-        canvas.style.height = `${height}px`;
-
-        ctx.setTransform(
-          dpr,
-          0,
-          0,
-          dpr,
-          0,
-          0
-        );
-
-        createParticles();
-      };
-
-      const scheduleResize = () => {
-        window.clearTimeout(resizeTimer);
-
-        resizeTimer = window.setTimeout(
-          resizeCanvas,
-          120
-        );
-      };
-
-      const stopAnimation = () => {
-        running = false;
-
-        if (frameId) {
-          cancelAnimationFrame(frameId);
-          frameId = 0;
-        }
-      };
-
-      const startAnimation = () => {
-        if (
-          prefersReducedMotion ||
-          running
-        ) {
-          return;
-        }
-
-        running = true;
-
-        lastFrame = performance.now();
-
-        frameId =
-          requestAnimationFrame(animate);
-      };
-
-      const animate = (timestamp) => {
-        if (
-          !running ||
-          document.hidden
-        ) {
-          frameId = 0;
-          return;
-        }
-
-        /*
-         * Particle animation is intentionally capped
-         * around 30 FPS to reduce CPU/GPU usage.
-         */
-        if (
-          timestamp - lastFrame <
-          1000 / 30
-        ) {
-          frameId =
-            requestAnimationFrame(
-              animate
+            entry.target.classList.add(
+              "is-visible"
             );
 
-          return;
-        }
+            observer.unobserve(
+              entry.target
+            );
 
-        lastFrame = timestamp;
+          });
 
-        ctx.clearRect(
-          0,
-          0,
-          width,
-          height
-        );
-
-        ctx.fillStyle =
-          "rgba(155,214,255,.12)";
-
-        for (const particle of particles) {
-          particle.x += particle.vx;
-          particle.y += particle.vy;
-
-          if (particle.x < -8) {
-            particle.x = width + 8;
-          } else if (
-            particle.x >
-            width + 8
-          ) {
-            particle.x = -8;
-          }
-
-          if (particle.y < -8) {
-            particle.y = height + 8;
-          } else if (
-            particle.y >
-            height + 8
-          ) {
-            particle.y = -8;
-          }
-
-          ctx.globalAlpha =
-            particle.alpha;
-
-          ctx.beginPath();
-
-          ctx.arc(
-            particle.x,
-            particle.y,
-            particle.radius,
-            0,
-            Math.PI * 2
-          );
-
-          ctx.fill();
-        }
-
-        ctx.globalAlpha = 1;
-
-        frameId =
-          requestAnimationFrame(
-            animate
-          );
-      };
-
-      resizeCanvas();
-
-      window.addEventListener(
-        "resize",
-        scheduleResize,
+        },
         {
-          passive: true
+          threshold: 0.12,
+          rootMargin: "0px 0px -40px 0px"
         }
       );
 
-      document.addEventListener(
-        "visibilitychange",
-        () => {
-          if (document.hidden) {
-            stopAnimation();
-          } else {
-            startAnimation();
-          }
-        }
-      );
 
-      startAnimation();
-    }
-  } else if (canvas) {
-    canvas.remove();
+    revealTargets.forEach((element) => {
+      revealObserver.observe(element);
+    });
+
+  } else {
+
+    revealTargets.forEach((element) => {
+      element.classList.add(
+        "wetech-reveal",
+        "is-visible"
+      );
+    });
+
   }
 
-  /* ============================================================
-     HERO PARALLAX
-     ============================================================ */
 
-  const hero =
-    document.querySelector(".hero");
+  /* ==========================================================
+     NAVBAR SCROLL STATE
+  ========================================================== */
 
-  const visual =
-    document.querySelector(
-      ".hero-visual"
+  const navbar = $(".navbar");
+
+  let navbarTicking = false;
+
+  const updateNavbar = () => {
+
+    if (!navbar) {
+      return;
+    }
+
+    navbar.classList.toggle(
+      "navbar-scrolled",
+      window.scrollY > 30
     );
 
+    navbarTicking = false;
+
+  };
+
+
+  window.addEventListener(
+    "scroll",
+    () => {
+
+      if (navbarTicking) {
+        return;
+      }
+
+      navbarTicking = true;
+
+      window.requestAnimationFrame(
+        updateNavbar
+      );
+
+    },
+    {
+      passive: true
+    }
+  );
+
+
+  updateNavbar();
+
+
+  /* ==========================================================
+     HERO PARALLAX
+     Desktop only
+  ========================================================== */
+
+  const heroVisual = $(".hero-visual");
+  const heroContent = $(".hero-content");
+
   if (
-    hero &&
-    visual &&
-    desktopMotion
+    heroVisual &&
+    !prefersReducedMotion &&
+    !isMobile
   ) {
+
     let pointerX = 0;
     let pointerY = 0;
 
     let currentX = 0;
     let currentY = 0;
 
-    let pointerFrame = 0;
+    let animationFrame = null;
 
-    const updateHero = () => {
-      pointerFrame = 0;
+
+    const updateParallax = () => {
 
       currentX +=
-        (pointerX - currentX) *
-        0.09;
+        (pointerX - currentX) * 0.055;
 
       currentY +=
-        (pointerY - currentY) *
-        0.09;
+        (pointerY - currentY) * 0.055;
 
-      visual.style.transform =
-        `translate3d(${currentX}px, ${currentY}px, 0)`;
 
-      if (
-        Math.abs(
-          pointerX - currentX
-        ) > 0.05 ||
-        Math.abs(
-          pointerY - currentY
-        ) > 0.05
-      ) {
-        pointerFrame =
-          requestAnimationFrame(
-            updateHero
-          );
+      heroVisual.style.transform =
+        `translate3d(${currentX * 0.7}px, ${currentY * 0.7}px, 0)`;
+
+
+      if (heroContent) {
+
+        heroContent.style.transform =
+          `translate3d(${currentX * -0.08}px, ${currentY * -0.08}px, 0)`;
+
       }
+
+
+      animationFrame =
+        window.requestAnimationFrame(
+          updateParallax
+        );
+
     };
 
-    hero.addEventListener(
+
+    window.addEventListener(
       "pointermove",
       (event) => {
+
         pointerX =
-          (
-            event.clientX /
-              window.innerWidth -
-            0.5
-          ) * 7;
+          (event.clientX / window.innerWidth - 0.5) * 12;
 
         pointerY =
-          (
-            event.clientY /
-              window.innerHeight -
-            0.5
-          ) * 6;
+          (event.clientY / window.innerHeight - 0.5) * 12;
 
-        if (!pointerFrame) {
-          pointerFrame =
-            requestAnimationFrame(
-              updateHero
-            );
-        }
       },
       {
         passive: true
       }
     );
 
-    hero.addEventListener(
-      "pointerleave",
+
+    animationFrame =
+      window.requestAnimationFrame(
+        updateParallax
+      );
+
+
+    /*
+     * Reset when pointer leaves window.
+     */
+
+    window.addEventListener(
+      "blur",
       () => {
+
         pointerX = 0;
         pointerY = 0;
 
-        if (!pointerFrame) {
-          pointerFrame =
-            requestAnimationFrame(
-              updateHero
-            );
-        }
       }
     );
-  }
 
-  /* ============================================================
-     CARD 3D HOVER
-     ============================================================ */
 
-  if (desktopMotion) {
-    const cards =
-      document.querySelectorAll(
-        [
-          ".featured-service",
-          ".service-row",
-          ".work-card",
-          ".pricing-card"
-        ].join(",")
-      );
+    /*
+     * Avoid keeping the animation alive
+     * while the tab is hidden.
+     */
 
-    cards.forEach((card) => {
-      let targetRX = 0;
-      let targetRY = 0;
-
-      let currentRX = 0;
-      let currentRY = 0;
-
-      let cardFrame = 0;
-
-      const animateCard = () => {
-        cardFrame = 0;
-
-        currentRX +=
-          (targetRX - currentRX) *
-          0.14;
-
-        currentRY +=
-          (targetRY - currentRY) *
-          0.14;
-
-        card.style.transform =
-          `perspective(900px) rotateX(${currentRX}deg) rotateY(${currentRY}deg) translateY(-4px)`;
+    document.addEventListener(
+      "visibilitychange",
+      () => {
 
         if (
-          Math.abs(
-            targetRX - currentRX
-          ) > 0.02 ||
-          Math.abs(
-            targetRY - currentRY
-          ) > 0.02
+          document.hidden &&
+          animationFrame
         ) {
-          cardFrame =
-            requestAnimationFrame(
-              animateCard
+
+          window.cancelAnimationFrame(
+            animationFrame
+          );
+
+          animationFrame = null;
+
+        } else if (
+          !document.hidden &&
+          !animationFrame
+        ) {
+
+          animationFrame =
+            window.requestAnimationFrame(
+              updateParallax
             );
+
         }
-      };
 
-      card.addEventListener(
-        "pointermove",
-        (event) => {
-          const rect =
-            card.getBoundingClientRect();
-
-          const x =
-            (event.clientX -
-              rect.left) /
-              rect.width -
-            0.5;
-
-          const y =
-            (event.clientY -
-              rect.top) /
-              rect.height -
-            0.5;
-
-          targetRX =
-            y * -1.2;
-
-          targetRY =
-            x * 1.2;
-
-          if (!cardFrame) {
-            cardFrame =
-              requestAnimationFrame(
-                animateCard
-              );
-          }
-        },
-        {
-          passive: true
-        }
-      );
-
-      card.addEventListener(
-        "pointerleave",
-        () => {
-          targetRX = 0;
-          targetRY = 0;
-
-          if (!cardFrame) {
-            cardFrame =
-              requestAnimationFrame(
-                animateCard
-              );
-          }
-        }
-      );
-    });
-  }
-
-  /* ============================================================
-     SCROLL REVEAL
-     ============================================================ */
-
-  const reveal =
-    document.querySelectorAll(
-      [
-        ".section-heading",
-        ".featured-service",
-        ".service-row",
-        ".work-card",
-        ".process-item",
-        ".pricing-card",
-        ".contact-box",
-        ".statement-content"
-      ].join(",")
-    );
-
-  if (!prefersReducedMotion) {
-    reveal.forEach(
-      (element, index) => {
-        element.classList.add(
-          "wetech-reveal"
-        );
-
-        const stagger =
-          Math.min(index % 6, 5) *
-          45;
-
-        element.style.setProperty(
-          "--reveal-delay",
-          `${stagger}ms`
-        );
       }
     );
 
-    if (
-      "IntersectionObserver" in
-      window
-    ) {
-      const observer =
-        new IntersectionObserver(
-          (entries) => {
-            for (
-              const entry of entries
+  }
+
+
+  /* ==========================================================
+     BACKGROUND CANVAS PARTICLES
+  ========================================================== */
+
+  const canvas =
+    $("#backgroundCanvas");
+
+  if (
+    canvas &&
+    !prefersReducedMotion
+  ) {
+
+    const context =
+      canvas.getContext("2d", {
+        alpha: true
+      });
+
+
+    if (context) {
+
+      let width = 0;
+      let height = 0;
+
+      let particles = [];
+
+      let animationId = null;
+
+      let running = true;
+
+
+      /*
+       * Fewer particles on mobile.
+       */
+
+      const particleCount =
+        isMobile ? 22 : 42;
+
+
+      const resizeCanvas = () => {
+
+        const devicePixelRatio =
+          Math.min(
+            window.devicePixelRatio || 1,
+            1.5
+          );
+
+
+        width =
+          window.innerWidth;
+
+        height =
+          window.innerHeight;
+
+
+        canvas.width =
+          Math.floor(
+            width * devicePixelRatio
+          );
+
+        canvas.height =
+          Math.floor(
+            height * devicePixelRatio
+          );
+
+
+        canvas.style.width =
+          `${width}px`;
+
+        canvas.style.height =
+          `${height}px`;
+
+
+        context.setTransform(
+          devicePixelRatio,
+          0,
+          0,
+          devicePixelRatio,
+          0,
+          0
+        );
+
+      };
+
+
+      const createParticle = () => ({
+
+        x:
+          Math.random() * width,
+
+        y:
+          Math.random() * height,
+
+        radius:
+          Math.random() * 1.2 + 0.25,
+
+        speed:
+          Math.random() * 0.16 + 0.035,
+
+        drift:
+          (Math.random() - 0.5) * 0.08,
+
+        opacity:
+          Math.random() * 0.42 + 0.10
+
+      });
+
+
+      const rebuildParticles = () => {
+
+        particles =
+          Array.from(
+            {
+              length: particleCount
+            },
+            createParticle
+          );
+
+      };
+
+
+      const drawParticles = () => {
+
+        if (!running) {
+          animationId = null;
+          return;
+        }
+
+
+        context.clearRect(
+          0,
+          0,
+          width,
+          height
+        );
+
+
+        particles.forEach(
+          (particle) => {
+
+            particle.y -=
+              particle.speed;
+
+            particle.x +=
+              particle.drift;
+
+
+            /*
+             * Wrap particles.
+             */
+
+            if (
+              particle.y <
+              -10
             ) {
-              if (
-                !entry.isIntersecting
-              ) {
-                continue;
-              }
 
-              entry.target.classList.add(
-                "is-visible"
-              );
+              particle.y =
+                height + 10;
 
-              observer.unobserve(
-                entry.target
-              );
+              particle.x =
+                Math.random() * width;
+
             }
-          },
-          {
-            threshold: 0.08,
 
-            rootMargin:
-              "0px 0px -8% 0px"
+
+            if (
+              particle.x <
+              -10
+            ) {
+
+              particle.x =
+                width + 10;
+
+            }
+
+
+            if (
+              particle.x >
+              width + 10
+            ) {
+
+              particle.x =
+                -10;
+
+            }
+
+
+            context.beginPath();
+
+
+            context.arc(
+              particle.x,
+              particle.y,
+              particle.radius,
+              0,
+              Math.PI * 2
+            );
+
+
+            context.fillStyle =
+              `rgba(120, 220, 255, ${particle.opacity})`;
+
+
+            context.fill();
+
           }
         );
 
-      reveal.forEach(
-        (element) =>
-          observer.observe(element)
+
+        animationId =
+          window.requestAnimationFrame(
+            drawParticles
+          );
+
+      };
+
+
+      resizeCanvas();
+      rebuildParticles();
+
+
+      let resizeTimer = null;
+
+
+      window.addEventListener(
+        "resize",
+        () => {
+
+          window.clearTimeout(
+            resizeTimer
+          );
+
+
+          resizeTimer =
+            window.setTimeout(
+              () => {
+
+                resizeCanvas();
+                rebuildParticles();
+
+              },
+              150
+            );
+
+        }
       );
-    } else {
-      reveal.forEach(
-        (element) =>
-          element.classList.add(
-            "is-visible"
-          )
+
+
+      document.addEventListener(
+        "visibilitychange",
+        () => {
+
+          running =
+            !document.hidden;
+
+
+          if (
+            running &&
+            !animationId
+          ) {
+
+            animationId =
+              window.requestAnimationFrame(
+                drawParticles
+              );
+
+          }
+
+        }
       );
+
+
+      animationId =
+        window.requestAnimationFrame(
+          drawParticles
+        );
+
     }
-  } else {
-    reveal.forEach(
-      (element) =>
-        element.classList.add(
-          "is-visible"
-        )
-    );
+
   }
 
-  ```javascript
-/* ============================================================
-   WHATSAPP ENQUIRY SYSTEM
-   ============================================================ */
 
-const form =
-  document.getElementById("contactForm");
+  /* ==========================================================
+     FORM ELEMENTS
+  ========================================================== */
 
-const formMessage =
-  document.getElementById("formMsg");
+  const contactForm =
+    $("#contactForm");
 
-if (form) {
+  const formMessage =
+    $("#formMessage");
 
-  form.addEventListener(
-    "submit",
-    (event) => {
-
-      event.preventDefault();
-
-      /*
-       * ========================================================
-       * WETECH WHATSAPP NUMBER
-       * ========================================================
-       *
-       * IMPORTANT:
-       * Replace this with your real Wetech WhatsApp number.
-       *
-       * Format:
-       * India example:
-       * 919876543210
-       *
-       * No + sign
-       * No spaces
-       * No brackets
-       */
-
-      const WETECH_WHATSAPP =
-        "910000000000";
+  const sendButton =
+    $("#sendEnquiryBtn");
 
 
-      /* ======================================================
-         GET FORM DATA
-      ====================================================== */
+  /*
+   * The HTML uses:
+   * name
+   * email
+   * phone
+   * service
+   * message
+   */
 
-      const formData =
-        new FormData(form);
+  if (contactForm) {
+
+
+    const nameInput =
+      contactForm.elements.namedItem(
+        "name"
+      );
+
+    const emailInput =
+      contactForm.elements.namedItem(
+        "email"
+      );
+
+    const phoneInput =
+      contactForm.elements.namedItem(
+        "phone"
+      );
+
+    const serviceInput =
+      contactForm.elements.namedItem(
+        "service"
+      );
+
+    const messageInput =
+      contactForm.elements.namedItem(
+        "message"
+      );
+
+
+    /* ========================================================
+       FORM MESSAGE
+    ====================================================== */
+
+    const showFormMessage = (
+      message,
+      type = "info"
+    ) => {
+
+      if (!formMessage) {
+        return;
+      }
+
+
+      formMessage.textContent =
+        message;
+
+
+      formMessage.dataset.type =
+        type;
+
+
+      formMessage.style.opacity =
+        "1";
+
+    };
+
+
+    /* ========================================================
+       CLEAR FORM MESSAGE
+    ====================================================== */
+
+    const clearFormMessage = () => {
+
+      if (!formMessage) {
+        return;
+      }
+
+
+      formMessage.textContent =
+        "";
+
+      formMessage.dataset.type =
+        "";
+
+      formMessage.style.opacity =
+        "0";
+
+    };
+
+
+    /* ========================================================
+       INPUT RESET
+    ====================================================== */
+
+    const clearInvalidState = (
+      element
+    ) => {
+
+      if (!element) {
+        return;
+      }
+
+      element.removeAttribute(
+        "aria-invalid"
+      );
+
+    };
+
+
+    [
+      nameInput,
+      emailInput,
+      phoneInput,
+      serviceInput,
+      messageInput
+    ].forEach((element) => {
+
+      if (!element) {
+        return;
+      }
+
+
+      element.addEventListener(
+        "input",
+        () => {
+
+          clearInvalidState(
+            element
+          );
+
+          if (
+            formMessage &&
+            formMessage.textContent
+          ) {
+
+            clearFormMessage();
+
+          }
+
+        }
+      );
+
+
+      element.addEventListener(
+        "change",
+        () => {
+
+          clearInvalidState(
+            element
+          );
+
+          clearFormMessage();
+
+        }
+      );
+
+    });
+
+
+    /* ========================================================
+       EMAIL VALIDATION
+    ====================================================== */
+
+    const isValidEmail = (
+      email
+    ) => {
+
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+        .test(email);
+
+    };
+
+
+    /* ========================================================
+       FORM VALIDATION
+    ====================================================== */
+
+    const validateForm = () => {
 
       const name =
         String(
-          formData.get("name") || ""
+          nameInput?.value || ""
         ).trim();
+
 
       const email =
         String(
-          formData.get("email") || ""
+          emailInput?.value || ""
         ).trim();
 
-      const phone =
+
+      const service =
         String(
-          formData.get("phone") || ""
+          serviceInput?.value || ""
         ).trim();
 
-      const project =
+
+      const message =
         String(
-          formData.get("project") || ""
+          messageInput?.value || ""
         ).trim();
 
-
-      /* ======================================================
-         VALIDATION
-      ====================================================== */
 
       if (!name) {
 
-        if (formMessage) {
-          formMessage.textContent =
-            "Please enter your name.";
-        }
+        nameInput?.focus();
 
-        return;
+        nameInput?.setAttribute(
+          "aria-invalid",
+          "true"
+        );
+
+        showFormMessage(
+          "Please enter your name.",
+          "error"
+        );
+
+        return false;
+
       }
 
 
       if (!email) {
 
-        if (formMessage) {
-          formMessage.textContent =
-            "Please enter your email.";
-        }
+        emailInput?.focus();
 
-        return;
+        emailInput?.setAttribute(
+          "aria-invalid",
+          "true"
+        );
+
+        showFormMessage(
+          "Please enter your email.",
+          "error"
+        );
+
+        return false;
+
       }
 
 
-      if (!project) {
+      if (!isValidEmail(email)) {
 
-        if (formMessage) {
-          formMessage.textContent =
-            "Please tell us about your project.";
-        }
+        emailInput?.focus();
 
-        return;
+        emailInput?.setAttribute(
+          "aria-invalid",
+          "true"
+        );
+
+        showFormMessage(
+          "Please enter a valid email address.",
+          "error"
+        );
+
+        return false;
+
       }
 
 
-      /* ======================================================
-         CREATE WHATSAPP MESSAGE
-      ====================================================== */
+      if (!service) {
+
+        serviceInput?.focus();
+
+        serviceInput?.setAttribute(
+          "aria-invalid",
+          "true"
+        );
+
+        showFormMessage(
+          "Please select a service.",
+          "error"
+        );
+
+        return false;
+
+      }
+
+
+      if (!message) {
+
+        messageInput?.focus();
+
+        messageInput?.setAttribute(
+          "aria-invalid",
+          "true"
+        );
+
+        showFormMessage(
+          "Please tell us a little about your project.",
+          "error"
+        );
+
+        return false;
+
+      }
+
+
+      return true;
+
+    };
+
+
+    /* ========================================================
+       WHATSAPP MESSAGE
+    ====================================================== */
+
+    const buildWhatsAppMessage = () => {
+
+      const name =
+        String(
+          nameInput?.value || ""
+        ).trim();
+
+
+      const email =
+        String(
+          emailInput?.value || ""
+        ).trim();
+
+
+      const phone =
+        String(
+          phoneInput?.value || ""
+        ).trim();
+
+
+      const service =
+        String(
+          serviceInput?.value || ""
+        ).trim();
+
 
       const message =
-`🚀 *NEW WETECH ENQUIRY*
-
-━━━━━━━━━━━━━━━━━━
-
-👤 *Name*
-${name}
-
-📧 *Email*
-${email}
-
-📱 *Phone / WhatsApp*
-${phone || "Not provided"}
-
-💼 *Project Details*
-${project}
-
-━━━━━━━━━━━━━━━━━━
-
-🌐 *Source*
-Wetech Website
-
-🕐 *Enquiry Time*
-${new Date().toLocaleString("en-IN")}
-
-Thank you for contacting Wetech!`;
+        String(
+          messageInput?.value || ""
+        ).trim();
 
 
-      /* ======================================================
-         ENCODE MESSAGE
-      ====================================================== */
-
-      const encodedMessage =
-        encodeURIComponent(
-          message
+      const submittedAt =
+        new Date().toLocaleString(
+          "en-IN",
+          {
+            dateStyle: "medium",
+            timeStyle: "short"
+          }
         );
 
 
-      /* ======================================================
-         WHATSAPP URL
-      ====================================================== */
+      return [
+        "🚀 *NEW WETECH ENQUIRY*",
+        "",
+        "━━━━━━━━━━━━━━━━━━",
+        "",
+        `👤 *Name:* ${name}`,
+        `📧 *Email:* ${email}`,
+        `📱 *Phone / WhatsApp:* ${phone || "Not provided"}`,
+        `💼 *Service:* ${service}`,
+        "",
+        "📝 *Project Details:*",
+        message,
+        "",
+        "━━━━━━━━━━━━━━━━━━",
+        "",
+        `🕐 *Received:* ${submittedAt}`,
+        "",
+        "Sent from Wetech website."
+      ].join("\n");
 
-      const whatsappURL =
-        `https://wa.me/${WETECH_WHATSAPP}?text=${encodedMessage}`;
-
-
-      /* ======================================================
-         BUTTON STATE
-      ====================================================== */
-
-      const button =
-        document.getElementById(
-          "sendEnquiryBtn"
-        );
-
-      if (button) {
-
-        button.disabled = true;
-
-        button.innerHTML =
-          "Opening WhatsApp...";
-      }
+    };
 
 
-      if (formMessage) {
+    /* ========================================================
+       FORM SUBMIT
+    ====================================================== */
 
-        formMessage.textContent =
-          "Opening WhatsApp with your enquiry...";
-      }
+    contactForm.addEventListener(
+      "submit",
+      (event) => {
+
+        event.preventDefault();
 
 
-      /* ======================================================
-         OPEN WHATSAPP
-      ====================================================== */
+        clearFormMessage();
 
-      window.setTimeout(
-        () => {
 
-          window.open(
-            whatsappURL,
-            "_blank",
-            "noopener,noreferrer"
+        if (!validateForm()) {
+          return;
+        }
+
+
+        const whatsappMessage =
+          buildWhatsAppMessage();
+
+
+        const whatsappUrl =
+          `https://wa.me/${WETECH_WHATSAPP}?text=${encodeURIComponent(
+            whatsappMessage
+          )}`;
+
+
+        /*
+         * Prevent double clicks.
+         */
+
+        if (sendButton) {
+
+          sendButton.disabled =
+            true;
+
+          sendButton.setAttribute(
+            "aria-busy",
+            "true"
           );
 
-          if (button) {
+          sendButton.dataset.originalText =
+            sendButton.innerHTML;
 
-            button.disabled = false;
+          sendButton.innerHTML =
+            `Opening WhatsApp <span aria-hidden="true">↗</span>`;
 
-            button.innerHTML =
-              "Send Enquiry on WhatsApp";
-          }
+        }
 
-        },
-        250
+
+        showFormMessage(
+          "Opening WhatsApp with your enquiry…",
+          "success"
+        );
+
+
+        /*
+         * Small delay gives the user
+         * visual feedback before navigation.
+         */
+
+        window.setTimeout(
+          () => {
+
+            window.open(
+              whatsappUrl,
+              "_blank",
+              "noopener,noreferrer"
+            );
+
+
+            if (sendButton) {
+
+              sendButton.disabled =
+                false;
+
+              sendButton.removeAttribute(
+                "aria-busy"
+              );
+
+              sendButton.innerHTML =
+                sendButton.dataset.originalText ||
+                `Send Enquiry <span aria-hidden="true">→</span>`;
+
+            }
+
+          },
+          180
+        );
+
+      }
+    );
+
+  }
+
+
+  /* ==========================================================
+     WHATSAPP BUTTON TRACKING / SAFETY
+  ========================================================== */
+
+  const whatsappButtons =
+    $$('.whatsapp-button[href*="wa.me"]');
+
+
+  whatsappButtons.forEach(
+    (button) => {
+
+      button.setAttribute(
+        "target",
+        "_blank"
+      );
+
+      button.setAttribute(
+        "rel",
+        "noopener noreferrer"
       );
 
     }
   );
-}
-```
 
-  /* ============================================================
-     MAGNETIC BUTTONS
-     ============================================================ */
 
-  if (desktopMotion) {
-    const buttons =
-      document.querySelectorAll(
-        ".button, .nav-button"
-      );
+  /* ==========================================================
+     BUTTON PRESS MICRO-INTERACTION
+  ========================================================== */
 
-    buttons.forEach((button) => {
-      let targetX = 0;
-      let targetY = 0;
+  const interactiveButtons =
+    $$(
+      ".button, .nav-button, .whatsapp-button"
+    );
 
-      let currentX = 0;
-      let currentY = 0;
 
-      let buttonFrame = 0;
-
-      const animateButton = () => {
-        buttonFrame = 0;
-
-        currentX +=
-          (targetX - currentX) *
-          0.16;
-
-        currentY +=
-          (targetY - currentY) *
-          0.16;
-
-        button.style.transform =
-          `translate3d(${currentX}px, ${currentY}px, 0)`;
-
-        if (
-          Math.abs(
-            targetX - currentX
-          ) > 0.02 ||
-          Math.abs(
-            targetY - currentY
-          ) > 0.02
-        ) {
-          buttonFrame =
-            requestAnimationFrame(
-              animateButton
-            );
-        }
-      };
+  interactiveButtons.forEach(
+    (button) => {
 
       button.addEventListener(
-        "pointermove",
-        (event) => {
-          const rect =
-            button.getBoundingClientRect();
+        "pointerdown",
+        () => {
 
-          targetX =
-            (
-              event.clientX -
-              rect.left -
-              rect.width / 2
-            ) * 0.025;
+          button.classList.add(
+            "is-pressed"
+          );
 
-          targetY =
-            (
-              event.clientY -
-              rect.top -
-              rect.height / 2
-            ) * 0.025;
-
-          if (!buttonFrame) {
-            buttonFrame =
-              requestAnimationFrame(
-                animateButton
-              );
-          }
-        },
-        {
-          passive: true
         }
+      );
+
+
+      const removePressed =
+        () => {
+
+          button.classList.remove(
+            "is-pressed"
+          );
+
+        };
+
+
+      button.addEventListener(
+        "pointerup",
+        removePressed
+      );
+
+      button.addEventListener(
+        "pointercancel",
+        removePressed
       );
 
       button.addEventListener(
         "pointerleave",
-        () => {
-          targetX = 0;
-          targetY = 0;
-
-          if (!buttonFrame) {
-            buttonFrame =
-              requestAnimationFrame(
-                animateButton
-              );
-          }
-        }
+        removePressed
       );
-    });
+
+    }
+  );
+
+
+  /* ==========================================================
+     LAZY PAINT OPTIMIZATION
+  ========================================================== */
+
+  if (
+    "IntersectionObserver" in window &&
+    !prefersReducedMotion
+  ) {
+
+    const lazySections =
+      $(
+        ".statement-section, #work, #process, #pricing, #contact"
+      );
+
+
+    lazySections.forEach(
+      (section) => {
+
+        section.style.contentVisibility =
+          "auto";
+
+        section.style.containIntrinsicSize =
+          "1px 700px";
+
+      }
+    );
+
   }
 
-  /* ============================================================
-     SMOOTH ANCHOR SCROLLING
-     ============================================================ */
 
-  document
-    .querySelectorAll(
-      'a[href^="#"]'
-    )
-    .forEach((link) => {
-      link.addEventListener(
-        "click",
-        (event) => {
-          const id =
-            link.getAttribute(
-              "href"
-            );
+  /* ==========================================================
+     PAGE READY
+  ========================================================== */
 
-          if (
-            !id ||
-            id === "#"
-          ) {
-            return;
-          }
+  document.documentElement.classList.add(
+    "wetech-ready"
+  );
 
-          const target =
-            document.querySelector(
-              id
-            );
 
-          if (!target) {
-            return;
-          }
-
-          event.preventDefault();
-
-          target.scrollIntoView({
-            behavior:
-              prefersReducedMotion
-                ? "auto"
-                : "smooth",
-
-            block: "start"
-          });
-        }
-      );
-    });
-});
+})();
 ```
