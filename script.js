@@ -573,115 +573,215 @@ document.addEventListener("DOMContentLoaded", () => {
     );
   }
 
-  /* ============================================================
-     CONTACT FORM
-     ============================================================ */
+  ```javascript
+/* ============================================================
+   WHATSAPP ENQUIRY SYSTEM
+   ============================================================ */
 
-  const form =
-    document.getElementById(
-      "contactForm"
-    );
+const form =
+  document.getElementById("contactForm");
 
-  const formMessage =
-    document.getElementById(
-      "formMessage"
-    );
+const formMessage =
+  document.getElementById("formMsg");
 
-  if (form) {
-    form.addEventListener(
-      "submit",
-      async (event) => {
-        event.preventDefault();
+if (form) {
 
-        const submitButton =
-          form.querySelector(
-            'button[type="submit"]'
-          );
+  form.addEventListener(
+    "submit",
+    (event) => {
 
-        const originalText =
-          submitButton
-            ? submitButton.innerHTML
-            : "";
+      event.preventDefault();
 
-        if (submitButton) {
-          submitButton.disabled = true;
+      /*
+       * ========================================================
+       * WETECH WHATSAPP NUMBER
+       * ========================================================
+       *
+       * IMPORTANT:
+       * Replace this with your real Wetech WhatsApp number.
+       *
+       * Format:
+       * India example:
+       * 919876543210
+       *
+       * No + sign
+       * No spaces
+       * No brackets
+       */
 
-          submitButton.innerHTML =
-            "Sending...";
-        }
+      const WETECH_WHATSAPP =
+        "910000000000";
+
+
+      /* ======================================================
+         GET FORM DATA
+      ====================================================== */
+
+      const formData =
+        new FormData(form);
+
+      const name =
+        String(
+          formData.get("name") || ""
+        ).trim();
+
+      const email =
+        String(
+          formData.get("email") || ""
+        ).trim();
+
+      const phone =
+        String(
+          formData.get("phone") || ""
+        ).trim();
+
+      const project =
+        String(
+          formData.get("project") || ""
+        ).trim();
+
+
+      /* ======================================================
+         VALIDATION
+      ====================================================== */
+
+      if (!name) {
 
         if (formMessage) {
           formMessage.textContent =
-            "Sending your enquiry...";
+            "Please enter your name.";
         }
 
-        const payload =
-          Object.fromEntries(
-            new FormData(
-              form
-            ).entries()
-          );
-
-        try {
-          const response =
-            await fetch(
-              "/api/contact",
-              {
-                method: "POST",
-
-                headers: {
-                  "Content-Type":
-                    "application/json"
-                },
-
-                body:
-                  JSON.stringify(
-                    payload
-                  )
-              }
-            );
-
-          const data =
-            await response.json();
-
-          if (
-            !response.ok ||
-            !data.success
-          ) {
-            throw new Error(
-              data.message ||
-                "Unable to send enquiry."
-            );
-          }
-
-          form.reset();
-
-          if (formMessage) {
-            formMessage.textContent =
-              "✓ Enquiry sent successfully. A confirmation email has been sent.";
-          }
-        } catch (error) {
-          console.error(
-            "Contact form error:",
-            error
-          );
-
-          if (formMessage) {
-            formMessage.textContent =
-              "Unable to send right now. Please contact us on WhatsApp.";
-          }
-        } finally {
-          if (submitButton) {
-            submitButton.disabled =
-              false;
-
-            submitButton.innerHTML =
-              originalText;
-          }
-        }
+        return;
       }
-    );
-  }
+
+
+      if (!email) {
+
+        if (formMessage) {
+          formMessage.textContent =
+            "Please enter your email.";
+        }
+
+        return;
+      }
+
+
+      if (!project) {
+
+        if (formMessage) {
+          formMessage.textContent =
+            "Please tell us about your project.";
+        }
+
+        return;
+      }
+
+
+      /* ======================================================
+         CREATE WHATSAPP MESSAGE
+      ====================================================== */
+
+      const message =
+`🚀 *NEW WETECH ENQUIRY*
+
+━━━━━━━━━━━━━━━━━━
+
+👤 *Name*
+${name}
+
+📧 *Email*
+${email}
+
+📱 *Phone / WhatsApp*
+${phone || "Not provided"}
+
+💼 *Project Details*
+${project}
+
+━━━━━━━━━━━━━━━━━━
+
+🌐 *Source*
+Wetech Website
+
+🕐 *Enquiry Time*
+${new Date().toLocaleString("en-IN")}
+
+Thank you for contacting Wetech!`;
+
+
+      /* ======================================================
+         ENCODE MESSAGE
+      ====================================================== */
+
+      const encodedMessage =
+        encodeURIComponent(
+          message
+        );
+
+
+      /* ======================================================
+         WHATSAPP URL
+      ====================================================== */
+
+      const whatsappURL =
+        `https://wa.me/${WETECH_WHATSAPP}?text=${encodedMessage}`;
+
+
+      /* ======================================================
+         BUTTON STATE
+      ====================================================== */
+
+      const button =
+        document.getElementById(
+          "sendEnquiryBtn"
+        );
+
+      if (button) {
+
+        button.disabled = true;
+
+        button.innerHTML =
+          "Opening WhatsApp...";
+      }
+
+
+      if (formMessage) {
+
+        formMessage.textContent =
+          "Opening WhatsApp with your enquiry...";
+      }
+
+
+      /* ======================================================
+         OPEN WHATSAPP
+      ====================================================== */
+
+      window.setTimeout(
+        () => {
+
+          window.open(
+            whatsappURL,
+            "_blank",
+            "noopener,noreferrer"
+          );
+
+          if (button) {
+
+            button.disabled = false;
+
+            button.innerHTML =
+              "Send Enquiry on WhatsApp";
+          }
+
+        },
+        250
+      );
+
+    }
+  );
+}
+```
 
   /* ============================================================
      MAGNETIC BUTTONS
