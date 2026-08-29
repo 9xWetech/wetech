@@ -6131,3 +6131,270 @@ button,
 
 }
 ```
+```css
+/* ============================================================
+   WETECH — FINAL ENQUIRY FORM FIX
+   PASTE THIS AT THE VERY END OF style.css
+   ============================================================ */
+
+
+/* ------------------------------------------------------------
+   WHAT DO YOU NEED — SAME LOOK AS OTHER FORM FIELDS
+------------------------------------------------------------ */
+
+#contactForm select[name="service"] {
+  width: 100%;
+  min-height: 48px;
+
+  box-sizing: border-box;
+
+  padding: 0 42px 0 14px;
+
+  border: 1px solid rgba(140, 170, 195, 0.16);
+  border-radius: 10px;
+
+  background-color: rgba(3, 10, 19, 0.78);
+
+  /* SAME MUTED COLOUR — NEVER WHITE */
+  color: #6f8499 !important;
+
+  font-family: "DM Sans", sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+
+  outline: none;
+
+  cursor: pointer;
+
+  appearance: none;
+  -webkit-appearance: none;
+
+  transition:
+    border-color .25s ease,
+    background-color .25s ease,
+    box-shadow .25s ease,
+    transform .2s ease;
+
+  /* WETECH DROPDOWN ARROW */
+  background-image:
+    linear-gradient(
+      45deg,
+      transparent 50%,
+      #6f8499 50%
+    ),
+    linear-gradient(
+      135deg,
+      #6f8499 50%,
+      transparent 50%
+    );
+
+  background-position:
+    calc(100% - 18px) 20px,
+    calc(100% - 13px) 20px;
+
+  background-size:
+    5px 5px,
+    5px 5px;
+
+  background-repeat:
+    no-repeat;
+}
+
+
+/* ------------------------------------------------------------
+   SELECTED VALUE — STILL MUTED
+------------------------------------------------------------ */
+
+#contactForm select[name="service"]:valid {
+  color: #6f8499 !important;
+}
+
+
+/* ------------------------------------------------------------
+   DROPDOWN OPTIONS
+------------------------------------------------------------ */
+
+#contactForm select[name="service"] option {
+  color: #6f8499 !important;
+  background: #07111d !important;
+}
+
+
+/* ------------------------------------------------------------
+   PLACEHOLDER
+------------------------------------------------------------ */
+
+#contactForm select[name="service"] option[value=""] {
+  color: #6f8499 !important;
+}
+
+
+/* ------------------------------------------------------------
+   SELECT FOCUS
+------------------------------------------------------------ */
+
+#contactForm select[name="service"]:focus {
+
+  border-color:
+    rgba(40, 230, 255, .42) !important;
+
+  background-color:
+    rgba(40, 230, 255, .025);
+
+  box-shadow:
+    0 0 0 3px rgba(40, 230, 255, .045),
+    0 12px 30px rgba(0, 0, 0, .16);
+
+  transform:
+    translateY(-1px);
+
+}
+
+
+/* ------------------------------------------------------------
+   ALL FORM FIELDS — SAME HEIGHT / FEEL
+------------------------------------------------------------ */
+
+#contactForm input,
+#contactForm select[name="service"],
+#contactForm textarea {
+
+  font-family:
+    "DM Sans",
+    sans-serif;
+
+}
+
+
+/* ------------------------------------------------------------
+   FORM MESSAGE
+------------------------------------------------------------ */
+
+#formMessage {
+
+  display: block;
+
+  width: 100%;
+
+  min-height: 20px;
+
+  margin-top: 4px;
+
+  font-family:
+    "DM Sans",
+    sans-serif;
+
+  font-size: 11px;
+
+  line-height: 1.5;
+
+  opacity: 0;
+
+  transition:
+    opacity .25s ease;
+
+}
+
+
+/* SUCCESS */
+
+#formMessage[data-type="success"] {
+
+  color:
+    #9defff !important;
+
+}
+
+
+/* ERROR */
+
+#formMessage[data-type="error"] {
+
+  color:
+    #ff9da9 !important;
+
+}
+
+
+/* INFO */
+
+#formMessage[data-type="info"] {
+
+  color:
+    #6f8499 !important;
+
+}
+
+
+/* ------------------------------------------------------------
+   INVALID SELECT
+------------------------------------------------------------ */
+
+#contactForm select[name="service"][aria-invalid="true"] {
+
+  border-color:
+    rgba(255, 100, 120, .55) !important;
+
+  box-shadow:
+    0 0 0 3px rgba(255, 100, 120, .06);
+
+}
+
+
+/* ------------------------------------------------------------
+   SUBMIT BUTTON
+------------------------------------------------------------ */
+
+#contactForm button[type="submit"] {
+
+  cursor:
+    pointer;
+
+  transition:
+    transform .2s ease,
+    opacity .2s ease,
+    box-shadow .2s ease;
+
+}
+
+
+#contactForm button[type="submit"]:disabled {
+
+  opacity:
+    .7;
+
+  cursor:
+    wait;
+
+}
+
+
+/* ------------------------------------------------------------
+   MOBILE
+------------------------------------------------------------ */
+
+@media (max-width: 700px) {
+
+  #contactForm select[name="service"] {
+
+    min-height:
+      50px;
+
+    font-size:
+      14px;
+
+    padding-left:
+      14px;
+
+    padding-right:
+      42px;
+
+  }
+
+}
+
+
+/* ============================================================
+   END — WETECH FINAL FORM OVERRIDE
+   ============================================================ */
+```
