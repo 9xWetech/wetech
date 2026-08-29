@@ -5523,4 +5523,284 @@ button,
    END — WETECH PERFORMANCE + CINEMATIC UPGRADE
    ============================================================ */
 ```
+```css
+/* ============================================================
+   WETECH — ENQUIRY SELECT / FORM FINAL POLISH
+   ============================================================ */
 
+#contactForm input,
+#contactForm select,
+#contactForm textarea {
+  width: 100%;
+  box-sizing: border-box;
+
+  color: #ffffff !important;
+
+  background:
+    rgba(3, 10, 19, 0.78);
+
+  border:
+    1px solid
+    rgba(140, 170, 195, 0.16);
+
+  border-radius:
+    10px;
+
+  font-family:
+    "DM Sans",
+    sans-serif;
+
+  font-size:
+    13px;
+
+  line-height:
+    1.5;
+
+  outline:
+    none;
+
+  transition:
+    border-color .25s ease,
+    background .25s ease,
+    box-shadow .25s ease,
+    transform .2s ease;
+}
+
+
+/* ------------------------------------------------------------
+   SELECT
+------------------------------------------------------------ */
+
+#contactForm select {
+  appearance: none;
+  -webkit-appearance: none;
+
+  min-height:
+    48px;
+
+  padding:
+    0 44px 0 14px;
+
+  cursor:
+    pointer;
+
+  background-image:
+    linear-gradient(
+      45deg,
+      transparent 50%,
+      #8ea4b8 50%
+    ),
+    linear-gradient(
+      135deg,
+      #8ea4b8 50%,
+      transparent 50%
+    );
+
+  background-position:
+    calc(100% - 19px) 20px,
+    calc(100% - 14px) 20px;
+
+  background-size:
+    5px 5px,
+    5px 5px;
+
+  background-repeat:
+    no-repeat;
+}
+
+
+/* ------------------------------------------------------------
+   SELECT PLACEHOLDER
+------------------------------------------------------------ */
+
+#contactForm select:invalid {
+  color:
+    #6f8499 !important;
+}
+
+
+#contactForm select option {
+  color:
+    #ffffff;
+
+  background:
+    #07111d;
+}
+
+
+/* ------------------------------------------------------------
+   INPUT / SELECT / TEXTAREA FOCUS
+------------------------------------------------------------ */
+
+#contactForm input:focus,
+#contactForm select:focus,
+#contactForm textarea:focus {
+
+  border-color:
+    rgba(40, 230, 255, .42) !important;
+
+  background:
+    rgba(40, 230, 255, .025);
+
+  box-shadow:
+    0 0 0 3px
+    rgba(40, 230, 255, .045),
+    0 12px 30px
+    rgba(0, 0, 0, .16);
+
+  transform:
+    translateY(-1px);
+}
+
+
+/* ------------------------------------------------------------
+   INVALID FIELD
+------------------------------------------------------------ */
+
+#contactForm input[aria-invalid="true"],
+#contactForm select[aria-invalid="true"],
+#contactForm textarea[aria-invalid="true"] {
+
+  border-color:
+    rgba(255, 100, 120, .55) !important;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(255, 100, 120, .06);
+}
+
+
+/* ------------------------------------------------------------
+   PLACEHOLDERS
+------------------------------------------------------------ */
+
+#contactForm input::placeholder,
+#contactForm textarea::placeholder {
+  color:
+    #6f8499;
+
+  opacity:
+    1;
+}
+
+
+/* ------------------------------------------------------------
+   TEXTAREA
+------------------------------------------------------------ */
+
+#contactForm textarea {
+
+  min-height:
+    155px;
+
+  padding:
+    14px;
+
+  resize:
+    vertical;
+}
+
+
+/* ------------------------------------------------------------
+   FORM MESSAGE
+------------------------------------------------------------ */
+
+#formMessage {
+
+  min-height:
+    20px;
+
+  margin:
+    2px 0 0;
+
+  font-size:
+    11px;
+
+  line-height:
+    1.5;
+
+  opacity:
+    0;
+
+  transition:
+    opacity .25s ease,
+    color .25s ease;
+}
+
+
+#formMessage[data-type="error"] {
+  color:
+    #ff9da9;
+}
+
+
+#formMessage[data-type="success"] {
+  color:
+    #9defff;
+}
+
+
+#formMessage[data-type="info"] {
+  color:
+    #8ea4b8;
+}
+
+
+/* ------------------------------------------------------------
+   BUTTON DISABLED
+------------------------------------------------------------ */
+
+#sendEnquiryBtn:disabled {
+
+  opacity:
+    .72;
+
+  cursor:
+    wait;
+
+  transform:
+    none !important;
+}
+
+
+/* ------------------------------------------------------------
+   BUTTON PRESS
+------------------------------------------------------------ */
+
+.button.is-pressed,
+.nav-button.is-pressed,
+.whatsapp-button.is-pressed {
+
+  transform:
+    translateY(1px) scale(.985);
+}
+
+
+/* ------------------------------------------------------------
+   MOBILE
+------------------------------------------------------------ */
+
+@media (max-width: 700px) {
+
+  #contactForm select {
+
+    min-height:
+      50px;
+
+    font-size:
+      13px;
+
+  }
+
+
+  #contactForm input,
+  #contactForm select,
+  #contactForm textarea {
+
+    font-size:
+      14px;
+
+  }
+
+}
+```
