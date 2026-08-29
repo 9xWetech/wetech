@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,12 +17,25 @@
 
   <meta
     name="description"
-    content="Wetech builds websites, applications, AI systems, branding and digital experiences."
+    content="Wetech builds high-performance websites, applications, AI systems, branding and digital experiences for ambitious businesses."
+  >
+
+  <meta
+    name="robots"
+    content="index, follow"
   >
 
   <title>Wetech — Build What's Next.</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <!-- =====================================================
+       FONTS
+  ====================================================== -->
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
   <link
     rel="preconnect"
     href="https://fonts.gstatic.com"
@@ -33,23 +47,44 @@
     rel="stylesheet"
   >
 
+  <!-- =====================================================
+       STYLES
+  ====================================================== -->
+
   <link
     rel="stylesheet"
     href="style.css"
   >
+
 </head>
 
 
 <body>
 
 
-  <!-- BACKGROUND -->
+  <!-- =====================================================
+       BACKGROUND
+  ====================================================== -->
 
-  <div class="ambient ambient-blue"></div>
-  <div class="ambient ambient-cyan"></div>
-  <div class="ambient ambient-violet"></div>
+  <div
+    class="ambient ambient-blue"
+    aria-hidden="true"
+  ></div>
 
-  <div class="background-grid"></div>
+  <div
+    class="ambient ambient-cyan"
+    aria-hidden="true"
+  ></div>
+
+  <div
+    class="ambient ambient-violet"
+    aria-hidden="true"
+  ></div>
+
+  <div
+    class="background-grid"
+    aria-hidden="true"
+  ></div>
 
   <canvas
     id="backgroundCanvas"
@@ -57,13 +92,16 @@
   ></canvas>
 
 
-  <!-- NAVIGATION -->
+  <!-- =====================================================
+       NAVIGATION
+  ====================================================== -->
 
   <header class="navbar">
 
     <a
       href="#home"
       class="brand"
+      aria-label="Wetech home"
     >
 
       <span class="brand-mark">
@@ -77,14 +115,34 @@
     </a>
 
 
-    <nav class="nav-links">
+    <nav
+      class="nav-links"
+      aria-label="Primary navigation"
+    >
 
-      <a href="#home">Home</a>
-      <a href="#services">Services</a>
-      <a href="#work">Work</a>
-      <a href="#process">Process</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#contact">Contact</a>
+      <a href="#home">
+        Home
+      </a>
+
+      <a href="#services">
+        Services
+      </a>
+
+      <a href="#work">
+        Work
+      </a>
+
+      <a href="#process">
+        Process
+      </a>
+
+      <a href="#pricing">
+        Pricing
+      </a>
+
+      <a href="#contact">
+        Contact
+      </a>
 
     </nav>
 
@@ -94,7 +152,7 @@
       class="nav-button"
     >
       Start a Project
-      <span>↗</span>
+      <span aria-hidden="true">↗</span>
     </a>
 
   </header>
@@ -103,7 +161,9 @@
   <main>
 
 
-    <!-- HERO -->
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
 
     <section
       class="hero"
@@ -112,9 +172,13 @@
 
       <div class="hero-content">
 
+
         <div class="hero-kicker">
 
-          <span class="kicker-line"></span>
+          <span
+            class="kicker-line"
+            aria-hidden="true"
+          ></span>
 
           WETECH / DIGITAL STUDIO
 
@@ -149,7 +213,7 @@
             class="button button-primary"
           >
             Start a Project
-            <span>↗</span>
+            <span aria-hidden="true">↗</span>
           </a>
 
 
@@ -158,34 +222,52 @@
             class="button button-secondary"
           >
             Explore Wetech
-            <span>↓</span>
+            <span aria-hidden="true">↓</span>
           </a>
 
         </div>
 
 
-        <div class="hero-stats">
+        <div
+          class="hero-stats"
+          aria-label="Wetech statistics"
+        >
 
           <div class="stat">
 
-            <strong>50+</strong>
-            <span>Projects</span>
+            <strong>
+              50+
+            </strong>
+
+            <span>
+              Projects
+            </span>
 
           </div>
 
 
           <div class="stat">
 
-            <strong>30+</strong>
-            <span>Clients</span>
+            <strong>
+              30+
+            </strong>
+
+            <span>
+              Clients
+            </span>
 
           </div>
 
 
           <div class="stat">
 
-            <strong>10+</strong>
-            <span>Services</span>
+            <strong>
+              10+
+            </strong>
+
+            <span>
+              Services
+            </span>
 
           </div>
 
@@ -194,7 +276,9 @@
       </div>
 
 
-      <!-- HERO VISUAL -->
+      <!-- =================================================
+           HERO VISUAL
+      ================================================== -->
 
       <div
         class="hero-visual"
@@ -218,51 +302,106 @@
 
           <div class="monolith-glass"></div>
 
-          <div class="monolith-reflection reflection-1"></div>
-          <div class="monolith-reflection reflection-2"></div>
+          <div
+            class="monolith-reflection reflection-1"
+          ></div>
+
+          <div
+            class="monolith-reflection reflection-2"
+          ></div>
 
 
           <div class="energy-container">
 
-            <div class="energy-stream stream-1"></div>
-            <div class="energy-stream stream-2"></div>
-            <div class="energy-stream stream-3"></div>
+            <div
+              class="energy-stream stream-1"
+            ></div>
+
+            <div
+              class="energy-stream stream-2"
+            ></div>
+
+            <div
+              class="energy-stream stream-3"
+            ></div>
+
 
             <div class="energy-core"></div>
 
-            <div class="energy-pulse pulse-1"></div>
-            <div class="energy-pulse pulse-2"></div>
+
+            <div
+              class="energy-pulse pulse-1"
+            ></div>
+
+            <div
+              class="energy-pulse pulse-2"
+            ></div>
 
 
-            <span class="energy-particle ep-1"></span>
-            <span class="energy-particle ep-2"></span>
-            <span class="energy-particle ep-3"></span>
-            <span class="energy-particle ep-4"></span>
-            <span class="energy-particle ep-5"></span>
+            <span
+              class="energy-particle ep-1"
+            ></span>
+
+            <span
+              class="energy-particle ep-2"
+            ></span>
+
+            <span
+              class="energy-particle ep-3"
+            ></span>
+
+            <span
+              class="energy-particle ep-4"
+            ></span>
+
+            <span
+              class="energy-particle ep-5"
+            ></span>
 
           </div>
 
 
-          <div class="monolith-edge edge-top"></div>
-          <div class="monolith-edge edge-right"></div>
-          <div class="monolith-edge edge-bottom"></div>
-          <div class="monolith-edge edge-left"></div>
+          <div
+            class="monolith-edge edge-top"
+          ></div>
+
+          <div
+            class="monolith-edge edge-right"
+          ></div>
+
+          <div
+            class="monolith-edge edge-bottom"
+          ></div>
+
+          <div
+            class="monolith-edge edge-left"
+          ></div>
 
         </div>
 
 
         <div class="visual-label label-left">
 
-          <span>SYSTEM</span>
-          <strong>ONLINE</strong>
+          <span>
+            SYSTEM
+          </span>
+
+          <strong>
+            ONLINE
+          </strong>
 
         </div>
 
 
         <div class="visual-label label-right">
 
-          <span>ENERGY</span>
-          <strong>ACTIVE</strong>
+          <span>
+            ENERGY
+          </span>
+
+          <strong>
+            ACTIVE
+          </strong>
 
         </div>
 
@@ -271,9 +410,14 @@
     </section>
 
 
-    <!-- SERVICE STRIP -->
+    <!-- =====================================================
+         SERVICE STRIP
+    ====================================================== -->
 
-    <section class="service-strip">
+    <section
+      class="service-strip"
+      aria-label="Wetech capabilities"
+    >
 
       <span>WEB</span>
       <span>APPS</span>
@@ -285,7 +429,9 @@
     </section>
 
 
-    <!-- SERVICES -->
+    <!-- =====================================================
+         SERVICES
+    ====================================================== -->
 
     <section
       class="section"
@@ -314,11 +460,18 @@
       <div class="services-layout">
 
 
+        <!-- FEATURED SERVICE -->
+
         <article class="featured-service">
 
-          <span class="service-index">01</span>
+          <span class="service-index">
+            01
+          </span>
 
-          <div class="service-icon">
+          <div
+            class="service-icon"
+            aria-hidden="true"
+          >
             &lt;/&gt;
           </div>
 
@@ -333,22 +486,29 @@
           </p>
 
           <a href="#contact">
-            Start a conversation ↗
+            Start a conversation
+            <span aria-hidden="true">↗</span>
           </a>
 
         </article>
 
+
+        <!-- SERVICE LIST -->
 
         <div class="services-list">
 
 
           <article class="service-row">
 
-            <span class="service-row-number">02</span>
+            <span class="service-row-number">
+              02
+            </span>
 
             <div>
 
-              <h3>App Development</h3>
+              <h3>
+                App Development
+              </h3>
 
               <p>
                 Modern web and mobile applications.
@@ -356,18 +516,27 @@
 
             </div>
 
-            <a href="#contact">↗</a>
+            <a
+              href="#contact"
+              aria-label="Discuss App Development"
+            >
+              ↗
+            </a>
 
           </article>
 
 
           <article class="service-row">
 
-            <span class="service-row-number">03</span>
+            <span class="service-row-number">
+              03
+            </span>
 
             <div>
 
-              <h3>UI / UX Design</h3>
+              <h3>
+                UI / UX Design
+              </h3>
 
               <p>
                 Clean interfaces built around real users.
@@ -375,18 +544,27 @@
 
             </div>
 
-            <a href="#contact">↗</a>
+            <a
+              href="#contact"
+              aria-label="Discuss UI UX Design"
+            >
+              ↗
+            </a>
 
           </article>
 
 
           <article class="service-row">
 
-            <span class="service-row-number">04</span>
+            <span class="service-row-number">
+              04
+            </span>
 
             <div>
 
-              <h3>Branding</h3>
+              <h3>
+                Branding
+              </h3>
 
               <p>
                 Identity systems people remember.
@@ -394,18 +572,27 @@
 
             </div>
 
-            <a href="#contact">↗</a>
+            <a
+              href="#contact"
+              aria-label="Discuss Branding"
+            >
+              ↗
+            </a>
 
           </article>
 
 
           <article class="service-row">
 
-            <span class="service-row-number">05</span>
+            <span class="service-row-number">
+              05
+            </span>
 
             <div>
 
-              <h3>Digital Marketing</h3>
+              <h3>
+                Digital Marketing
+              </h3>
 
               <p>
                 Content, campaigns and growth strategy.
@@ -413,18 +600,27 @@
 
             </div>
 
-            <a href="#contact">↗</a>
+            <a
+              href="#contact"
+              aria-label="Discuss Digital Marketing"
+            >
+              ↗
+            </a>
 
           </article>
 
 
           <article class="service-row">
 
-            <span class="service-row-number">06</span>
+            <span class="service-row-number">
+              06
+            </span>
 
             <div>
 
-              <h3>AI Solutions</h3>
+              <h3>
+                AI Solutions
+              </h3>
 
               <p>
                 Assistants, automation and intelligent systems.
@@ -432,7 +628,12 @@
 
             </div>
 
-            <a href="#contact">↗</a>
+            <a
+              href="#contact"
+              aria-label="Discuss AI Solutions"
+            >
+              ↗
+            </a>
 
           </article>
 
@@ -444,7 +645,9 @@
     </section>
 
 
-    <!-- STATEMENT -->
+    <!-- =====================================================
+         STATEMENT
+    ====================================================== -->
 
     <section class="statement-section">
 
@@ -471,7 +674,9 @@
     </section>
 
 
-    <!-- WORK -->
+    <!-- =====================================================
+         WORK
+    ====================================================== -->
 
     <section
       class="section"
@@ -499,13 +704,22 @@
       <div class="work-grid">
 
 
-        <article class="work-card work-main">
+        <article
+          class="work-card work-main"
+        >
 
-          <div class="work-orb work-orb-blue"></div>
+          <div
+            class="work-orb work-orb-blue"
+            aria-hidden="true"
+          ></div>
 
-          <span>SAAS / WEB</span>
+          <span>
+            SAAS / WEB
+          </span>
 
-          <h3>NOVA</h3>
+          <h3>
+            NOVA
+          </h3>
 
           <p>
             A high-contrast SaaS experience
@@ -514,7 +728,8 @@
           </p>
 
           <a href="#contact">
-            View Concept ↗
+            Discuss a similar project
+            <span aria-hidden="true">↗</span>
           </a>
 
         </article>
@@ -522,11 +737,18 @@
 
         <article class="work-card">
 
-          <div class="work-orb work-orb-violet"></div>
+          <div
+            class="work-orb work-orb-violet"
+            aria-hidden="true"
+          ></div>
 
-          <span>BRAND / IDENTITY</span>
+          <span>
+            BRAND / IDENTITY
+          </span>
 
-          <h3>ORBIT</h3>
+          <h3>
+            ORBIT
+          </h3>
 
           <p>
             A technology identity designed
@@ -534,7 +756,8 @@
           </p>
 
           <a href="#contact">
-            View Concept ↗
+            Discuss a similar project
+            <span aria-hidden="true">↗</span>
           </a>
 
         </article>
@@ -542,11 +765,18 @@
 
         <article class="work-card">
 
-          <div class="work-orb work-orb-cyan"></div>
+          <div
+            class="work-orb work-orb-cyan"
+            aria-hidden="true"
+          ></div>
 
-          <span>AI / PRODUCT</span>
+          <span>
+            AI / PRODUCT
+          </span>
 
-          <h3>NEURAL</h3>
+          <h3>
+            NEURAL
+          </h3>
 
           <p>
             An intelligent automation product
@@ -554,7 +784,8 @@
           </p>
 
           <a href="#contact">
-            View Concept ↗
+            Discuss a similar project
+            <span aria-hidden="true">↗</span>
           </a>
 
         </article>
@@ -571,7 +802,9 @@
     </section>
 
 
-    <!-- PROCESS -->
+    <!-- =====================================================
+         PROCESS
+    ====================================================== -->
 
     <section
       class="section"
@@ -597,9 +830,13 @@
 
         <article class="process-item">
 
-          <span>01</span>
+          <span>
+            01
+          </span>
 
-          <h3>Discover</h3>
+          <h3>
+            Discover
+          </h3>
 
           <p>
             Understand the business,
@@ -611,9 +848,13 @@
 
         <article class="process-item">
 
-          <span>02</span>
+          <span>
+            02
+          </span>
 
-          <h3>Design</h3>
+          <h3>
+            Design
+          </h3>
 
           <p>
             Turn strategy into
@@ -625,9 +866,13 @@
 
         <article class="process-item">
 
-          <span>03</span>
+          <span>
+            03
+          </span>
 
-          <h3>Build</h3>
+          <h3>
+            Build
+          </h3>
 
           <p>
             Develop with quality,
@@ -639,9 +884,13 @@
 
         <article class="process-item">
 
-          <span>04</span>
+          <span>
+            04
+          </span>
 
-          <h3>Launch</h3>
+          <h3>
+            Launch
+          </h3>
 
           <p>
             Test, refine and
@@ -656,7 +905,9 @@
     </section>
 
 
-    <!-- PRICING -->
+    <!-- =====================================================
+         PRICING
+    ====================================================== -->
 
     <section
       class="section"
@@ -673,17 +924,28 @@
           A clear place to start.
         </h2>
 
+        <p>
+          Choose a starting point or talk to us
+          about something completely custom.
+        </p>
+
       </div>
 
 
       <div class="pricing-grid">
 
 
+        <!-- STARTER -->
+
         <article class="pricing-card">
 
-          <span>STARTER</span>
+          <span>
+            STARTER
+          </span>
 
-          <h3>₹10,000</h3>
+          <h3>
+            ₹10,000
+          </h3>
 
           <p>
             Professional business website.
@@ -691,10 +953,21 @@
 
           <ul>
 
-            <li>Responsive design</li>
-            <li>Business pages</li>
-            <li>Contact section</li>
-            <li>Basic SEO structure</li>
+            <li>
+              Responsive design
+            </li>
+
+            <li>
+              Business pages
+            </li>
+
+            <li>
+              Contact section
+            </li>
+
+            <li>
+              Basic SEO structure
+            </li>
 
           </ul>
 
@@ -708,15 +981,23 @@
         </article>
 
 
-        <article class="pricing-card pricing-featured">
+        <!-- PROFESSIONAL -->
+
+        <article
+          class="pricing-card pricing-featured"
+        >
 
           <div class="popular-label">
             MOST POPULAR
           </div>
 
-          <span>PROFESSIONAL</span>
+          <span>
+            PROFESSIONAL
+          </span>
 
-          <h3>₹15,000</h3>
+          <h3>
+            ₹15,000
+          </h3>
 
           <p>
             Premium digital experience.
@@ -724,10 +1005,21 @@
 
           <ul>
 
-            <li>Everything in Starter</li>
-            <li>Advanced UI / UX</li>
-            <li>Premium animations</li>
-            <li>Enhanced experience</li>
+            <li>
+              Everything in Starter
+            </li>
+
+            <li>
+              Advanced UI / UX
+            </li>
+
+            <li>
+              Premium animations
+            </li>
+
+            <li>
+              Enhanced experience
+            </li>
 
           </ul>
 
@@ -741,11 +1033,17 @@
         </article>
 
 
+        <!-- CUSTOM -->
+
         <article class="pricing-card">
 
-          <span>CUSTOM</span>
+          <span>
+            CUSTOM
+          </span>
 
-          <h3>Let's Talk</h3>
+          <h3>
+            Let's Talk
+          </h3>
 
           <p>
             For larger digital products.
@@ -753,10 +1051,21 @@
 
           <ul>
 
-            <li>Web applications</li>
-            <li>Mobile apps</li>
-            <li>E-commerce</li>
-            <li>AI solutions</li>
+            <li>
+              Web applications
+            </li>
+
+            <li>
+              Mobile apps
+            </li>
+
+            <li>
+              E-commerce
+            </li>
+
+            <li>
+              AI solutions
+            </li>
 
           </ul>
 
@@ -775,7 +1084,9 @@
     </section>
 
 
-    <!-- CONTACT -->
+    <!-- =====================================================
+         CONTACT / ENQUIRY
+    ====================================================== -->
 
     <section
       class="section"
@@ -784,6 +1095,8 @@
 
       <div class="contact-box">
 
+
+        <!-- CONTACT INFORMATION -->
 
         <div class="contact-content">
 
@@ -804,9 +1117,12 @@
 
           <div class="contact-details">
 
+
             <div>
 
-              <span>WHATSAPP</span>
+              <span>
+                WHATSAPP
+              </span>
 
               <strong>
                 +91 8445209063
@@ -817,7 +1133,9 @@
 
             <div>
 
-              <span>EMAIL</span>
+              <span>
+                EMAIL
+              </span>
 
               <strong>
                 hello@wetech.in
@@ -825,12 +1143,19 @@
 
             </div>
 
+
           </div>
 
         </div>
 
 
-        <form id="contactForm">
+        <!-- ENQUIRY FORM -->
+
+        <form
+          id="contactForm"
+          novalidate
+        >
+
 
           <input
             type="text"
@@ -838,7 +1163,9 @@
             placeholder="Your name"
             autocomplete="name"
             required
+            aria-label="Your name"
           >
+
 
           <input
             type="email"
@@ -846,40 +1173,93 @@
             placeholder="Your email"
             autocomplete="email"
             required
+            aria-label="Your email"
           >
+
 
           <input
             type="tel"
             name="phone"
             placeholder="Phone / WhatsApp"
             autocomplete="tel"
+            aria-label="Phone or WhatsApp number"
           >
 
-          <input
-            type="text"
+
+          <select
             name="service"
-            placeholder="What do you need?"
+            aria-label="Service you need"
+            required
           >
+
+            <option
+              value=""
+              selected
+              disabled
+            >
+              What do you need?
+            </option>
+
+            <option value="Web Development">
+              Web Development
+            </option>
+
+            <option value="App Development">
+              App Development
+            </option>
+
+            <option value="UI / UX Design">
+              UI / UX Design
+            </option>
+
+            <option value="Branding">
+              Branding
+            </option>
+
+            <option value="Digital Marketing">
+              Digital Marketing
+            </option>
+
+            <option value="AI Solutions">
+              AI Solutions
+            </option>
+
+            <option value="Custom Project">
+              Custom Project
+            </option>
+
+          </select>
+
 
           <textarea
             name="message"
             placeholder="Tell us about your project..."
             required
+            aria-label="Project details"
           ></textarea>
+
 
           <button
             type="submit"
             class="button button-primary"
+            id="sendEnquiryBtn"
           >
+
             Send Enquiry
-            <span>→</span>
+
+            <span aria-hidden="true">
+              →
+            </span>
+
           </button>
+
 
           <p
             id="formMessage"
             class="form-message"
             aria-live="polite"
           ></p>
+
 
         </form>
 
@@ -891,7 +1271,9 @@
   </main>
 
 
-  <!-- WHATSAPP -->
+  <!-- =====================================================
+       FLOATING WHATSAPP
+  ====================================================== -->
 
   <a
     href="https://wa.me/918445209063"
@@ -901,7 +1283,10 @@
     aria-label="Chat with Wetech on WhatsApp"
   >
 
-    <span class="whatsapp-icon">
+    <span
+      class="whatsapp-icon"
+      aria-hidden="true"
+    >
       ☎
     </span>
 
@@ -920,15 +1305,19 @@
   </a>
 
 
-  <!-- FOOTER -->
+  <!-- =====================================================
+       FOOTER
+  ====================================================== -->
 
   <footer class="footer">
+
 
     <div>
 
       <a
         href="#home"
         class="brand"
+        aria-label="Wetech home"
       >
 
         <span class="brand-mark">
@@ -941,6 +1330,7 @@
 
       </a>
 
+
       <p>
         Digital experiences,
         engineered for what's next.
@@ -951,10 +1341,21 @@
 
     <div class="footer-links">
 
-      <a href="#services">Services</a>
-      <a href="#work">Work</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#contact">Contact</a>
+      <a href="#services">
+        Services
+      </a>
+
+      <a href="#work">
+        Work
+      </a>
+
+      <a href="#pricing">
+        Pricing
+      </a>
+
+      <a href="#contact">
+        Contact
+      </a>
 
     </div>
 
@@ -963,10 +1364,18 @@
       © 2026 Wetech.
     </div>
 
+
   </footer>
 
 
+  <!-- =====================================================
+       JAVASCRIPT
+  ====================================================== -->
+
   <script src="script.js"></script>
 
+
 </body>
+
 </html>
+```
