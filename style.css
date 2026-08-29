@@ -4576,7 +4576,7 @@ textarea{
     margin-top:16px;
   }
 
-  .featured-service{
+  .featured-service{a
     min-height:370px;
   }
 
@@ -4593,3 +4593,934 @@ textarea{
   }
 
 }
+```css
+/* ============================================================
+   WETECH — PERFORMANCE + CINEMATIC ANIMATION UPGRADE
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   1. GPU / RENDERING OPTIMIZATION
+------------------------------------------------------------ */
+
+#backgroundCanvas,
+.ambient,
+.background-grid,
+.hero-visual,
+.visual-glow,
+.visual-floor,
+.monolith,
+.monolith-glass,
+.energy-stream,
+.energy-core,
+.energy-pulse,
+.floating-particle,
+.energy-particle,
+.visual-label,
+.featured-service,
+.service-row,
+.work-card,
+.process-item,
+.pricing-card,
+.button,
+.nav-button,
+.whatsapp-button {
+  will-change: transform;
+}
+
+
+/* ------------------------------------------------------------
+   2. SMOOTH GLOBAL INTERACTION
+------------------------------------------------------------ */
+
+a,
+button,
+.button,
+.nav-button,
+.featured-service,
+.service-row,
+.work-card,
+.process-item,
+.pricing-card,
+.whatsapp-button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+
+button,
+.button,
+.nav-button,
+.whatsapp-button {
+  cursor: pointer;
+}
+
+
+/* ------------------------------------------------------------
+   3. HERO PERFORMANCE
+------------------------------------------------------------ */
+
+.hero-content,
+.hero-visual {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+
+.hero-content {
+  transform: translateZ(0);
+}
+
+
+.hero-visual {
+  transform: translateZ(0);
+}
+
+
+/* ------------------------------------------------------------
+   4. HERO TITLE — LIGHT CINEMATIC SHIMMER
+------------------------------------------------------------ */
+
+.hero-title span {
+  background-size: 240% 100%;
+
+  animation:
+    titleFlow 8s
+    cubic-bezier(.45,0,.55,1)
+    infinite;
+}
+
+
+/* ------------------------------------------------------------
+   5. HERO BUTTON POLISH
+------------------------------------------------------------ */
+
+.button,
+.nav-button {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+
+.button::before,
+.nav-button::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  bottom: 0;
+
+  left: -120%;
+
+  width: 70%;
+
+  background:
+    linear-gradient(
+      105deg,
+      transparent,
+      rgba(255,255,255,.22),
+      transparent
+    );
+
+  transform: skewX(-18deg);
+
+  transition:
+    left .7s
+    cubic-bezier(.16,1,.3,1);
+
+  pointer-events: none;
+
+  z-index: -1;
+}
+
+
+.button:hover::before,
+.nav-button:hover::before {
+  left: 150%;
+}
+
+
+.button-primary,
+.nav-button {
+  box-shadow:
+    0 12px 30px
+    rgba(40,230,255,.12);
+}
+
+
+.button-primary:hover,
+.nav-button:hover {
+  box-shadow:
+    0 18px 42px
+    rgba(40,230,255,.20);
+}
+
+
+/* ------------------------------------------------------------
+   6. SERVICE CARD — PREMIUM HOVER
+------------------------------------------------------------ */
+
+.featured-service,
+.service-row {
+  transform:
+    translateZ(0);
+
+  transition:
+    transform .35s
+      cubic-bezier(.16,1,.3,1),
+    border-color .35s ease,
+    box-shadow .35s ease,
+    background .35s ease;
+}
+
+
+.featured-service:hover {
+  transform:
+    translateY(-7px)
+    translateZ(0);
+}
+
+
+.service-row:hover {
+  transform:
+    translateX(5px)
+    translateZ(0);
+}
+
+
+.featured-service::after {
+  transition:
+    opacity .35s ease,
+    transform .6s
+      cubic-bezier(.16,1,.3,1);
+}
+
+
+.featured-service:hover::after {
+  opacity: .85;
+  transform:
+    translate3d(-8px,-8px,0)
+    scale(1.04);
+}
+
+
+/* ------------------------------------------------------------
+   7. SERVICE ICON — ENERGY PULSE
+------------------------------------------------------------ */
+
+.service-icon {
+  transform:
+    translateZ(0);
+
+  transition:
+    transform .35s
+      cubic-bezier(.16,1,.3,1),
+    border-color .3s ease,
+    box-shadow .3s ease;
+}
+
+
+.featured-service:hover .service-icon {
+  transform:
+    translateY(-3px)
+    scale(1.04)
+    translateZ(0);
+
+  border-color:
+    rgba(40,230,255,.42);
+
+  box-shadow:
+    0 0 32px
+    rgba(40,230,255,.12);
+}
+
+
+/* ------------------------------------------------------------
+   8. WORK CARDS — CINEMATIC LIGHT SWEEP
+------------------------------------------------------------ */
+
+.work-card {
+  transform:
+    translateZ(0);
+
+  transition:
+    transform .38s
+      cubic-bezier(.16,1,.3,1),
+    border-color .3s ease,
+    box-shadow .38s ease;
+}
+
+
+.work-card:hover {
+  transform:
+    translateY(-6px)
+    translateZ(0);
+
+  box-shadow:
+    0 25px 65px
+    rgba(0,0,0,.28),
+    0 0 32px
+    rgba(40,230,255,.035);
+}
+
+
+.work-card::after {
+  pointer-events: none;
+
+  will-change:
+    transform;
+
+  transition:
+    transform .9s
+      cubic-bezier(.16,1,.3,1);
+}
+
+
+/* ------------------------------------------------------------
+   9. PROCESS CARDS
+------------------------------------------------------------ */
+
+.process-item {
+  transition:
+    transform .3s
+      cubic-bezier(.16,1,.3,1),
+    background .3s ease,
+    border-color .3s ease;
+}
+
+
+.process-item:hover {
+  transform:
+    translateY(-4px)
+    translateZ(0);
+
+  background:
+    rgba(40,230,255,.025);
+}
+
+
+/* ------------------------------------------------------------
+   10. PRICING CARDS
+------------------------------------------------------------ */
+
+.pricing-card {
+  transform:
+    translateZ(0);
+
+  transition:
+    transform .38s
+      cubic-bezier(.16,1,.3,1),
+    border-color .3s ease,
+    box-shadow .38s ease;
+}
+
+
+.pricing-card:hover {
+  transform:
+    translateY(-7px)
+    translateZ(0);
+
+  box-shadow:
+    0 25px 60px
+    rgba(0,0,0,.30),
+    0 0 34px
+    rgba(40,230,255,.035);
+}
+
+
+.pricing-featured:hover {
+  box-shadow:
+    0 28px 70px
+    rgba(0,0,0,.34),
+    0 0 45px
+    rgba(40,230,255,.08);
+}
+
+
+/* ------------------------------------------------------------
+   11. NAVBAR
+------------------------------------------------------------ */
+
+.navbar {
+  transform:
+    translateZ(0);
+
+  transition:
+    border-color .3s ease,
+    box-shadow .3s ease,
+    background .3s ease;
+}
+
+
+.navbar:hover {
+  border-color:
+    rgba(40,230,255,.18);
+
+  box-shadow:
+    0 20px 55px
+    rgba(0,0,0,.35),
+    0 0 30px
+    rgba(40,230,255,.025);
+}
+
+
+.nav-links a {
+  position: relative;
+
+  transition:
+    color .22s ease,
+    background .22s ease;
+}
+
+
+.nav-links a::after {
+  content: "";
+
+  position: absolute;
+
+  left: 11px;
+  right: 11px;
+
+  bottom: 3px;
+
+  height: 1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      var(--cyan),
+      transparent
+    );
+
+  transform:
+    scaleX(0);
+
+  transform-origin:
+    center;
+
+  opacity: 0;
+
+  transition:
+    transform .25s ease,
+    opacity .25s ease;
+}
+
+
+.nav-links a:hover::after {
+  transform:
+    scaleX(1);
+
+  opacity: .8;
+}
+
+
+/* ------------------------------------------------------------
+   12. ENERGY CORE — MORE CINEMATIC
+------------------------------------------------------------ */
+
+.energy-core {
+  will-change:
+    transform,
+    opacity;
+
+  filter:
+    blur(3px);
+
+  animation:
+    corePulse 3.4s
+    cubic-bezier(.45,0,.55,1)
+    infinite;
+}
+
+
+.energy-pulse {
+  will-change:
+    transform,
+    opacity;
+}
+
+
+.energy-stream {
+  will-change:
+    transform;
+
+  backface-visibility:
+    hidden;
+}
+
+
+/* ------------------------------------------------------------
+   13. VISUAL LABELS
+------------------------------------------------------------ */
+
+.visual-label {
+  transition:
+    border-color .3s ease,
+    box-shadow .3s ease,
+    background .3s ease;
+}
+
+
+.visual-label:hover {
+  border-color:
+    rgba(40,230,255,.30);
+
+  background:
+    rgba(3,10,19,.88);
+
+  box-shadow:
+    0 18px 42px
+    rgba(0,0,0,.34),
+    0 0 24px
+    rgba(40,230,255,.045);
+}
+
+
+/* ------------------------------------------------------------
+   14. CONTACT FORM — PREMIUM INPUTS
+------------------------------------------------------------ */
+
+#contactForm input,
+#contactForm textarea {
+  width: 100%;
+
+  outline: none;
+
+  transition:
+    border-color .25s ease,
+    background .25s ease,
+    box-shadow .25s ease,
+    transform .2s ease;
+}
+
+
+#contactForm input:focus,
+#contactForm textarea:focus {
+  border-color:
+    rgba(40,230,255,.42) !important;
+
+  background:
+    rgba(40,230,255,.025);
+
+  box-shadow:
+    0 0 0 3px
+    rgba(40,230,255,.045),
+    0 12px 30px
+    rgba(0,0,0,.16);
+
+  transform:
+    translateY(-1px);
+}
+
+
+#contactForm textarea {
+  min-height: 150px;
+
+  resize: vertical;
+}
+
+
+/* ------------------------------------------------------------
+   15. WHATSAPP FORM MESSAGE
+------------------------------------------------------------ */
+
+#formMsg,
+#formMessage {
+  min-height: 22px;
+
+  margin-top: 12px;
+
+  color:
+    #9defff;
+
+  font-size: 12px;
+
+  line-height: 1.6;
+
+  transition:
+    opacity .25s ease,
+    transform .25s ease;
+}
+
+
+/* ------------------------------------------------------------
+   16. NEW WHATSAPP BUTTON / FORM BUTTON COMPATIBILITY
+------------------------------------------------------------ */
+
+#sendEnquiryBtn,
+.btn,
+.btn.primary,
+.whatsapp {
+  min-height: 50px;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 8px;
+
+  padding:
+    0 20px;
+
+  border-radius: 10px;
+
+  border:
+    1px solid
+    rgba(40,230,255,.20);
+
+  color:
+    #03111b;
+
+  background:
+    linear-gradient(
+      135deg,
+      #c4fcff,
+      #30e5ff,
+      #4383ff
+    );
+
+  font-size: 12px;
+
+  font-weight: 800;
+
+  cursor: pointer;
+
+  transition:
+    transform .25s
+      cubic-bezier(.16,1,.3,1),
+    box-shadow .25s ease,
+    border-color .25s ease,
+    filter .25s ease;
+}
+
+
+#sendEnquiryBtn:hover,
+.btn.primary:hover,
+.whatsapp:hover {
+  transform:
+    translateY(-3px);
+
+  box-shadow:
+    0 18px 42px
+    rgba(40,230,255,.20);
+
+  filter:
+    brightness(1.04);
+}
+
+
+#sendEnquiryBtn:active,
+.btn.primary:active,
+.whatsapp:active {
+  transform:
+    translateY(-1px);
+}
+
+
+#sendEnquiryBtn:disabled {
+  cursor:
+    wait;
+
+  opacity:
+    .7;
+
+  transform:
+    none;
+}
+
+
+/* ------------------------------------------------------------
+   17. SMALL CONTACT TEXT
+------------------------------------------------------------ */
+
+.small {
+  color:
+    #8ea4b8;
+
+  font-size:
+    11px;
+
+  line-height:
+    1.7;
+}
+
+
+/* ------------------------------------------------------------
+   18. SCROLL REVEAL
+   Used by the optimized script.js
+------------------------------------------------------------ */
+
+.wetech-reveal {
+  opacity: 0;
+
+  transform:
+    translate3d(0,24px,0);
+
+  transition:
+    opacity .72s
+      cubic-bezier(.16,1,.3,1)
+      var(--reveal-delay,0ms),
+    transform .72s
+      cubic-bezier(.16,1,.3,1)
+      var(--reveal-delay,0ms);
+
+  will-change:
+    opacity,
+    transform;
+}
+
+
+.wetech-reveal.is-visible {
+  opacity: 1;
+
+  transform:
+    translate3d(0,0,0);
+}
+
+
+/* ------------------------------------------------------------
+   19. SECTION HEADING REVEAL
+------------------------------------------------------------ */
+
+.section-heading.wetech-reveal {
+  transform:
+    translate3d(0,18px,0);
+}
+
+
+/* ------------------------------------------------------------
+   20. MOBILE PERFORMANCE
+------------------------------------------------------------ */
+
+@media (max-width: 700px) {
+
+  /*
+   * Avoid expensive hover-style motion on touch devices.
+   */
+
+  .featured-service:hover,
+  .service-row:hover,
+  .work-card:hover,
+  .process-item:hover,
+  .pricing-card:hover,
+  .button:hover,
+  .nav-button:hover {
+    transform:
+      none;
+  }
+
+
+  .featured-service,
+  .service-row,
+  .work-card,
+  .process-item,
+  .pricing-card {
+    will-change:
+      auto;
+  }
+
+
+  /*
+   * Smaller blur = considerably cheaper on phones.
+   */
+
+  .ambient {
+    filter:
+      blur(65px);
+  }
+
+
+  .visual-glow {
+    filter:
+      blur(18px);
+  }
+
+
+  .visual-floor {
+    filter:
+      blur(8px);
+  }
+
+
+  .energy-stream {
+    filter:
+      blur(1px);
+  }
+
+
+  .energy-core {
+    filter:
+      blur(2px);
+  }
+
+
+  /*
+   * Reduce visual workload.
+   */
+
+  .floating-particle,
+  .energy-particle {
+    box-shadow:
+      0 0 8px
+      rgba(40,230,255,.65);
+  }
+
+
+  .visual-label {
+    backdrop-filter:
+      blur(9px);
+  }
+
+
+  .navbar {
+    backdrop-filter:
+      blur(14px);
+  }
+
+
+  #sendEnquiryBtn,
+  .btn.primary,
+  .whatsapp {
+    width: 100%;
+  }
+
+
+  .wetech-reveal {
+    transform:
+      translate3d(0,16px,0);
+
+    transition-duration:
+      .55s;
+  }
+
+}
+
+
+/* ------------------------------------------------------------
+   21. VERY SMALL PHONES
+------------------------------------------------------------ */
+
+@media (max-width: 390px) {
+
+  .ambient-blue {
+    width: 340px;
+    height: 340px;
+  }
+
+
+  .ambient-cyan {
+    width: 300px;
+    height: 300px;
+  }
+
+
+  .ambient-violet {
+    width: 260px;
+    height: 260px;
+  }
+
+
+  .visual-glow {
+    opacity:
+      .75;
+  }
+
+
+  .energy-stream {
+    opacity:
+      .85;
+  }
+
+}
+
+
+/* ------------------------------------------------------------
+   22. REDUCED MOTION ACCESSIBILITY
+------------------------------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior:
+      auto !important;
+
+    animation-duration:
+      .01ms !important;
+
+    animation-iteration-count:
+      1 !important;
+
+    transition-duration:
+      .01ms !important;
+  }
+
+
+  .wetech-reveal {
+    opacity:
+      1 !important;
+
+    transform:
+      none !important;
+  }
+
+
+  #backgroundCanvas {
+    display:
+      none !important;
+  }
+
+}
+
+
+/* ------------------------------------------------------------
+   23. HIDDEN TAB / LOW POWER FRIENDLY
+------------------------------------------------------------ */
+
+@media (max-width: 900px) {
+
+  .background-grid {
+    animation-duration:
+      55s;
+  }
+
+  .ambient-blue,
+  .ambient-cyan,
+  .ambient-violet {
+    animation-duration:
+      26s;
+  }
+
+}
+
+
+/* ------------------------------------------------------------
+   24. FINAL GPU HINTS
+------------------------------------------------------------ */
+
+.hero-visual,
+.monolith,
+.visual-glow,
+.energy-container,
+.energy-stream,
+.energy-core,
+.energy-pulse,
+.work-card::after,
+.featured-service::before {
+  backface-visibility:
+    hidden;
+
+  -webkit-backface-visibility:
+    hidden;
+}
+
+
+/* ============================================================
+   END — WETECH PERFORMANCE + CINEMATIC UPGRADE
+   ============================================================ */
+```
+
