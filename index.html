@@ -1,193 +1,1361 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
 
-<title>Wetech — We Build. You Grow.</title>
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
-<meta name="description"
-content="Wetech is a digital agency providing websites, apps, branding, UI/UX, digital marketing, SEO and AI solutions.">
+  <meta
+    name="theme-color"
+    content="#030712"
+  >
 
-<link rel="stylesheet" href="style.css">
+  <meta
+    name="description"
+    content="9xTech builds high-performance websites, applications, AI systems, branding and digital experiences for ambitious businesses."
+  >
+
+  <meta
+    name="robots"
+    content="index, follow"
+  >
+
+  <title>9xTech — Build What's Next.</title>
+
+
+  <!-- =====================================================
+       FONTS
+  ====================================================== -->
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+
+  <!-- =====================================================
+       STYLESHEET
+  ====================================================== -->
+
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
+
 </head>
+
 
 <body>
 
-<header class="nav">
 
-<a class="logo" href="index.html">
-WE<span>TECH</span>
-</a>
+  <!-- =====================================================
+       BACKGROUND
+  ====================================================== -->
 
-<nav>
+  <div
+    class="ambient ambient-blue"
+    aria-hidden="true"
+  ></div>
 
-<a href="index.html">Home</a>
-<a href="about.html">About</a>
-<a href="services.html">Services</a>
-<a href="portfolio.html">Portfolio</a>
-<a href="pricing.html">Pricing</a>
-<a href="contact.html">Contact</a>
+  <div
+    class="ambient ambient-cyan"
+    aria-hidden="true"
+  ></div>
 
-</nav>
+  <div
+    class="ambient ambient-violet"
+    aria-hidden="true"
+  ></div>
 
-</header>
+  <div
+    class="background-grid"
+    aria-hidden="true"
+  ></div>
+
+  <canvas
+    id="backgroundCanvas"
+    aria-hidden="true"
+  ></canvas>
 
 
-<main>
+  <!-- =====================================================
+       NAVIGATION
+  ====================================================== -->
 
-<section class="hero">
+  <header class="navbar">
 
-<p class="eyebrow">
-DIGITAL AGENCY • WEB • APPS • BRANDING • AI
-</p>
+    <a
+      href="#home"
+      class="brand"
+      aria-label="9xTech home"
+    >
 
-<h1>
-We Build.
-<br>
-<span>You Grow.</span>
-</h1>
+      <span class="brand-mark">
+        9
+      </span>
 
-<p>
-Premium websites, apps, branding, marketing and digital experiences
-for modern businesses.
-</p>
+      <span class="brand-name">
+        9x<span>TECH</span>
+      </span>
 
-<div class="buttons">
+    </a>
 
-<a class="btn primary" href="contact.html">
-Start a Project
-</a>
 
-<a class="btn" href="services.html">
-Our Services
-</a>
+    <nav
+      class="nav-links"
+      aria-label="Primary navigation"
+    >
 
-</div>
+      <a href="#home">
+        Home
+      </a>
+
+      <a href="#services">
+        Services
+      </a>
+
+      <a href="#work">
+        Work
+      </a>
+
+      <a href="#process">
+        Process
+      </a>
+
+      <a href="#pricing">
+        Pricing
+      </a>
+
+      <a href="#contact">
+        Contact
+      </a>
+
+    </nav>
+
+
+    <a
+      href="#contact"
+      class="nav-button"
+    >
+
+      Start a Project
+
+      <span aria-hidden="true">
+        ↗
+      </span>
+
+    </a>
+
+  </header>
+
+
+  <!-- =====================================================
+       MAIN
+  ====================================================== -->
+
+  <main>
+
+
+    <!-- ===================================================
+         HERO
+    ==================================================== -->
+
+    <section
+      class="hero"
+      id="home"
+    >
+
+      <div class="hero-content">
+
+
+        <div class="hero-kicker">
+
+          <span
+            class="kicker-line"
+            aria-hidden="true"
+          ></span>
+
+          9xTech / DIGITAL STUDIO
+
+        </div>
+
+
+        <h1 class="hero-title">
+
+          BUILD
+
+          <span>
+            WHAT'S NEXT.
+          </span>
+
+        </h1>
+
+
+        <p class="hero-text">
+
+          We create websites, applications,
+          AI systems and digital experiences
+          for ambitious businesses that want
+          to stand apart.
+
+        </p>
+
+
+        <div class="hero-actions">
+
+
+          <a
+            href="#contact"
+            class="button button-primary"
+          >
+
+            Start a Project
+
+            <span aria-hidden="true">
+              ↗
+            </span>
+
+          </a>
+
+
+          <a
+            href="#services"
+            class="button button-secondary"
+          >
+
+            Explore 9xTech
+
+            <span aria-hidden="true">
+              ↓
+            </span>
+
+          </a>
+
+
+        </div>
+
+
+        <div
+          class="hero-stats"
+          aria-label="9xTech statistics"
+        >
+
+          <div class="stat">
+
+            <strong>
+              50+
+            </strong>
+
+            <span>
+              Projects
+            </span>
+
+          </div>
+
+
+          <div class="stat">
+
+            <strong>
+              30+
+            </strong>
+
+            <span>
+              Clients
+            </span>
+
+          </div>
+
+
+          <div class="stat">
+
+            <strong>
+              10+
+            </strong>
+
+            <span>
+              Services
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- =================================================
+           HERO VISUAL
+      ================================================== -->
+
+      <div
+        class="hero-visual"
+        aria-hidden="true"
+      >
+
+        <div class="visual-glow"></div>
+
+        <div class="visual-floor"></div>
+
+
+        <span class="floating-particle fp-1"></span>
+        <span class="floating-particle fp-2"></span>
+        <span class="floating-particle fp-3"></span>
+        <span class="floating-particle fp-4"></span>
+        <span class="floating-particle fp-5"></span>
+        <span class="floating-particle fp-6"></span>
+
+
+        <div class="monolith">
+
+          <div class="monolith-glass"></div>
+
+          <div class="monolith-reflection reflection-1"></div>
+          <div class="monolith-reflection reflection-2"></div>
+
+
+          <div class="energy-container">
+
+            <div class="energy-stream stream-1"></div>
+            <div class="energy-stream stream-2"></div>
+            <div class="energy-stream stream-3"></div>
+
+            <div class="energy-core"></div>
+
+            <div class="energy-pulse pulse-1"></div>
+            <div class="energy-pulse pulse-2"></div>
+
+
+            <span class="energy-particle ep-1"></span>
+            <span class="energy-particle ep-2"></span>
+            <span class="energy-particle ep-3"></span>
+            <span class="energy-particle ep-4"></span>
+            <span class="energy-particle ep-5"></span>
+
+          </div>
+
+
+          <div class="monolith-edge edge-top"></div>
+          <div class="monolith-edge edge-right"></div>
+          <div class="monolith-edge edge-bottom"></div>
+          <div class="monolith-edge edge-left"></div>
+
+        </div>
+
+
+        <div class="visual-label label-left">
+
+          <span>
+            SYSTEM
+          </span>
+
+          <strong>
+            ONLINE
+          </strong>
+
+        </div>
+
+
+        <div class="visual-label label-right">
+
+          <span>
+            ENERGY
+          </span>
+
+          <strong>
+            ACTIVE
+          </strong>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         SERVICE STRIP
+    ====================================================== -->
+
+    <section
+      class="service-strip"
+      aria-label="9xTech capabilities"
+    >
+
+      <span>WEB</span>
+      <span>APPS</span>
+      <span>AI</span>
+      <span>UI / UX</span>
+      <span>BRANDING</span>
+      <span>GROWTH</span>
+
+    </section>
+
+
+    <!-- =====================================================
+         SERVICES
+    ====================================================== -->
+
+    <section
+      class="section"
+      id="services"
+    >
+
+      <div class="section-heading">
+
+        <span class="section-number">
+          01 / SERVICES
+        </span>
+
+        <h2>
+          Digital products.
+          Built properly.
+        </h2>
+
+        <p>
+          Strategy, design and technology
+          combined into one sharp digital experience.
+        </p>
+
+      </div>
+
+
+      <div class="services-layout">
+
+
+        <!-- FEATURED SERVICE -->
+
+        <article class="featured-service">
+
+          <span class="service-index">
+            01
+          </span>
+
+          <div
+            class="service-icon"
+            aria-hidden="true"
+          >
+            &lt;/&gt;
+          </div>
+
+          <h3>
+            Web Development
+          </h3>
+
+          <p>
+            High-performance websites,
+            landing pages and digital platforms
+            designed around your business.
+          </p>
+
+          <a href="#contact">
+
+            Start a conversation
+
+            <span aria-hidden="true">
+              ↗
+            </span>
+
+          </a>
+
+        </article>
+
+
+        <!-- SERVICE LIST -->
+
+        <div class="services-list">
+
+
+          <article class="service-row">
+
+            <span class="service-row-number">
+              02
+            </span>
+
+            <div>
+
+              <h3>
+                App Development
+              </h3>
+
+              <p>
+                Modern web and mobile applications.
+              </p>
+
+            </div>
+
+            <a
+              href="#contact"
+              aria-label="Discuss App Development"
+            >
+              ↗
+            </a>
+
+          </article>
+
+
+          <article class="service-row">
+
+            <span class="service-row-number">
+              03
+            </span>
+
+            <div>
+
+              <h3>
+                UI / UX Design
+              </h3>
+
+              <p>
+                Clean interfaces built around real users.
+              </p>
+
+            </div>
+
+            <a
+              href="#contact"
+              aria-label="Discuss UI UX Design"
+            >
+              ↗
+            </a>
+
+          </article>
+
+
+          <article class="service-row">
+
+            <span class="service-row-number">
+              04
+            </span>
+
+            <div>
+
+              <h3>
+                Branding
+              </h3>
+
+              <p>
+                Identity systems people remember.
+              </p>
+
+            </div>
+
+            <a
+              href="#contact"
+              aria-label="Discuss Branding"
+            >
+              ↗
+            </a>
+
+          </article>
+
+
+          <article class="service-row">
+
+            <span class="service-row-number">
+              05
+            </span>
+
+            <div>
+
+              <h3>
+                Digital Marketing
+              </h3>
+
+              <p>
+                Content, campaigns and growth strategy.
+              </p>
+
+            </div>
+
+            <a
+              href="#contact"
+              aria-label="Discuss Digital Marketing"
+            >
+              ↗
+            </a>
+
+          </article>
+
+
+          <article class="service-row">
+
+            <span class="service-row-number">
+              06
+            </span>
+
+            <div>
+
+              <h3>
+                AI Solutions
+              </h3>
+
+              <p>
+                Assistants, automation and intelligent systems.
+              </p>
+
+            </div>
+
+            <a
+              href="#contact"
+              aria-label="Discuss AI Solutions"
+            >
+              ↗
+            </a>
+
+          </article>
+
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         STATEMENT
+    ====================================================== -->
+
+    <section class="statement-section">
+
+      <div class="statement-content">
+
+        <span class="section-number">
+          02 / 9xTech MINDSET
+        </span>
+
+        <h2>
+
+          Make it
+
+          <span>
+            meaningful.
+          </span>
+
+        </h2>
+
+        <p>
+
+          We don't build digital products
+          just to make them exist.
+          We build them to be felt,
+          remembered and used.
+
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         WORK
+    ====================================================== -->
+
+    <section
+      class="section"
+      id="work"
+    >
+
+      <div class="section-heading">
+
+        <span class="section-number">
+          03 / SELECTED WORK
+        </span>
+
+        <h2>
+          Ideas with a point of view.
+        </h2>
+
+        <p>
+          Concept directions for the type
+          of digital products 9xTech can create.
+        </p>
+
+      </div>
+
+
+      <div class="work-grid">
+
+
+        <!-- NOVA -->
+
+        <article class="work-card work-main">
+
+          <div
+            class="work-orb work-orb-blue"
+            aria-hidden="true"
+          ></div>
+
+          <span>
+            SAAS / WEB
+          </span>
+
+          <h3>
+            NOVA
+          </h3>
+
+          <p>
+            A high-contrast SaaS experience
+            built to feel fast, intelligent
+            and unmistakably modern.
+          </p>
+
+          <a href="#contact">
+
+            Discuss a similar project
+
+            <span aria-hidden="true">
+              ↗
+            </span>
+
+          </a>
+
+        </article>
+
+
+        <!-- ORBIT -->
+
+        <article class="work-card">
+
+          <div
+            class="work-orb work-orb-violet"
+            aria-hidden="true"
+          ></div>
+
+          <span>
+            BRAND / IDENTITY
+          </span>
+
+          <h3>
+            ORBIT
+          </h3>
+
+          <p>
+            A technology identity designed
+            with confidence.
+          </p>
+
+          <a href="#contact">
+
+            Discuss a similar project
+
+            <span aria-hidden="true">
+              ↗
+            </span>
+
+          </a>
+
+        </article>
+
+
+        <!-- NEURAL -->
+
+        <article class="work-card">
+
+          <div
+            class="work-orb work-orb-cyan"
+            aria-hidden="true"
+          ></div>
+
+          <span>
+            AI / PRODUCT
+          </span>
+
+          <h3>
+            NEURAL
+          </h3>
+
+          <p>
+            An intelligent automation product
+            for modern teams.
+          </p>
+
+          <a href="#contact">
+
+            Discuss a similar project
+
+            <span aria-hidden="true">
+              ↗
+            </span>
+
+          </a>
+
+        </article>
+
+
+      </div>
+
+
+      <p class="concept-note">
+
+        Concept projects should be replaced with verified
+        client work before public publication.
+
+      </p>
+
+    </section>
+
+
+    <!-- =====================================================
+         PROCESS
+    ====================================================== -->
+
+    <section
+      class="section"
+      id="process"
+    >
+
+      <div class="section-heading">
+
+        <span class="section-number">
+          04 / PROCESS
+        </span>
+
+        <h2>
+          Simple process.
+          Serious execution.
+        </h2>
+
+      </div>
+
+
+      <div class="process-grid">
+
+
+        <article class="process-item">
+
+          <span>
+            01
+          </span>
+
+          <h3>
+            Discover
+          </h3>
+
+          <p>
+            Understand the business,
+            audience and objective.
+          </p>
+
+        </article>
+
+
+        <article class="process-item">
+
+          <span>
+            02
+          </span>
+
+          <h3>
+            Design
+          </h3>
+
+          <p>
+            Turn strategy into
+            a clear visual experience.
+          </p>
+
+        </article>
+
+
+        <article class="process-item">
+
+          <span>
+            03
+          </span>
+
+          <h3>
+            Build
+          </h3>
+
+          <p>
+            Develop with quality,
+            speed and precision.
+          </p>
+
+        </article>
+
+
+        <article class="process-item">
+
+          <span>
+            04
+          </span>
+
+          <h3>
+            Launch
+          </h3>
+
+          <p>
+            Test, refine and
+            take it live.
+          </p>
+
+        </article>
+
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         PRICING
+    ====================================================== -->
+
+    <section
+      class="section"
+      id="pricing"
+    >
+
+      <div class="section-heading">
+
+        <span class="section-number">
+          05 / PRICING
+        </span>
+
+        <h2>
+          A clear place to start.
+        </h2>
+
+        <p>
+          Choose a starting point or talk to us
+          about something completely custom.
+        </p>
+
+      </div>
+
+
+      <div class="pricing-grid">
+
+
+        <!-- STARTER -->
+
+        <article class="pricing-card">
+
+          <span>
+            STARTER
+          </span>
+
+          <h3>
+            ₹10,000
+          </h3>
+
+          <p>
+            Professional business website.
+          </p>
+
+          <ul>
+
+            <li>
+              Responsive design
+            </li>
+
+            <li>
+              Business pages
+            </li>
+
+            <li>
+              Contact section
+            </li>
+
+            <li>
+              Basic SEO structure
+            </li>
+
+          </ul>
+
+
+          <a
+            href="#contact"
+            class="button button-secondary"
+          >
+            Get Started
+          </a>
+
+        </article>
+
+
+        <!-- PROFESSIONAL -->
+
+        <article
+          class="pricing-card pricing-featured"
+        >
+
+          <div class="popular-label">
+            MOST POPULAR
+          </div>
+
+          <span>
+            PROFESSIONAL
+          </span>
+
+          <h3>
+            ₹15,000
+          </h3>
+
+          <p>
+            Premium digital experience.
+          </p>
+
+          <ul>
+
+            <li>
+              Everything in Starter
+            </li>
+
+            <li>
+              Advanced UI / UX
+            </li>
+
+            <li>
+              Premium animations
+            </li>
+
+            <li>
+              Enhanced experience
+            </li>
+
+          </ul>
+
+
+          <a
+            href="#contact"
+            class="button button-primary"
+          >
+            Choose Professional
+          </a>
+
+        </article>
+
+
+        <!-- CUSTOM -->
+
+        <article class="pricing-card">
+
+          <span>
+            CUSTOM
+          </span>
+
+          <h3>
+            Let's Talk
+          </h3>
+
+          <p>
+            For larger digital products.
+          </p>
+
+          <ul>
+
+            <li>
+              Web applications
+            </li>
+
+            <li>
+              Mobile apps
+            </li>
+
+            <li>
+              E-commerce
+            </li>
+
+            <li>
+              AI solutions
+            </li>
+
+          </ul>
+
+
+          <a
+            href="#contact"
+            class="button button-secondary"
+          >
+            Discuss Project
+          </a>
+
+        </article>
+
+
+      </div>
+
+    </section>
+
+<!-- =====================================================
+     CONTACT
+====================================================== -->
+
+<section
+  class="section whatsapp-contact-section"
+  id="contact"
+>
+
+  <div class="whatsapp-contact-card">
+
+    <div class="whatsapp-contact-glow"></div>
+
+    <div class="whatsapp-contact-content">
+
+      <span class="section-number">
+        06 / LET'S CONNECT
+      </span>
+
+      <h2>
+        Have a project
+        <span>in mind?</span>
+      </h2>
+
+      <p>
+        Skip the forms. Tell us what you're building
+        and let's talk directly on WhatsApp.
+      </p>
+
+      <a
+        href="https://wa.me/918445209063?text=Hi%209xTech!%20%F0%9F%91%8B%20I%27m%20interested%20in%20starting%20a%20project.%20I%27d%20like%20to%20discuss%20my%20requirements."
+        target="_blank"
+        rel="noopener noreferrer"
+        class="whatsapp-cta"
+      >
+
+        <span
+          class="whatsapp-cta-icon"
+          aria-hidden="true"
+        >
+          ☎
+        </span>
+
+        <span class="whatsapp-cta-text">
+
+          <strong>
+            Contact on WhatsApp
+          </strong>
+
+          <small>
+            +91 84452 09063
+          </small>
+
+        </span>
+
+        <span
+          class="whatsapp-cta-arrow"
+          aria-hidden="true"
+        >
+          ↗
+        </span>
+
+      </a>
+
+      <span class="whatsapp-direct-note">
+        DIRECT CHAT · QUICK RESPONSE · NO FORMS
+      </span>
+
+    </div>
+
+  </div>
 
 </section>
 
 
-<section class="section">
+<!-- =====================================================
+     FOOTER
+====================================================== -->
 
-<p class="eyebrow">
-WHAT WE DO
-</p>
+<footer
+  class="footer"
+  id="site-footer"
+>
 
-<h2>
-Everything your brand needs to grow online.
-</h2>
+  <div class="footer-inner">
 
-<div class="grid">
+    <div class="footer-main">
 
-<article class="card">
+      <!-- BRAND -->
 
-<h3>
-Web Development
-</h3>
+      <div class="footer-brand">
 
-<p>
-Fast responsive websites and landing pages.
-</p>
+        <a
+          href="#home"
+          class="brand footer-brand-link"
+          aria-label="9xTech home"
+        >
 
-</article>
+          <span class="brand-mark">
+            9
+          </span>
 
+          <span class="brand-name">
+            9x<span>TECH</span>
+          </span>
 
-<article class="card">
+        </a>
 
-<h3>
-App Development
-</h3>
+        <p>
+          Digital experiences,
+          engineered for what's next.
+        </p>
 
-<p>
-Modern mobile and web applications.
-</p>
-
-</article>
-
-
-<article class="card">
-
-<h3>
-UI/UX Design
-</h3>
-
-<p>
-Clean interfaces designed around users.
-</p>
-
-</article>
+      </div>
 
 
-<article class="card">
+      <!-- EXPLORE -->
 
-<h3>
-Branding
-</h3>
+      <div class="footer-navigation">
 
-<p>
-Logos and complete visual identity.
-</p>
+        <span class="footer-heading">
+          EXPLORE
+        </span>
 
-</article>
+        <a href="#home">
+          Home
+        </a>
 
+        <a href="#services">
+          Services
+        </a>
 
-<article class="card">
+        <a href="#work">
+          Work
+        </a>
 
-<h3>
-Digital Marketing
-</h3>
+        <a href="#process">
+          Process
+        </a>
 
-<p>
-Social media, campaigns and growth.
-</p>
+        <a href="#pricing">
+          Pricing
+        </a>
 
-</article>
-
-
-<article class="card">
-
-<h3>
-AI Solutions
-</h3>
-
-<p>
-Practical AI automation and intelligent tools.
-</p>
-
-</article>
-
-</div>
-
-</section>
+      </div>
 
 
-<section class="cta">
+      <!-- SERVICES -->
 
-<h2>
-Have an idea?
-Let's build it.
-</h2>
+      <div class="footer-navigation">
 
-<a class="btn primary" href="contact.html">
-Talk to Wetech
-</a>
+        <span class="footer-heading">
+          SERVICES
+        </span>
 
-</section>
+        <a href="#services">
+          Web Development
+        </a>
 
-</main>
+        <a href="#services">
+          App Development
+        </a>
+
+        <a href="#services">
+          UI / UX Design
+        </a>
+
+        <a href="#services">
+          Branding
+        </a>
+
+        <a href="#services">
+          AI Solutions
+        </a>
+
+      </div>
 
 
-<footer>
+      <!-- CONTACT -->
 
-© 2026 Wetech. All rights reserved.
+      <div class="footer-navigation footer-contact">
+
+        <span class="footer-heading">
+          START A PROJECT
+        </span>
+
+        <a
+          href="https://wa.me/918445209063?text=Hi%209xTech!%20%F0%9F%91%8B%20I%27m%20interested%20in%20starting%20a%20project."
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          WhatsApp ↗
+        </a>
+
+        <a href="mailto:hello@wetech.in">
+          hello@wetech.in
+        </a>
+
+        <span class="footer-phone">
+          +91 84452 09063
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <!-- FOOTER BOTTOM -->
+
+    <div class="footer-bottom">
+
+      <span>
+        © 2026 9xTech. All rights reserved.
+      </span>
+
+      <span class="footer-status">
+        <i></i>
+        SYSTEM ONLINE
+      </span>
+
+      <a href="#home">
+        BACK TO TOP ↑
+      </a>
+
+    </div>
+
+  </div>
 
 </footer>
 
 
-<script src="script.js"></script>
+<!-- =====================================================
+     FLOATING WHATSAPP
+====================================================== -->
 
-</body>
+<a
+  href="https://wa.me/918445209063"
+  target="_blank"
+  rel="noopener noreferrer"
+  class="whatsapp-button"
+  aria-label="Chat with 9xTech on WhatsApp"
+>
 
-</html>
+  <span
+    class="whatsapp-icon"
+    aria-hidden="true"
+  >
+    ☎
+  </span>
+
+  <span class="whatsapp-text">
+
+    <strong>
+      WhatsApp
+    </strong>
+
+    <small>
+      +91 84452 09063
+    </small>
+
+  </span>
+
+</a>

@@ -1,116 +1,177 @@
+```html
 <!doctype html>
-
 <html lang="en">
 
 <head>
+  <meta charset="UTF-8">
 
-<meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+  <title>Contact — Wetech</title>
 
-<title>Contact — Wetech</title>
-
-<link rel="stylesheet" href="style.css">
-
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
 </head>
-
 
 <body>
 
-<header class="nav">
+  <!-- =========================
+       NAVBAR
+  ========================== -->
 
-<a class="logo" href="index.html">
-WE<span>TECH</span>
-</a>
+  <header class="nav">
 
-<nav>
+    <a
+      class="logo"
+      href="index.html"
+    >
+      WE<span>TECH</span>
+    </a>
 
-<a href="index.html">Home</a>
-<a href="about.html">About</a>
-<a href="services.html">Services</a>
-<a href="portfolio.html">Portfolio</a>
-<a href="pricing.html">Pricing</a>
-<a href="contact.html">Contact</a>
+    <nav>
 
-</nav>
+      <a href="index.html">
+        Home
+      </a>
 
-</header>
+      <a href="about.html">
+        About
+      </a>
 
+      <a href="services.html">
+        Services
+      </a>
 
-<main class="page">
+      <a href="portfolio.html">
+        Portfolio
+      </a>
 
-<p class="eyebrow">
-START A PROJECT
-</p>
+      <a href="pricing.html">
+        Pricing
+      </a>
 
-<h1>
-Let's create something great.
-</h1>
+      <a href="contact.html">
+        Contact
+      </a>
 
+    </nav>
 
-<form id="contactForm">
-
-<input
-required
-placeholder="Your name"
->
-
-<input
-type="email"
-required
-placeholder="Email address"
->
-
-<input
-placeholder="Phone / WhatsApp"
->
-
-<textarea
-required
-placeholder="Tell us about your project"
-></textarea>
-
-<button
-class="btn primary"
-type="submit"
->
-Send Enquiry
-</button>
-
-</form>
+  </header>
 
 
-<p id="formMsg"></p>
+  <!-- =========================
+       CONTACT
+  ========================== -->
+
+  <main class="page">
+
+    <p class="eyebrow">
+      START A PROJECT
+    </p>
+
+    <h1>
+      Let's create something great.
+    </h1>
+
+    <p>
+      Tell us about your project and we'll
+      get back to you on WhatsApp.
+    </p>
 
 
-<p class="small">
+    <!-- =========================
+         ENQUIRY FORM
+    ========================== -->
 
-Demo form only.
-Connect a real form backend before client use.
+    <form id="contactForm">
 
-</p>
+      <input
+        type="text"
+        name="name"
+        required
+        autocomplete="name"
+        placeholder="Your name"
+      >
+
+      <input
+        type="email"
+        name="email"
+        required
+        autocomplete="email"
+        placeholder="Email address"
+      >
+
+      <input
+        type="tel"
+        name="phone"
+        autocomplete="tel"
+        placeholder="Phone / WhatsApp"
+      >
+
+      <textarea
+        name="project"
+        required
+        placeholder="Tell us about your project"
+      ></textarea>
+
+      <button
+        class="btn primary"
+        type="submit"
+        id="sendEnquiryBtn"
+      >
+        Send Enquiry on WhatsApp
+      </button>
+
+    </form>
 
 
-<a
-class="whatsapp"
-href="https://wa.me/910000000000"
-target="_blank"
->
-WhatsApp Wetech
-</a>
+    <!-- =========================
+         FORM MESSAGE
+    ========================== -->
+
+    <p id="formMsg"></p>
 
 
-</main>
+    <p class="small">
+      Your enquiry will open directly in
+      WhatsApp with all the information
+      you entered.
+    </p>
 
 
-<footer>
-© 2026 Wetech
-</footer>
+    <!-- =========================
+         DIRECT WHATSAPP
+    ========================== -->
+
+    <a
+      class="whatsapp"
+      href="https://wa.me/910000000000"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      WhatsApp Wetech
+    </a>
+
+  </main>
 
 
-<script src="script.js"></script>
+  <!-- =========================
+       FOOTER
+  ========================== -->
+
+  <footer>
+    © 2026 Wetech
+  </footer>
+
+
+  <script src="script.js"></script>
 
 </body>
 
 </html>
+```
