@@ -2,7 +2,7 @@
   "use strict";
 
   /* =========================================================
-     WETECH CONFIG
+     9XTECH CONFIG
   ========================================================= */
 
   const WHATSAPP_NUMBER = "918445209063";
@@ -689,7 +689,7 @@
         --------------------------------------------------- */
 
         const whatsappMessage =
-`🚀 *NEW WETECH ENQUIRY*
+`🚀 *NEW 9XTECH ENQUIRY*
 
 ━━━━━━━━━━━━━━━━━━
 
@@ -704,7 +704,7 @@ ${message}
 
 ━━━━━━━━━━━━━━━━━━
 
-🌐 *Source:* Wetech Website`;
+🌐 *Source:* 9xTech Website`;
 
 
         const whatsappURL =
@@ -803,4 +803,3 @@ ${message}
   );
 
 })();
-```
