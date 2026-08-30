@@ -10448,3 +10448,192 @@ main {
   }
 
 }
+/* =====================================================
+   9XTECH FINAL FOOTER
+===================================================== */
+
+#site-footer {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 90px 5vw 35px !important;
+
+  position: relative !important;
+  left: 0 !important;
+  right: auto !important;
+  transform: none !important;
+
+  box-sizing: border-box !important;
+}
+
+
+/* FULL WIDTH FOOTER CONTENT */
+
+#site-footer .footer-main {
+  width: 100% !important;
+  max-width: 1500px !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+
+  display: grid !important;
+
+  grid-template-columns:
+    2fr
+    1fr
+    1.35fr
+    1.25fr !important;
+
+  gap: 70px !important;
+
+  align-items: start !important;
+}
+
+
+/* BRAND */
+
+#site-footer .footer-brand {
+  width: 100% !important;
+  min-width: 0 !important;
+}
+
+#site-footer .footer-brand-link {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+}
+
+
+/* NAV COLUMNS */
+
+#site-footer .footer-navigation {
+  width: 100% !important;
+  min-width: 0 !important;
+
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+}
+
+#site-footer .footer-heading {
+  margin-bottom: 20px !important;
+  white-space: nowrap !important;
+}
+
+#site-footer .footer-navigation a {
+  margin-bottom: 14px !important;
+}
+
+
+/* CONTACT */
+
+#site-footer .footer-contact {
+  width: 100% !important;
+}
+
+#site-footer .footer-phone {
+  white-space: nowrap !important;
+}
+
+
+/* BOTTOM */
+
+#site-footer .footer-bottom {
+  width: 100% !important;
+  max-width: 1500px !important;
+
+  margin: 65px auto 0 !important;
+  padding-top: 22px !important;
+
+  display: grid !important;
+  grid-template-columns: 1fr auto 1fr !important;
+
+  align-items: center !important;
+  gap: 30px !important;
+}
+
+#site-footer .footer-bottom > span:first-child {
+  justify-self: start !important;
+}
+
+#site-footer .footer-status {
+  justify-self: center !important;
+}
+
+#site-footer .footer-bottom > a {
+  justify-self: end !important;
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 1000px) {
+
+  #site-footer {
+    padding-left: 30px !important;
+    padding-right: 30px !important;
+  }
+
+  #site-footer .footer-main {
+    grid-template-columns: 1.5fr 1fr 1fr !important;
+    gap: 45px !important;
+  }
+
+  #site-footer .footer-contact {
+    grid-column: 1 / -1 !important;
+  }
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 650px) {
+
+  #site-footer {
+    padding: 65px 24px 30px !important;
+  }
+
+  #site-footer .footer-main {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 40px 25px !important;
+  }
+
+  #site-footer .footer-brand {
+    grid-column: 1 / -1 !important;
+  }
+
+  #site-footer .footer-contact {
+    grid-column: 1 / -1 !important;
+  }
+
+  #site-footer .footer-bottom {
+    grid-template-columns: 1fr !important;
+    gap: 18px !important;
+    text-align: center !important;
+  }
+
+  #site-footer .footer-bottom > span:first-child,
+  #site-footer .footer-status,
+  #site-footer .footer-bottom > a {
+    justify-self: center !important;
+  }
+
+}
+
+
+@media (max-width: 450px) {
+
+  #site-footer .footer-main {
+    grid-template-columns: 1fr !important;
+  }
+
+  #site-footer .footer-brand,
+  #site-footer .footer-contact {
+    grid-column: auto !important;
+  }
+
+}
