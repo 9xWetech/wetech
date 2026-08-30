@@ -10637,3 +10637,184 @@ main {
   }
 
 }
+/* =========================================================
+   FINAL 9xTECH FOOTER FIX
+   ========================================================= */
+
+.footer {
+  width: 100%;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  position: relative;
+  left: auto !important;
+  right: auto !important;
+  box-sizing: border-box;
+}
+
+.footer-inner {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 80px 58px 30px;
+  box-sizing: border-box;
+}
+
+.footer-main {
+  width: 100%;
+  display: grid;
+  grid-template-columns:
+    minmax(260px, 1.4fr)
+    minmax(150px, 0.8fr)
+    minmax(190px, 1fr)
+    minmax(230px, 1fr);
+  gap: 70px;
+  align-items: start;
+}
+
+.footer-brand {
+  min-width: 0;
+}
+
+.footer-brand-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.footer-brand .brand-mark {
+  width: 52px;
+  height: 52px;
+  min-width: 52px;
+  display: grid;
+  place-items: center;
+  border-radius: 13px;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.footer-brand .brand-name {
+  font-size: 25px;
+  white-space: nowrap;
+}
+
+.footer-brand p {
+  max-width: 260px;
+  margin-top: 22px;
+  line-height: 1.7;
+}
+
+.footer-navigation {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  min-width: 0;
+}
+
+.footer-heading {
+  margin-bottom: 7px;
+  white-space: nowrap;
+}
+
+.footer-navigation a,
+.footer-navigation span {
+  max-width: 100%;
+}
+
+.footer-contact {
+  align-items: flex-start;
+}
+
+.footer-bottom {
+  width: 100%;
+  margin-top: 70px;
+  padding-top: 24px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 25px;
+  box-sizing: border-box;
+}
+
+.footer-bottom > :last-child {
+  justify-self: end;
+}
+
+.footer-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  white-space: nowrap;
+}
+
+.footer-status i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+
+/* =========================================================
+   CONTACT → FOOTER SPACING
+   ========================================================= */
+
+.whatsapp-contact-section {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.whatsapp-contact-card {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+  .footer-inner {
+    padding: 65px 28px 28px;
+  }
+
+  .footer-main {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 50px 35px;
+  }
+
+  .footer-bottom {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .footer-bottom > :last-child {
+    justify-self: start;
+  }
+
+}
+
+
+@media (max-width: 560px) {
+
+  .footer-inner {
+    padding: 55px 20px 25px;
+  }
+
+  .footer-main {
+    grid-template-columns: 1fr;
+    gap: 38px;
+  }
+
+  .footer-brand p {
+    max-width: 300px;
+  }
+
+  .footer-bottom {
+    margin-top: 45px;
+  }
+
+}
