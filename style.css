@@ -8919,3 +8919,686 @@ main {
 /* ============================================================
    END — 9XTECH FULL BLEED FIX
    ============================================================ */
+/* ============================================================
+   9XTECH — FINAL CONTACT + FOOTER ALIGNMENT FIX
+   PASTE AT VERY END OF style.css
+   ============================================================ */
+
+
+/* ============================================================
+   CONTACT — PERFECT CENTER
+   ============================================================ */
+
+#contact {
+  width: 100% !important;
+  height: auto !important;
+  min-height: auto !important;
+
+  padding-top: 80px !important;
+  padding-bottom: 80px !important;
+
+  box-sizing: border-box !important;
+}
+
+
+/* Main contact box */
+
+#contact .contact-box {
+
+  width: min(1180px, calc(100% - 80px)) !important;
+
+  max-width: 1180px !important;
+
+  margin: 0 auto !important;
+
+  position: relative !important;
+
+  left: auto !important;
+  right: auto !important;
+
+  transform: none !important;
+
+  display: flex !important;
+
+  align-items: center !important;
+
+  justify-content: center !important;
+
+  box-sizing: border-box !important;
+
+}
+
+
+/* Contact content */
+
+#contact .contact-content {
+
+  width: 100% !important;
+
+  max-width: 850px !important;
+
+  margin: 0 auto !important;
+
+  text-align: center !important;
+
+  display: flex !important;
+
+  flex-direction: column !important;
+
+  align-items: center !important;
+
+  justify-content: center !important;
+
+}
+
+
+/* Heading */
+
+#contact .contact-content h2 {
+
+  max-width: 850px !important;
+
+  margin-left: auto !important;
+  margin-right: auto !important;
+
+}
+
+
+/* Description */
+
+#contact .contact-content > p {
+
+  max-width: 650px !important;
+
+  margin-left: auto !important;
+  margin-right: auto !important;
+
+}
+
+
+/* Section label */
+
+#contact .contact-content .section-number {
+
+  display: block !important;
+
+  width: max-content !important;
+
+  margin-left: auto !important;
+  margin-right: auto !important;
+
+}
+
+
+/* WhatsApp card */
+
+#contact .whatsapp-contact-card {
+
+  position: relative !important;
+
+  width: min(620px, 100%) !important;
+
+  max-width: 620px !important;
+
+  margin: 35px auto 0 !important;
+
+  left: auto !important;
+  right: auto !important;
+
+  transform: none !important;
+
+  box-sizing: border-box !important;
+
+}
+
+
+/* If card is directly inside contact-content */
+
+#contact .contact-content .whatsapp-contact-card {
+
+  align-self: center !important;
+
+}
+
+
+/* Details */
+
+#contact .contact-details {
+
+  width: 100% !important;
+
+  max-width: 620px !important;
+
+  margin: 30px auto 0 !important;
+
+  display: flex !important;
+
+  justify-content: center !important;
+
+  gap: 55px !important;
+
+}
+
+
+/* ============================================================
+   FOOTER — RESET THE OLD BROKEN BREAKOUT
+   ============================================================ */
+
+#site-footer.footer,
+.footer {
+
+  position: relative !important;
+
+  width: 100% !important;
+
+  max-width: none !important;
+
+  margin: 0 !important;
+
+  left: auto !important;
+  right: auto !important;
+
+  transform: none !important;
+
+  box-sizing: border-box !important;
+
+  border-radius: 0 !important;
+
+  overflow: hidden !important;
+
+}
+
+
+/* IMPORTANT:
+   Remove the old 100vw breakout behaviour
+*/
+
+#site-footer.footer {
+
+  margin-left: 0 !important;
+
+  margin-right: 0 !important;
+
+}
+
+
+/* ============================================================
+   FOOTER MAIN — PROPER CENTERED WIDTH
+   ============================================================ */
+
+#site-footer .footer-main {
+
+  width: min(1240px, calc(100% - 80px)) !important;
+
+  max-width: 1240px !important;
+
+  margin: 0 auto !important;
+
+  padding: 75px 0 65px !important;
+
+  box-sizing: border-box !important;
+
+  display: grid !important;
+
+  grid-template-columns:
+    1.7fr
+    1fr
+    1.25fr
+    1.25fr !important;
+
+  column-gap: 70px !important;
+
+  row-gap: 40px !important;
+
+  align-items: start !important;
+
+}
+
+
+/* ============================================================
+   FOOTER BRAND — NO MORE CUTTING
+   ============================================================ */
+
+#site-footer .footer-brand {
+
+  width: 100% !important;
+
+  min-width: 0 !important;
+
+  margin: 0 !important;
+
+  padding: 0 !important;
+
+}
+
+
+#site-footer .footer-brand-link {
+
+  display: inline-flex !important;
+
+  align-items: center !important;
+
+  gap: 12px !important;
+
+  margin: 0 !important;
+
+}
+
+
+#site-footer .footer-brand > p {
+
+  max-width: 320px !important;
+
+  margin: 18px 0 0 !important;
+
+  line-height: 1.7 !important;
+
+}
+
+
+/* ============================================================
+   FOOTER NAVIGATION
+   ============================================================ */
+
+#site-footer .footer-navigation {
+
+  width: 100% !important;
+
+  min-width: 0 !important;
+
+  margin: 0 !important;
+
+  padding: 0 !important;
+
+  display: flex !important;
+
+  flex-direction: column !important;
+
+  align-items: flex-start !important;
+
+  gap: 13px !important;
+
+}
+
+
+#site-footer .footer-navigation a {
+
+  display: block !important;
+
+  margin: 0 !important;
+
+  padding: 0 !important;
+
+  white-space: normal !important;
+
+}
+
+
+/* ============================================================
+   FOOTER BOTTOM — PERFECT ALIGNMENT
+   ============================================================ */
+
+#site-footer .footer-bottom {
+
+  width: min(1240px, calc(100% - 80px)) !important;
+
+  max-width: 1240px !important;
+
+  min-height: 70px !important;
+
+  margin: 0 auto !important;
+
+  padding: 0 !important;
+
+  box-sizing: border-box !important;
+
+  display: grid !important;
+
+  grid-template-columns:
+    1fr
+    auto
+    1fr !important;
+
+  align-items: center !important;
+
+  gap: 30px !important;
+
+}
+
+
+/* Copyright */
+
+#site-footer .footer-bottom > span:first-child {
+
+  justify-self: start !important;
+
+  text-align: left !important;
+
+}
+
+
+/* System status */
+
+#site-footer .footer-status {
+
+  justify-self: center !important;
+
+}
+
+
+/* Back to top */
+
+#site-footer .footer-bottom > a {
+
+  justify-self: end !important;
+
+}
+
+
+/* ============================================================
+   REMOVE ANY OLD TRANSFORMS / NEGATIVE POSITIONS
+   ============================================================ */
+
+#site-footer *,
+#contact * {
+
+  box-sizing: border-box;
+
+}
+
+
+#site-footer .footer-main,
+#site-footer .footer-bottom,
+#contact .contact-box,
+#contact .contact-content,
+#contact .whatsapp-contact-card {
+
+  position: relative !important;
+
+  left: auto !important;
+
+  right: auto !important;
+
+  transform: none !important;
+
+}
+
+
+/* ============================================================
+   DESKTOP — EXTRA LARGE
+   ============================================================ */
+
+@media (min-width: 1400px) {
+
+  #site-footer .footer-main,
+  #site-footer .footer-bottom {
+
+    width: min(1320px, calc(100% - 100px)) !important;
+
+    max-width: 1320px !important;
+
+  }
+
+
+  #contact .contact-box {
+
+    width: min(1200px, calc(100% - 100px)) !important;
+
+    max-width: 1200px !important;
+
+  }
+
+}
+
+
+/* ============================================================
+   TABLET
+   ============================================================ */
+
+@media (max-width: 900px) {
+
+  #contact .contact-box {
+
+    width:
+      calc(100% - 50px) !important;
+
+  }
+
+
+  #contact .contact-content {
+
+    max-width:
+      700px !important;
+
+  }
+
+
+  #contact .contact-details {
+
+    gap:
+      35px !important;
+
+  }
+
+
+  #site-footer .footer-main {
+
+    width:
+      calc(100% - 50px) !important;
+
+    grid-template-columns:
+      1.4fr 1fr 1fr !important;
+
+    column-gap:
+      40px !important;
+
+  }
+
+
+  #site-footer .footer-brand {
+
+    grid-column:
+      1 / -1 !important;
+
+  }
+
+
+  #site-footer .footer-bottom {
+
+    width:
+      calc(100% - 50px) !important;
+
+  }
+
+}
+
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+
+@media (max-width: 600px) {
+
+  #contact {
+
+    padding-top:
+      55px !important;
+
+    padding-bottom:
+      55px !important;
+
+  }
+
+
+  #contact .contact-box {
+
+    width:
+      calc(100% - 32px) !important;
+
+  }
+
+
+  #contact .contact-content {
+
+    width:
+      100% !important;
+
+  }
+
+
+  #contact .contact-content h2 {
+
+    font-size:
+      clamp(34px, 10vw, 52px) !important;
+
+  }
+
+
+  #contact .whatsapp-contact-card {
+
+    width:
+      100% !important;
+
+    max-width:
+      100% !important;
+
+  }
+
+
+  #contact .contact-details {
+
+    flex-direction:
+      column !important;
+
+    align-items:
+      center !important;
+
+    gap:
+      20px !important;
+
+  }
+
+
+  #site-footer.footer {
+
+    width:
+      100% !important;
+
+    margin-left:
+      0 !important;
+
+  }
+
+
+  #site-footer .footer-main {
+
+    width:
+      calc(100% - 36px) !important;
+
+    padding:
+      52px 0 45px !important;
+
+    grid-template-columns:
+      1fr 1fr !important;
+
+    column-gap:
+      25px !important;
+
+    row-gap:
+      40px !important;
+
+  }
+
+
+  #site-footer .footer-brand {
+
+    grid-column:
+      1 / -1 !important;
+
+  }
+
+
+  #site-footer .footer-bottom {
+
+    width:
+      calc(100% - 36px) !important;
+
+    min-height:
+      auto !important;
+
+    padding:
+      20px 0 25px !important;
+
+    grid-template-columns:
+      1fr 1fr !important;
+
+    gap:
+      15px !important;
+
+  }
+
+
+  #site-footer .footer-status {
+
+    justify-self:
+      end !important;
+
+  }
+
+
+  #site-footer .footer-bottom > a {
+
+    grid-column:
+      1 / -1 !important;
+
+    justify-self:
+      start !important;
+
+  }
+
+}
+
+
+/* ============================================================
+   VERY SMALL MOBILE
+   ============================================================ */
+
+@media (max-width: 420px) {
+
+  #site-footer .footer-main {
+
+    grid-template-columns:
+      1fr !important;
+
+  }
+
+
+  #site-footer .footer-brand {
+
+    grid-column:
+      auto !important;
+
+  }
+
+
+  #site-footer .footer-bottom {
+
+    grid-template-columns:
+      1fr !important;
+
+  }
+
+
+  #site-footer .footer-status {
+
+    justify-self:
+      start !important;
+
+  }
+
+}
+
+
+/* ============================================================
+   FINAL 9XTECH
+   ============================================================ */
