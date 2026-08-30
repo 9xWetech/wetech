@@ -9602,3 +9602,268 @@ main {
 /* ============================================================
    FINAL 9XTECH
    ============================================================ */
+/* =========================================================
+   9XTECH — FINAL FOOTER FULL-WIDTH FIX
+   Paste at the VERY END of style.css
+========================================================= */
+
+/* Footer itself */
+#site-footer.footer {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 90px 5vw 28px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* Main footer = LEFT TO RIGHT FULL WIDTH */
+#site-footer .footer-main {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0;
+  display: grid;
+  grid-template-columns:
+    minmax(220px, 1.5fr)
+    minmax(140px, 1fr)
+    minmax(180px, 1.2fr)
+    minmax(220px, 1fr);
+  column-gap: 70px;
+  align-items: start;
+  box-sizing: border-box;
+}
+
+/* Brand column */
+#site-footer .footer-brand {
+  min-width: 0;
+  width: 100%;
+}
+
+#site-footer .footer-brand-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+#site-footer .footer-brand .brand-mark {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+#site-footer .footer-brand .brand-name {
+  font-size: 25px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+#site-footer .footer-brand p {
+  max-width: 230px;
+  margin: 22px 0 0;
+  line-height: 1.7;
+}
+
+/* Every footer navigation column */
+#site-footer .footer-navigation {
+  width: 100%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  box-sizing: border-box;
+}
+
+/* Heading */
+#site-footer .footer-heading {
+  display: block;
+  margin: 0 0 8px;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+
+/* Links */
+#site-footer .footer-navigation a,
+#site-footer .footer-contact span {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  line-height: 1.45;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+/* Services should not become tiny vertical words */
+#site-footer .footer-navigation a {
+  white-space: normal;
+}
+
+/* Contact column */
+#site-footer .footer-contact {
+  padding-left: 0;
+}
+
+#site-footer .footer-contact a:first-of-type {
+  white-space: nowrap;
+}
+
+/* Phone */
+#site-footer .footer-phone {
+  white-space: nowrap;
+}
+
+/* Bottom footer = full width */
+#site-footer .footer-bottom {
+  width: 100%;
+  max-width: 1400px;
+  margin: 65px auto 0;
+  padding-top: 24px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 30px;
+  box-sizing: border-box;
+}
+
+/* Copyright */
+#site-footer .footer-bottom > span:first-child {
+  justify-self: start;
+}
+
+/* System status */
+#site-footer .footer-status {
+  justify-self: center;
+  white-space: nowrap;
+}
+
+/* Back to top */
+#site-footer .footer-bottom > a {
+  justify-self: end;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+
+/* =========================================================
+   LARGE SCREEN — USE MORE HORIZONTAL SPACE
+========================================================= */
+
+@media (min-width: 1200px) {
+
+  #site-footer.footer {
+    padding-left: 4vw;
+    padding-right: 4vw;
+  }
+
+  #site-footer .footer-main,
+  #site-footer .footer-bottom {
+    max-width: 1500px;
+  }
+
+  #site-footer .footer-main {
+    grid-template-columns:
+      minmax(260px, 1.6fr)
+      minmax(170px, 1fr)
+      minmax(210px, 1.15fr)
+      minmax(260px, 1fr);
+
+    column-gap: 90px;
+  }
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+  #site-footer.footer {
+    padding: 70px 6vw 25px;
+  }
+
+  #site-footer .footer-main {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 50px 45px;
+  }
+
+  #site-footer .footer-bottom {
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  #site-footer .footer-status {
+    justify-self: end;
+  }
+
+  #site-footer .footer-bottom > a {
+    justify-self: start;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+  #site-footer.footer {
+    padding: 60px 22px 22px;
+  }
+
+  #site-footer .footer-main {
+    grid-template-columns: 1fr 1fr;
+    gap: 42px 25px;
+  }
+
+  #site-footer .footer-brand {
+    grid-column: 1 / -1;
+  }
+
+  #site-footer .footer-brand p {
+    max-width: 280px;
+  }
+
+  #site-footer .footer-bottom {
+    margin-top: 45px;
+    grid-template-columns: 1fr;
+    gap: 18px;
+    text-align: left;
+  }
+
+  #site-footer .footer-bottom > span:first-child,
+  #site-footer .footer-status,
+  #site-footer .footer-bottom > a {
+    justify-self: start;
+  }
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+========================================================= */
+
+@media (max-width: 420px) {
+
+  #site-footer .footer-main {
+    grid-template-columns: 1fr;
+    gap: 35px;
+  }
+
+  #site-footer .footer-brand {
+    grid-column: auto;
+  }
+
+  #site-footer .footer-navigation {
+    width: 100%;
+  }
+}
